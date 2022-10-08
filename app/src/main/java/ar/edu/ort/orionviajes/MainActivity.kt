@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,8 +43,20 @@ class MainActivity : AppCompatActivity() {
 
         travelViewModel.getTravels()
 
+
+
         travelViewModel.travels.observe(this, Observer {
-            travelRecyclerAdapter.submitList(it)
+            //travelRecyclerAdapter.submitList(it)
+            when (it) {
+                is Resource.Success -> {
+                    travelRecyclerAdapter.submitList(it.data)
+                }
+                is Resource.Error -> {
+                    Snackbar.make(binding.root, it.message.toString() ,Snackbar.LENGTH_LONG).show()
+                }
+
+            }
+
         })
     }
 

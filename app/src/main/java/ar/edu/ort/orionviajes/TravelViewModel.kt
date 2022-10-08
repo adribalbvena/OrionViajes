@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class TravelViewModel: ViewModel() {
-    private var _travels = MutableLiveData<List<TravelX>>()
-    val travels: LiveData<List<TravelX>> = _travels
+    private var _travels = MutableLiveData<Resource<GetTravelsResponse>>() //iba MutableLiveData<List<TravelX>>()
+    val travels: LiveData<Resource<GetTravelsResponse>> = _travels
 
     val travelRepository by lazy {
         TravelRepository()
@@ -16,8 +16,11 @@ class TravelViewModel: ViewModel() {
 
     fun getTravels(){
         viewModelScope.launch(){
-            var response = travelRepository.getTravels()
-            _travels.postValue(response)
+//            _travels.postValue(Resource.Loading())
+
+            _travels.postValue(travelRepository.getTravels())
+           // var response = travelRepository.getTravels()
+           // _travels.postValue(response)
         }
 //        val list = mutableListOf<Travel>()
 //        list.add(
