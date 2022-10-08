@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardTravel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvTravelEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            app:layout_constraintStart_toEndOf="@+id/tvTo"
+            app:layout_constraintTop_toBottomOf="@+id/tvTravelBudget"
+            tools:text="2022-10-10" />
+
+        <TextView
+            android:id="@+id/tvTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            app:layout_constraintStart_toEndOf="@+id/tvTravelStartDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvTravelBudget"
+            tools:text=" / " />
+
+        <TextView
+            android:id="@+id/tvTravelStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            app:layout_constraintStart_toEndOf="@+id/ivTravel"
+            app:layout_constraintTop_toBottomOf="@+id/tvTravelBudget"
+            tools:text="2022-09-29" />
+
+        <TextView
+            android:id="@+id/tvTravelBudget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            app:layout_constraintStart_toEndOf="@+id/ivTravel"
+            app:layout_constraintTop_toBottomOf="@+id/tvTravelTitle"
+            tools:text="3000" />
+
+        <TextView
+            android:id="@+id/tvTravelTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21dp"
+            android:padding="6dp"
+            app:layout_constraintStart_toEndOf="@+id/ivTravel"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TITLE" />
+
+        <ImageView
+            android:id="@+id/ivTravel"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>
