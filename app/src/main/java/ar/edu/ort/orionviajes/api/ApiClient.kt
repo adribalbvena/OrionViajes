@@ -1,9 +1,8 @@
-package ar.edu.ort.orionviajes
+package ar.edu.ort.orionviajes.api
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ApiClient {
     val httpClient by lazy {

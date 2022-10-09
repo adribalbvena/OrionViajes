@@ -31,33 +31,38 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        travelViewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
-
-
-        linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        binding.travelsRecyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = linearLayoutManager
-            adapter = travelRecyclerAdapter
-        }
-
-        travelViewModel.getTravels()
-
-
-
-        travelViewModel.travels.observe(this, Observer {
-            //travelRecyclerAdapter.submitList(it)
-            when (it) {
-                is Resource.Success -> {
-                    travelRecyclerAdapter.submitList(it.data)
-                }
-                is Resource.Error -> {
-                    Snackbar.make(binding.root, it.message.toString() ,Snackbar.LENGTH_LONG).show()
-                }
-
-            }
-
-        })
+//        travelViewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
+//
+//
+//        linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+//        binding.travelsRecyclerView.apply {
+//            setHasFixedSize(true)
+//            layoutManager = linearLayoutManager
+//            adapter = travelRecyclerAdapter
+//        }
+//
+//        travelViewModel.getTravels()
+//
+//
+//
+//        travelViewModel.travels.observe(this, Observer {
+//            //travelRecyclerAdapter.submitList(it)
+//            when (it) {
+//                is Resource.Success -> {
+//                    travelRecyclerAdapter.submitList(it.data)
+//                }
+//                is Resource.Error -> {
+//                    //Snackbar.make(binding.root, it.message.toString() ,Snackbar.LENGTH_LONG).show()
+//                    val snackbar = Snackbar.make(binding.root, it.message.toString(), Snackbar.LENGTH_LONG)
+//                    snackbar.setAction("Reintentar") {
+//                        binding.root
+//                    }
+//                    snackbar.show()
+//                }
+//
+//            }
+//
+//        })
     }
 
 }

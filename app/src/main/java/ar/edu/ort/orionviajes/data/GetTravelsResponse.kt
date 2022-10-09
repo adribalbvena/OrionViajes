@@ -1,4 +1,4 @@
-package ar.edu.ort.orionviajes
+package ar.edu.ort.orionviajes.data
 
 
 class GetTravelsResponse : ArrayList<TravelX>(

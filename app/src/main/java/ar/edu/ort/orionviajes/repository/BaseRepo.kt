@@ -1,5 +1,7 @@
-package ar.edu.ort.orionviajes
+package ar.edu.ort.orionviajes.repository
 
+import ar.edu.ort.orionviajes.Resource
+import ar.edu.ort.orionviajes.data.ErrorResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +22,9 @@ abstract class BaseRepo {
                     val gson = Gson()
                     val type = object : TypeToken<ErrorResponse>() {}.type
                     val errorResponse: ErrorResponse? = gson.fromJson(response.errorBody()!!.charStream(), type)
-                    Resource.Error(errorMessage = errorResponse?.statusMessage?: "Something went wrong")
+                    Resource.Error(
+                        errorMessage = errorResponse?.statusMessage ?: "Something went wrong"
+                    )
                 }
             } catch (e: HttpException) {
                 Resource.Error(errorMessage = e.message ?: "Something went wrong")

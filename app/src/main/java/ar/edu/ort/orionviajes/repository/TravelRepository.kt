@@ -1,7 +1,9 @@
-package ar.edu.ort.orionviajes
+package ar.edu.ort.orionviajes.repository
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import ar.edu.ort.orionviajes.Resource
+import ar.edu.ort.orionviajes.api.ApiClient
+import ar.edu.ort.orionviajes.data.GetTravelsResponse
+
 //no extendia de base repo
 class TravelRepository : BaseRepo() {
 

@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.edu.ort.orionviajes.data.GetTravelsResponse
+import ar.edu.ort.orionviajes.repository.TravelRepository
 import kotlinx.coroutines.launch
 
 class TravelViewModel: ViewModel() {

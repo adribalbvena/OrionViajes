@@ -1,6 +1,6 @@
-package ar.edu.ort.orionviajes
+package ar.edu.ort.orionviajes.api
 
-import retrofit2.Call
+import ar.edu.ort.orionviajes.data.GetTravelsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 
