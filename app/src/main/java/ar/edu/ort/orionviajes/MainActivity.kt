@@ -11,15 +11,6 @@ class MainActivity : AppCompatActivity() {
 
     private val binding get() = _binding!!
 
-    private lateinit var travelViewModel : TravelViewModel
-
-    private val travelRecyclerAdapter by lazy {
-        TravelRecyclerAdapter()
-    }
-
-    private lateinit var linearLayoutManager: LinearLayoutManager
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)

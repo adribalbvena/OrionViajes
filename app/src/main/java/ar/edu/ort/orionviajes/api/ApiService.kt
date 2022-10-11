@@ -7,4 +7,5 @@ import retrofit2.http.GET
 interface ApiService {
     @GET("travels")
     suspend fun getTravels(): Response<GetTravelsResponse> //se agrego suspend, se cambio Call por Response
+    
 }

@@ -1,4 +1,4 @@
-package ar.edu.ort.orionviajes
+package ar.edu.ort.orionviajes.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ar.edu.ort.orionviajes.R
+import ar.edu.ort.orionviajes.Resource
+import ar.edu.ort.orionviajes.TravelRecyclerAdapter
+import ar.edu.ort.orionviajes.TravelViewModel
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -36,10 +42,11 @@ class MyTravelsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentMyTravelsBinding.inflate(inflater,container,false)
+
         val view = binding.root
+
         //return inflater.inflate(R.layout.fragment_my_travels, container, false)
         return view
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +66,7 @@ class MyTravelsFragment : Fragment() {
         travelViewModel.travels.observe(viewLifecycleOwner, Observer{
             when (it) {
                 is Resource.Success -> {
+
                     travelRecyclerAdapter.submitList(it.data)
                 }
                 is Resource.Error -> {
@@ -66,6 +74,16 @@ class MyTravelsFragment : Fragment() {
                 }
             }
         })
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        binding.normalFAB.setOnClickListener() {
+            val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToCreateTravelFragment()
+            findNavController().navigate(action)
+        }
 
     }
 }

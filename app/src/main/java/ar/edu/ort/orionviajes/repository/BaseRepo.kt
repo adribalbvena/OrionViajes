@@ -23,15 +23,15 @@ abstract class BaseRepo {
                     val type = object : TypeToken<ErrorResponse>() {}.type
                     val errorResponse: ErrorResponse? = gson.fromJson(response.errorBody()!!.charStream(), type)
                     Resource.Error(
-                        errorMessage = errorResponse?.statusMessage ?: "Something went wrong"
+                        errorMessage = errorResponse?.statusMessage ?: "Algo salió mal"
                     )
                 }
             } catch (e: HttpException) {
-                Resource.Error(errorMessage = e.message ?: "Something went wrong")
+                Resource.Error(errorMessage = e.message ?: "Algo salió mal")
             } catch (e: IOException) {
-                Resource.Error("Please check you network connection")
+                Resource.Error("Por favor revisa tu conexión a internet")
             } catch (e: Exception) {
-                Resource.Error(errorMessage = "Something went wrong")
+                Resource.Error(errorMessage = "Algo salió mal")
             }
         }
     }
