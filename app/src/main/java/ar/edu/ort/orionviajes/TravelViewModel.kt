@@ -3,38 +3,62 @@ package ar.edu.ort.orionviajes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import ar.edu.ort.orionviajes.api.ApiClient.apiService
 import ar.edu.ort.orionviajes.data.GetTravelsResponse
 import ar.edu.ort.orionviajes.data.TravelX
-import ar.edu.ort.orionviajes.repository.TravelRepository
-import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class TravelViewModel: ViewModel() {
-    private var _travels = MutableLiveData<Resource<GetTravelsResponse>>() //iba MutableLiveData<List<TravelX>>()
-    val travels: LiveData<Resource<GetTravelsResponse>> = _travels
+    private var _travels = MutableLiveData<List<TravelX>?>()
+    val travels: LiveData<List<TravelX>?> = _travels
 
-    private var _addTravel = MutableLiveData<Resource<GetTravelsResponse>>()
-    val addTravel: LiveData<Resource<GetTravelsResponse>> = _addTravel
-
-
-    val travelRepository by lazy {
-        TravelRepository()
-    }
+    private var _addTravel = MutableLiveData<List<TravelX>?>()
+    val addTravel: LiveData<List<TravelX>?> = _addTravel
 
     fun getTravels(){
-        viewModelScope.launch(){
-//            _travels.postValue(Resource.Loading())
+        val apiService = apiService
+        val call = apiService.getTravels()
+        call.enqueue(object : Callback<GetTravelsResponse> {
+            override fun onResponse(
+                call: Call<GetTravelsResponse>,
+                response: Response<GetTravelsResponse>
+            ) {
+                if(response.isSuccessful) {
+                    _travels.postValue(response.body())
+                } else {
+                    _travels.postValue(null)
+                }
+            }
 
-            _travels.postValue(travelRepository.getTravels())
-           // var response = travelRepository.getTravels()
-           // _travels.postValue(response)
-        }
+            override fun onFailure(call: Call<GetTravelsResponse>, t: Throwable) {
+                _travels.postValue(null)
+            }
+
+        })
     }
 
     fun addTravel(travel : TravelX){
-        viewModelScope.launch(){
-            _addTravel.postValue(travelRepository.addTravel(travel))
-        }
+        val apiService = apiService
+        val call = apiService.getTravels()
+        call.enqueue(object : Callback<GetTravelsResponse> {
+            override fun onResponse(
+                call: Call<GetTravelsResponse>,
+                response: Response<GetTravelsResponse>
+            ) {
+                if(response.isSuccessful) {
+                    _addTravel.postValue(response.body())
+                } else {
+                    _addTravel.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<GetTravelsResponse>, t: Throwable) {
+               _addTravel.postValue(null)
+            }
+
+        })
     }
 
 }

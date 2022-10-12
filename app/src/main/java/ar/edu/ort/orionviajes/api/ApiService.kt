@@ -11,9 +11,9 @@ import retrofit2.http.POST
 
 interface ApiService {
     @GET("travels")
-    suspend fun getTravels(): Response<GetTravelsResponse> //se agrego suspend, se cambio Call por Response
+     fun getTravels(): Call<GetTravelsResponse> //se agrego suspend, se cambio Call por Response
 
     @POST("travels")
     @Headers("Accept:application/json","Content-Type:application/json" )
-    suspend fun addTravel(@Body travel: TravelX): Response<GetTravelsResponse>
+     fun addTravel(@Body travel: TravelX): Call<GetTravelsResponse>
 }

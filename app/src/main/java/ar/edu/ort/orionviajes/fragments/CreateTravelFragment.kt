@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ar.edu.ort.orionviajes.R
-import ar.edu.ort.orionviajes.Resource
 import ar.edu.ort.orionviajes.TravelViewModel
 import ar.edu.ort.orionviajes.data.TravelX
 import ar.edu.ort.orionviajes.databinding.FragmentCreateTravelBinding
@@ -44,65 +43,18 @@ class CreateTravelFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        _binding = FragmentCreateTravelBinding.bind(view)
-//
-//        binding.apply {
-//            startDateTil.setOnClickListener{
-//                val datePickerFragment = DatePickerFragment()
-//                val supportFragmentManager = requireActivity().supportFragmentManager
-//
-//                supportFragmentManager.setFragmentResultListener(
-//                    "REQUEST_KEY",
-//                    viewLifecycleOwner) {
-//                    resultKey, bundle -> if (resultKey == "REQUEST_KEY") {
-//                        val date = bundle.getString("SELECTED_DATE")
-//                        startDateTil.text = date
-//                }
-//                }
-//
-//                datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
-//
-//            }
-//
-//            endDateTil.setOnClickListener {
-//                val datePickerFragment = DatePickerFragment()
-//                val supportFragmentManager = requireActivity().supportFragmentManager
-//
-//                supportFragmentManager.setFragmentResultListener(
-//                    "REQUEST_KEY",
-//                    viewLifecycleOwner) {
-//                    resultKey, bundle -> if (resultKey == "REQUEST_KEY") {
-//                        val date2 = bundle.getString("SELECTED_DATE")
-//                        endDateTil.text = date2
-//
-//                }
-//                }
-//
-//                datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
-//
-//            }
-//
-//        }
-        datePicker(view)
 
-//        val title = binding.editTextTitleTravel.text.toString()
-//        val budget = binding.editTextBudgetTravel.text.toString()
-//        val currency = binding.autoCompleteTxtView.text.toString()
-//        val startDate = binding.startDateTil.text.toString()
-//        val endDate = binding.endDateTil.text.toString()
-//
-//       val travel = TravelX("", title, budget.toFloat(), startDate, endDate )
+        datePicker(view)
 
         travelViewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
 
         travelViewModel.addTravel.observe(viewLifecycleOwner, Observer{
-            //funciona horrible, para safar
+            //el error handling mas pedorro, pero safa
             if(it == null) {
                 Snackbar.make(binding.root, "Error al crear viaje" ,Snackbar.LENGTH_LONG).show()
             } else {
                 Snackbar.make(binding.root, "Viaje creado con exito", Snackbar.LENGTH_LONG).show()
             }
-
         })
 
         binding.btnAddTravel.setOnClickListener() {
@@ -113,7 +65,6 @@ class CreateTravelFragment : Fragment() {
     private fun addTravel() {
         val title = binding.editTextTitleTravel.text.toString()
         val budget = binding.editTextBudgetTravel.text.toString()
-        //val currency = binding.autoCompleteTxtView.text.toString()
         val startDate = binding.startDateTil.text.toString()
         val endDate = binding.endDateTil.text.toString()
 
