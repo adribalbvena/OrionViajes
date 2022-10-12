@@ -15,7 +15,7 @@ object ApiClient {
         Retrofit.Builder()
             .baseUrl("http://192.168.1.21:3002/orion/")
             .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create()) //aca iba moshi converter factory
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 

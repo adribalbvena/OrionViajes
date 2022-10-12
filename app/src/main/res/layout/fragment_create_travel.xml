@@ -19,6 +19,7 @@
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_title_travel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -53,6 +54,7 @@
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_budget_travel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -79,7 +81,7 @@
         tools:layout_editor_absoluteX="16dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addFab"
+        android:id="@+id/btnAddTravel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -91,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/endDate_til" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/btnCancelTravel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"

@@ -6,12 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import ar.edu.ort.orionviajes.R
+import ar.edu.ort.orionviajes.Resource
+import ar.edu.ort.orionviajes.TravelViewModel
+import ar.edu.ort.orionviajes.data.TravelX
 import ar.edu.ort.orionviajes.databinding.FragmentCreateTravelBinding
+import com.google.android.material.snackbar.Snackbar
 
 class CreateTravelFragment : Fragment() {
     private var _binding : FragmentCreateTravelBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var travelViewModel : TravelViewModel
 
 
 
@@ -36,6 +44,85 @@ class CreateTravelFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        _binding = FragmentCreateTravelBinding.bind(view)
+//
+//        binding.apply {
+//            startDateTil.setOnClickListener{
+//                val datePickerFragment = DatePickerFragment()
+//                val supportFragmentManager = requireActivity().supportFragmentManager
+//
+//                supportFragmentManager.setFragmentResultListener(
+//                    "REQUEST_KEY",
+//                    viewLifecycleOwner) {
+//                    resultKey, bundle -> if (resultKey == "REQUEST_KEY") {
+//                        val date = bundle.getString("SELECTED_DATE")
+//                        startDateTil.text = date
+//                }
+//                }
+//
+//                datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
+//
+//            }
+//
+//            endDateTil.setOnClickListener {
+//                val datePickerFragment = DatePickerFragment()
+//                val supportFragmentManager = requireActivity().supportFragmentManager
+//
+//                supportFragmentManager.setFragmentResultListener(
+//                    "REQUEST_KEY",
+//                    viewLifecycleOwner) {
+//                    resultKey, bundle -> if (resultKey == "REQUEST_KEY") {
+//                        val date2 = bundle.getString("SELECTED_DATE")
+//                        endDateTil.text = date2
+//
+//                }
+//                }
+//
+//                datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
+//
+//            }
+//
+//        }
+        datePicker(view)
+
+//        val title = binding.editTextTitleTravel.text.toString()
+//        val budget = binding.editTextBudgetTravel.text.toString()
+//        val currency = binding.autoCompleteTxtView.text.toString()
+//        val startDate = binding.startDateTil.text.toString()
+//        val endDate = binding.endDateTil.text.toString()
+//
+//       val travel = TravelX("", title, budget.toFloat(), startDate, endDate )
+
+        travelViewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
+
+        travelViewModel.addTravel.observe(viewLifecycleOwner, Observer{
+            //funciona horrible, para safar
+            if(it == null) {
+                Snackbar.make(binding.root, "Error al crear viaje" ,Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(binding.root, "Viaje creado con exito", Snackbar.LENGTH_LONG).show()
+            }
+
+        })
+
+        binding.btnAddTravel.setOnClickListener() {
+            addTravel()
+        }
+    }
+
+    private fun addTravel() {
+        val title = binding.editTextTitleTravel.text.toString()
+        val budget = binding.editTextBudgetTravel.text.toString()
+        //val currency = binding.autoCompleteTxtView.text.toString()
+        val startDate = binding.startDateTil.text.toString()
+        val endDate = binding.endDateTil.text.toString()
+
+        val travel = TravelX("", title, budget.toFloat(), startDate, endDate)
+        travelViewModel.addTravel(travel)
+    }
+
+
+    fun datePicker(view: View){
         _binding = FragmentCreateTravelBinding.bind(view)
 
         binding.apply {
@@ -46,9 +133,9 @@ class CreateTravelFragment : Fragment() {
                 supportFragmentManager.setFragmentResultListener(
                     "REQUEST_KEY",
                     viewLifecycleOwner) {
-                    resultKey, bundle -> if (resultKey == "REQUEST_KEY") {
-                        val date = bundle.getString("SELECTED_DATE")
-                        startDateTil.text = date
+                        resultKey, bundle -> if (resultKey == "REQUEST_KEY") {
+                    val date = bundle.getString("SELECTED_DATE")
+                    startDateTil.text = date
                 }
                 }
 
@@ -63,9 +150,9 @@ class CreateTravelFragment : Fragment() {
                 supportFragmentManager.setFragmentResultListener(
                     "REQUEST_KEY",
                     viewLifecycleOwner) {
-                    resultKey, bundle -> if (resultKey == "REQUEST_KEY") {
-                        val date2 = bundle.getString("SELECTED_DATE")
-                        endDateTil.text = date2
+                        resultKey, bundle -> if (resultKey == "REQUEST_KEY") {
+                    val date2 = bundle.getString("SELECTED_DATE")
+                    endDateTil.text = date2
 
                 }
                 }

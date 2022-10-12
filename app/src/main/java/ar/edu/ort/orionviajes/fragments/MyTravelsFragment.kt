@@ -42,11 +42,9 @@ class MyTravelsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentMyTravelsBinding.inflate(inflater,container,false)
-
         val view = binding.root
-
-        //return inflater.inflate(R.layout.fragment_my_travels, container, false)
         return view
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,6 +74,7 @@ class MyTravelsFragment : Fragment() {
         })
 
     }
+
 
     override fun onStart() {
         super.onStart()
