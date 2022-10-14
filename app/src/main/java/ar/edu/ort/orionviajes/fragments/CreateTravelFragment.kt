@@ -33,11 +33,6 @@ class CreateTravelFragment : Fragment() {
         _binding = FragmentCreateTravelBinding.inflate(inflater,container,false)
         val view = binding.root
 
-        //val args = this.arguments
-        //val travel_id = args?.get("data").toString()
-        val dato = CreateTravelFragmentArgs.fromBundle(requireArguments()).coso
-        Toast.makeText(context, dato?.id.toString(), Toast.LENGTH_SHORT).show()
-        //esto si funca masomenos
         initTravelViewModel()
         addTravelObservable()
 
@@ -61,43 +56,12 @@ class CreateTravelFragment : Fragment() {
 
         datePicker(view)
 
-//        travelViewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
-
-//        travelViewModel.addTravel.observe(viewLifecycleOwner, Observer{
-//            //el error handling mas pedorro, pero safa
-//            if(it == null) {
-//                Snackbar.make(binding.root, "Error al crear viaje" ,Snackbar.LENGTH_LONG).show()
-//            } else {
-//                Snackbar.make(binding.root, "Viaje creado con exito", Snackbar.LENGTH_LONG).show()
-//                activity?.supportFragmentManager?.popBackStack()
-//            }
-////            Snackbar.make(binding.root, "Viaje creado con exito", Snackbar.LENGTH_LONG).show()
-////                activity?.supportFragmentManager?.popBackStack()
-//        })
-
-//        binding.btnAddTravel.setOnClickListener() {
-//            addTravel(travel_id)
-//        }
     }
 
 
     private fun initTravelViewModel() {
         travelViewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
     }
-
-
-//    private fun loadTravelData(travel_id: String) {
-//        travelViewModel.getLoadTravelObservable().observe(viewLifecycleOwner, Observer<SingleTravelResponse?>{
-//            if(it != null) {
-//                binding.editTextTitleTravel.setText(it.data?.title)
-//                binding.editTextBudgetTravel.setText(it.data?.budget.toString())
-//                binding.startDateTil.setText(it.data?.startDate)
-//                binding.endDateTil.setText(it.data?.endDate)
-//                binding.btnDeleteTravel.visibility = View.VISIBLE
-//            }
-//        })
-//        travelViewModel.getSingleTravel(travel_id)
-//    }
 
     private fun addTravel() {
         val title = binding.editTextTitleTravel.text.toString()
@@ -113,6 +77,7 @@ class CreateTravelFragment : Fragment() {
 
     private fun addTravelObservable() {
         travelViewModel.addTravel.observe(viewLifecycleOwner, Observer {
+            //aca falta hacer algun manejo de errores
                 Snackbar.make(binding.root, "Viaje creado con exito", Snackbar.LENGTH_LONG).show()
                 activity?.supportFragmentManager?.popBackStack()
         })

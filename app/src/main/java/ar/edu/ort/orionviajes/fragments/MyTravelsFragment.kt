@@ -56,23 +56,24 @@ class MyTravelsFragment : Fragment(){
         binding.travelsRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
-            travelRecyclerAdapter = TravelRecyclerAdapter{
-               onItemSelected(it)
-            }
+            travelRecyclerAdapter = TravelRecyclerAdapter()
+//            {
+//               onItemSelected(it)
+//            }
             adapter = travelRecyclerAdapter
         }
     }
 
-    private fun onItemSelected(it: TravelX) {
-        //Toast.makeText(context, it.id, Toast.LENGTH_SHORT).show()
-        val travelBundle = Bundle()
-        travelBundle.putString("data", it.id)
-        val fragment = CreateTravelFragment()
-        fragment.arguments = travelBundle
-        //esto no funciona, da null, tal vez parcelando?
-        //funciono parcelando asi q esto no tiene sentido
-
-    }
+//    private fun onItemSelected(it: TravelX) {
+//        //Toast.makeText(context, it.id, Toast.LENGTH_SHORT).show()
+//        val travelBundle = Bundle()
+//        travelBundle.putString("data", it.id)
+//        val fragment = CreateTravelFragment()
+//        fragment.arguments = travelBundle
+//        //esto no funciona, da null, tal vez parcelando?
+//        //funciono parcelando asi q esto no tiene sentido
+//
+//    }
 
 
     fun initTravelsViewModel() {

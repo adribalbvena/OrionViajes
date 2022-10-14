@@ -46,7 +46,7 @@ import ar.edu.ort.orionviajes.fragments.MyTravelsFragmentDirections
 //}
 //val onClick: (TravelX) -> Unit
 
-class TravelRecyclerAdapter(val onClick: (TravelX) -> Unit): ListAdapter<TravelX, TravelRecyclerAdapter.TravelViewHolder>(TravelDiffutilCallback()) {
+class TravelRecyclerAdapter(): ListAdapter<TravelX, TravelRecyclerAdapter.TravelViewHolder>(TravelDiffutilCallback()) {
 
     class TravelViewHolder(val binding: ItemTravelBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -76,9 +76,9 @@ class TravelRecyclerAdapter(val onClick: (TravelX) -> Unit): ListAdapter<TravelX
         holder.binding.tvTravelEndDate.text = item.endDate
 
         holder.binding.btnEditTravel.setOnClickListener(){
-            val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToCreateTravelFragment(item)
+            val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToEditTravelFragment(item)
             it.findNavController().navigate(action)
-            onClick(item)
+           // onClick(item)
         }
     }
 
