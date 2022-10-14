@@ -18,5 +18,11 @@
         android:id="@+id/createTravelFragment"
         android:name="ar.edu.ort.orionviajes.fragments.CreateTravelFragment"
         android:label="fragment_create_travel"
-        tools:layout="@layout/fragment_create_travel" />
+        tools:layout="@layout/fragment_create_travel" >
+        <argument
+            android:name="coso"
+            app:argType="ar.edu.ort.orionviajes.data.TravelX"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

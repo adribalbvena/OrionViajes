@@ -25,23 +25,23 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/travelCurrency_til"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="@string/currency_label"
-        app:layout_constraintTop_toBottomOf="@+id/travelTitle_til"
-        tools:layout_editor_absoluteX="16dp">
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/travelCurrency_til"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:hint="@string/currency_label"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/travelTitle_til"-->
+<!--        tools:layout_editor_absoluteX="16dp">-->
 
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTxtView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none" />
+<!--        <AutoCompleteTextView-->
+<!--            android:id="@+id/autoCompleteTxtView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="none" />-->
 
-    </com.google.android.material.textfield.TextInputLayout>
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/travelBudget_til"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="@string/budget_label"
-        app:layout_constraintTop_toBottomOf="@+id/travelCurrency_til"
+        app:layout_constraintTop_toBottomOf="@+id/travelTitle_til"
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -93,12 +93,13 @@
         app:layout_constraintTop_toBottomOf="@+id/endDate_til" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnCancelTravel"
+        android:id="@+id/btnDeleteTravel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
         android:clickable="true"
+        android:visibility="gone"
         android:contentDescription="@string/btnCancelItem"
         android:src="@drawable/ic_cancel"
         app:layout_constraintStart_toStartOf="parent"

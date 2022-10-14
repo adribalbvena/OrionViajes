@@ -11,6 +11,8 @@
     <string name="travel_empty_label">Todavía no tenés viajes creados.</string>
     <string name="btnAddItem">Agregar</string>
     <string name="btnCancelItem">Cancelar</string>
+    <string name="tvTo">/</string>
+    <string name="tvEditTravel">Editar</string>
 
 
 

@@ -14,6 +14,16 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/btnEditTravel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvEditTravel"
+            android:padding="6dp"
+            android:layout_marginStart="30dp"
+            app:layout_constraintStart_toEndOf="@+id/tvTravelBudget"
+            app:layout_constraintTop_toBottomOf="@+id/tvTravelTitle"/>
+
+        <TextView
             android:id="@+id/tvTravelEndDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,10 +36,11 @@
             android:id="@+id/tvTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="6dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             app:layout_constraintStart_toEndOf="@+id/tvTravelStartDate"
             app:layout_constraintTop_toBottomOf="@+id/tvTravelBudget"
-            tools:text=" / " />
+            tools:text="@string/tvTo" />
 
         <TextView
             android:id="@+id/tvTravelStartDate"
