@@ -5,7 +5,7 @@
     android:id="@+id/constraint_layout_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.LoginFragment" >
+    tools:context=".fragments.RegisterFragment" >
 
     <EditText
         android:id="@+id/editText_password_register"
@@ -41,7 +41,7 @@
         app:layout_constraintVertical_bias="0.3" />
 
     <Button
-        android:id="@+id/button_signin"
+        android:id="@+id/button_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/action_sign_in"

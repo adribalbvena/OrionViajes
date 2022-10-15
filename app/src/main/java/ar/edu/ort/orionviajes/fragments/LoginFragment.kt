@@ -10,7 +10,6 @@ import android.widget.EditText
 import ar.edu.ort.orionviajes.R
 
 class LoginFragment : Fragment() {
-
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var loginButton: Button

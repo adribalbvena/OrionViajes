@@ -13,14 +13,13 @@ class SplashActivity : AppCompatActivity() {
 
         val token = preferences.getString("token", null);
 
-        if(token == null)
-        {
+        if (token == null) {
             //load login activity
             //finish()
         }
 
         //download all travels
-        
+
         //load main activity
         //finish()
     }
