@@ -4,11 +4,17 @@ import ar.edu.ort.orionviajes.data.ExpensesResponse
 import ar.edu.ort.orionviajes.data.GetTravelsResponse
 import ar.edu.ort.orionviajes.data.SingleTravelResponse
 import ar.edu.ort.orionviajes.data.TravelX
+import ar.edu.ort.orionviajes.data.UserDto
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
+
+    //USERS
+    @POST("users/login")
+    @Headers("Accept:application/json","Content-Type:application/json" )
+    fun login(@Body user: UserDto): Call<LoginResponse>
 
     //TRAVELS
     @GET("travels")

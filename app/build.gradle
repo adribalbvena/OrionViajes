@@ -35,9 +35,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
+    implementation 'androidx.annotation:annotation:1.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     def nav_version = "2.5.2"
 
     implementation 'androidx.core:core-ktx:1.7.0'

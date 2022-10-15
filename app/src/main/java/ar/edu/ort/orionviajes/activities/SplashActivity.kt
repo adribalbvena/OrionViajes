@@ -1,7 +1,8 @@
-package ar.edu.ort.orionviajes
+package ar.edu.ort.orionviajes.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ar.edu.ort.orionviajes.R
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,12 +16,12 @@ class SplashActivity : AppCompatActivity() {
         if(token == null)
         {
             //load login activity
-            finish()
+            //finish()
         }
 
         //download all travels
         
         //load main activity
-        finish()
+        //finish()
     }
 }
