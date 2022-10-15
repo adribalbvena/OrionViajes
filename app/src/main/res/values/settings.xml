@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="urlOrion">http://10.10.10.173:3002/orion/</string>
+</resources>

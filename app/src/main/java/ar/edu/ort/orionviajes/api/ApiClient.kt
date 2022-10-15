@@ -10,7 +10,7 @@ object ApiClient {
         .build()
 
     val retrofit = Retrofit.Builder()
-        .baseUrl("http://192.168.1.21:3002/orion/")
+        .baseUrl("http://10.10.10.173:3002/orion/")
         .client(httpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
