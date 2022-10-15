@@ -13,15 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/btnArrowTravel"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_baseline_arrow_right_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnEditTravel"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/btnEditTravel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tvEditTravel"
+            android:layout_marginStart="40dp"
             android:padding="6dp"
-            android:layout_marginStart="30dp"
-            app:layout_constraintStart_toEndOf="@+id/tvTravelBudget"
-            app:layout_constraintTop_toBottomOf="@+id/tvTravelTitle"/>
+            android:text="@string/tvEditTravel"
+            app:layout_constraintBottom_toTopOf="@+id/tvTravelEndDate"
+            app:layout_constraintStart_toEndOf="@+id/tvTravelBudget" />
 
         <TextView
             android:id="@+id/tvTravelEndDate"
@@ -72,8 +82,8 @@
 
         <ImageView
             android:id="@+id/ivTravel"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/ic_airplane"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

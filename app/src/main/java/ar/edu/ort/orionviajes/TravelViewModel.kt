@@ -19,11 +19,11 @@ class TravelViewModel: ViewModel() {
 //    private var _addTravel = MutableLiveData<List<TravelX>?>()
 //    val addTravel: LiveData<List<TravelX>?> = _addTravel
 
-    lateinit var travels: MutableLiveData<GetTravelsResponse?>
-    lateinit var singleTravel: MutableLiveData<SingleTravelResponse?>
-    lateinit var addTravel: MutableLiveData<GetTravelsResponse?>
-    lateinit var updateTravel: MutableLiveData<SingleTravelResponse?>
-    lateinit var deleteTravel: MutableLiveData<SingleTravelResponse?>
+    var travels: MutableLiveData<GetTravelsResponse?>
+    var singleTravel: MutableLiveData<SingleTravelResponse?>
+    var addTravel: MutableLiveData<GetTravelsResponse?>
+    var updateTravel: MutableLiveData<SingleTravelResponse?>
+    var deleteTravel: MutableLiveData<SingleTravelResponse?>
 
     init {
         travels = MutableLiveData()
@@ -32,7 +32,6 @@ class TravelViewModel: ViewModel() {
         updateTravel = MutableLiveData()
         deleteTravel = MutableLiveData()
     }
-
 
     fun getTravels(){
         val apiService = apiService

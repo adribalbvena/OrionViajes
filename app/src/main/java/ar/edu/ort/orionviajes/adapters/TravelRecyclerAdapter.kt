@@ -1,20 +1,15 @@
-package ar.edu.ort.orionviajes
+package ar.edu.ort.orionviajes.adapters
 
 import android.annotation.SuppressLint
-import androidx.fragment.app.setFragmentResult
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.data.TravelX
 import ar.edu.ort.orionviajes.databinding.ItemTravelBinding
-import ar.edu.ort.orionviajes.fragments.CreateTravelFragment
 import ar.edu.ort.orionviajes.fragments.MyTravelsFragmentDirections
 
 //Version fea vieja
@@ -46,7 +41,9 @@ import ar.edu.ort.orionviajes.fragments.MyTravelsFragmentDirections
 //}
 //val onClick: (TravelX) -> Unit
 
-class TravelRecyclerAdapter(): ListAdapter<TravelX, TravelRecyclerAdapter.TravelViewHolder>(TravelDiffutilCallback()) {
+class TravelRecyclerAdapter(): ListAdapter<TravelX, TravelRecyclerAdapter.TravelViewHolder>(
+    TravelDiffutilCallback()
+) {
 
     class TravelViewHolder(val binding: ItemTravelBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -75,10 +72,15 @@ class TravelRecyclerAdapter(): ListAdapter<TravelX, TravelRecyclerAdapter.Travel
         holder.binding.tvTravelStartDate.text = item.startDate
         holder.binding.tvTravelEndDate.text = item.endDate
 
-        holder.binding.btnEditTravel.setOnClickListener(){
+        holder.binding.btnEditTravel.setOnClickListener{
             val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToEditTravelFragment(item)
             it.findNavController().navigate(action)
            // onClick(item)
+        }
+
+        holder.binding.btnArrowTravel.setOnClickListener{
+            val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToExpensesFragment(item)
+            it.findNavController().navigate(action)
         }
     }
 

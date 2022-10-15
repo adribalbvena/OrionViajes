@@ -1,22 +1,17 @@
 package ar.edu.ort.orionviajes.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ar.edu.ort.orionviajes.R
-import ar.edu.ort.orionviajes.TravelRecyclerAdapter
+import ar.edu.ort.orionviajes.adapters.TravelRecyclerAdapter
 import ar.edu.ort.orionviajes.TravelViewModel
-import ar.edu.ort.orionviajes.data.TravelX
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -101,17 +96,6 @@ class MyTravelsFragment : Fragment(){
 
     }
 
-
-        //este onclick deberia abrir la pantalla de creacion y
-        //cargar los datos del travel q esta recibiendo
-
-
-//        val travelBundle = Bundle()
-//        travelBundle.putString("data", travel_id)
-//        val fragment = CreateTravelFragment()
-//        fragment.arguments = travelBundle
-
-        //setFragmentResult("key", travelBundle)
 
 
 }

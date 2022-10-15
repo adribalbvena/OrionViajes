@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_myTravelsFragment_to_editTravelFragment"
             app:destination="@id/editTravelFragment" />
+        <action
+            android:id="@+id/action_myTravelsFragment_to_expensesFragment"
+            app:destination="@id/expensesFragment" />
     </fragment>
     <fragment
         android:id="@+id/createTravelFragment"
@@ -34,6 +37,15 @@
         android:label="EditTravelFragment" >
         <argument
             android:name="travel"
+            app:argType="ar.edu.ort.orionviajes.data.TravelX" />
+    </fragment>
+    <fragment
+        android:id="@+id/expensesFragment"
+        android:name="ar.edu.ort.orionviajes.fragments.ExpensesFragment"
+        android:label="fragment_expenses"
+        tools:layout="@layout/fragment_expenses" >
+        <argument
+            android:name="travelId"
             app:argType="ar.edu.ort.orionviajes.data.TravelX" />
     </fragment>
 </navigation>

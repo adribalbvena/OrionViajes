@@ -1,6 +1,7 @@
 package ar.edu.ort.orionviajes.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -78,6 +79,8 @@ class CreateTravelFragment : Fragment() {
     private fun addTravelObservable() {
         travelViewModel.addTravel.observe(viewLifecycleOwner, Observer {
             //aca falta hacer algun manejo de errores
+            Log.d("TRAVELS", it.toString())
+            //llegan en null los viajes
                 Snackbar.make(binding.root, "Viaje creado con exito", Snackbar.LENGTH_LONG).show()
                 activity?.supportFragmentManager?.popBackStack()
         })

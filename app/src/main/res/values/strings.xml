@@ -13,6 +13,9 @@
     <string name="btnCancelItem">Cancelar</string>
     <string name="tvTo">/</string>
     <string name="tvEditTravel">Editar</string>
+    <string name="btnManualExpense">Rellenar</string>
+    <string name="btnScanExspense">Escanear</string>
+    <string name="btnAddExpense">Agregar</string>
 
 
 </resources>

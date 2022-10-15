@@ -7,9 +7,11 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_create_travel.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_edit_travel.xml" value="0.22093353271484378" />
+        <entry key="app/src/main/res/layout/fragment_expenses.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/fragment_my_travels.xml" value="0.2693069458007813" />
         <entry key="app/src/main/res/layout/fragment_travel.xml" value="0.2578125" />
-        <entry key="app/src/main/res/layout/item_travel.xml" value="0.7641509433962265" />
+        <entry key="app/src/main/res/layout/item_expense.xml" value="0.4291181670953026" />
+        <entry key="app/src/main/res/layout/item_travel.xml" value="0.5391432791728212" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.6431015014648438" />
       </map>
     </option>
