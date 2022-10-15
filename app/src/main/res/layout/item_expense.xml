@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardExpense"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="8dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/btnArrowExpense"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_baseline_arrow_right_24"
+            app:layout_constraintBottom_toTopOf="@+id/payMethodExpense"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvExpenseDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/payMethodExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toEndOf="@+id/categoryExpense"
+            app:layout_constraintTop_toBottomOf="@+id/tvExpenseDate"
+            tools:text="Metodo De Pago" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/categoryExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintStart_toEndOf="@+id/ivExpense"
+            app:layout_constraintTop_toBottomOf="@+id/tvExpenseDate"
+            tools:text="Categoria" />
+
+        <TextView
+            android:id="@+id/tvExpenseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            app:layout_constraintStart_toEndOf="@+id/ivExpense"
+            app:layout_constraintTop_toBottomOf="@+id/tvExpenseTitle"
+            tools:text="12/10/2022" />
+
+        <TextView
+            android:id="@+id/tvCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="3dp"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvAmount"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="EUR" />
+
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvExpenseTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="IMPORTE" />
+
+        <TextView
+            android:id="@+id/tvExpenseTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21dp"
+            android:padding="3dp"
+            app:layout_constraintStart_toEndOf="@+id/ivExpense"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TITLE" />
+
+        <ImageView
+            android:id="@+id/ivExpense"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_bill"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

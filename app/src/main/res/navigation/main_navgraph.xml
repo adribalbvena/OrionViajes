@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navgraph"
+    app:startDestination="@id/myTravelsFragment">
+
+    <fragment
+        android:id="@+id/myTravelsFragment"
+        android:name="ar.edu.ort.orionviajes.fragments.MyTravelsFragment"
+        android:label="@string/myTravels"
+        tools:layout="@layout/fragment_my_travels" >
+        <action
+            android:id="@+id/action_myTravelsFragment_to_createTravelFragment"
+            app:destination="@id/createTravelFragment" />
+        <action
+            android:id="@+id/action_myTravelsFragment_to_editTravelFragment"
+            app:destination="@id/editTravelFragment" />
+        <action
+            android:id="@+id/action_myTravelsFragment_to_expensesFragment"
+            app:destination="@id/expensesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createTravelFragment"
+        android:name="ar.edu.ort.orionviajes.fragments.CreateTravelFragment"
+        android:label="@string/createTravel"
+        tools:layout="@layout/fragment_create_travel" >
+        <argument
+            android:name="coso"
+            app:argType="ar.edu.ort.orionviajes.data.TravelX"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTravelFragment"
+        android:name="ar.edu.ort.orionviajes.fragments.EditTravelFragment"
+        android:label="@string/editTravel" >
+        <argument
+            android:name="travel"
+            app:argType="ar.edu.ort.orionviajes.data.TravelX" />
+    </fragment>
+    <fragment
+        android:id="@+id/expensesFragment"
+        android:name="ar.edu.ort.orionviajes.fragments.ExpensesFragment"
+        android:label="fragment_expenses"
+        tools:layout="@layout/fragment_expenses" >
+        <argument
+            android:name="travelId"
+            app:argType="ar.edu.ort.orionviajes.data.TravelX" />
+    </fragment>
+</navigation>

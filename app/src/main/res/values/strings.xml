@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">OrionViajes</string>
+    <string name="app_name">Orion Viajes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="travel_label">Título Del Viaje</string>
+    <string name="budget_label">Presupuesto</string>
+    <string name="currency_label">Moneda</string>
+    <string name="startDate_label">Fecha De Inicio</string>
+    <string name="endDate_label">Fecha De Fin</string>
+    <string name="bntAdd">+</string>
+    <string name="travel_empty_label">Todavía no tenés viajes creados.</string>
+    <string name="btnAddItem">Agregar</string>
+    <string name="btnCancelItem">Cancelar</string>
+    <string name="tvTo">/</string>
+    <string name="tvEditTravel">Editar</string>
+    <string name="btnManualExpense">Rellenar</string>
+    <string name="btnScanExspense">Escanear</string>
+    <string name="btnAddExpense">Agregar</string>
+    <string name="myTravels">Mis Viajes</string>
+    <string name="createTravel">Nuevo Viaje</string>
+    <string name="editTravel">Editar Viaje</string>
+
+
 </resources>
