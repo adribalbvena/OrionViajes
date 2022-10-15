@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.adapters.TravelRecyclerAdapter
 import ar.edu.ort.orionviajes.TravelViewModel
+import ar.edu.ort.orionviajes.data.TravelX
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
+import ar.edu.ort.orionviajes.listener.OnTravelClickedListener
 import com.google.android.material.snackbar.Snackbar
 
 
-class MyTravelsFragment : Fragment(){
+class MyTravelsFragment : Fragment(), OnTravelClickedListener{
     companion object {
         fun newInstance() = MyTravelsFragment()
     }
@@ -38,6 +40,7 @@ class MyTravelsFragment : Fragment(){
         _binding = FragmentMyTravelsBinding.inflate(inflater,container,false)
         val view = binding.root
 
+
         initTravelsRecyclerView()
         initTravelsViewModel()
 
@@ -48,15 +51,21 @@ class MyTravelsFragment : Fragment(){
 
     private fun initTravelsRecyclerView() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.travelsRecyclerView.apply {
+
+        //travelViewModel.getTravels()
+
+        binding.travelsRecyclerView.setHasFixedSize(true)
+        binding.travelsRecyclerView.layoutManager = linearLayoutManager
+        travelRecyclerAdapter = TravelRecyclerAdapter(this)
+        binding.travelsRecyclerView.adapter = travelRecyclerAdapter
+
+        /*binding.travelsRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
-            travelRecyclerAdapter = TravelRecyclerAdapter()
-//            {
-//               onItemSelected(it)
-//            }
+            travelViewModel.getTravels()
+            travelRecyclerAdapter = TravelRecyclerAdapter(this)
             adapter = travelRecyclerAdapter
-        }
+        }*/
     }
 
 //    private fun onItemSelected(it: TravelX) {
@@ -77,9 +86,7 @@ class MyTravelsFragment : Fragment(){
             if (it == null) {
                 Snackbar.make(binding.root, "Error al cargar los viajes" ,Snackbar.LENGTH_LONG).show()
             } else {
-                travelRecyclerAdapter.submitList(it)
-                //travelRecyclerAdapter.travelList = it
-                //travelRecyclerAdapter.notifyDataSetChanged()
+                travelRecyclerAdapter.updateList(it)
             }
 
         })
@@ -95,6 +102,17 @@ class MyTravelsFragment : Fragment(){
         }
 
     }
+
+    override fun onTravelSelected(travel: TravelX) {
+        val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToExpensesFragment(travel)
+        findNavController().navigate(action)
+    }
+
+    override fun onTravelEditClick(travel: TravelX) {
+        val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToEditTravelFragment(travel)
+        findNavController().navigate(action)
+    }
+
 
 
 
