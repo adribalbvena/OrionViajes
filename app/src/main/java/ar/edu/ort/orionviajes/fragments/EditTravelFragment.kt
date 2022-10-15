@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.TravelViewModel
 import ar.edu.ort.orionviajes.data.TravelX
@@ -86,9 +87,13 @@ class EditTravelFragment : Fragment() {
 
     private fun addUpdateObservable() {
         travelViewModel.updateTravel.observe(viewLifecycleOwner, Observer{
-                //aca tambien falta manejo de errores
-                Snackbar.make(binding.root, "Viaje actualizado con éxito!" , Snackbar.LENGTH_LONG).show()
-                activity?.supportFragmentManager?.popBackStack()
+            Snackbar.make(binding.root, "Viaje actualizado con éxito!" , Snackbar.LENGTH_LONG).show()
+            //Utilizar siempre el findNavController ya que estas con el NavGraph
+            findNavController().navigateUp()
+
+            //Esta cambiando el NavController y luego se va a romper.
+            //activity?.supportFragmentManager?.popBackStack()
+
         })
     }
 
