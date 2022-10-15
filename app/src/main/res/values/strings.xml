@@ -16,6 +16,9 @@
     <string name="btnManualExpense">Rellenar</string>
     <string name="btnScanExspense">Escanear</string>
     <string name="btnAddExpense">Agregar</string>
+    <string name="myTravels">Mis Viajes</string>
+    <string name="createTravel">Nuevo Viaje</string>
+    <string name="editTravel">Editar Viaje</string>
 
 
 </resources>

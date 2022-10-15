@@ -26,6 +26,8 @@ class ExpensesFragment : Fragment() {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
 
+    //private val travel = ExpensesFragmentArgs.fromBundle(requireArguments()).travelId
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +49,8 @@ class ExpensesFragment : Fragment() {
         initExpenseViewModel(travel.id)
 
         binding.btnAddExpense.setOnClickListener{
-            binding.floatingActionButton3.visibility = View.VISIBLE
-            binding.floatingActionButton4.visibility = View.VISIBLE
+            binding.btnFormExpense.visibility = View.VISIBLE
+            binding.btnScanExpense.visibility = View.VISIBLE
         }
 
         return view
