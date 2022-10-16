@@ -10,8 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.adapters.TravelRecyclerAdapter
-import ar.edu.ort.orionviajes.TravelViewModel
+import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import ar.edu.ort.orionviajes.data.TravelX
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
 import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
@@ -24,8 +25,7 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
         fun newInstance() = MyTravelsFragment()
     }
 
-    private var _binding: FragmentMyTravelsBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentMyTravelsBinding
 
     private lateinit var travelViewModel: TravelViewModel
     private lateinit var travelRecyclerAdapter: TravelRecyclerAdapter
@@ -38,7 +38,7 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentMyTravelsBinding.inflate(inflater, container, false)
+        binding = FragmentMyTravelsBinding.inflate(inflater,container,false)
         val view = binding.root
 
 
@@ -88,8 +88,7 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
 
         travelViewModel.travels.observe(viewLifecycleOwner, Observer {
             if (it == null) {
-                Snackbar.make(binding.root, "Error al cargar los viajes", Snackbar.LENGTH_LONG)
-                    .show()
+                Snackbar.make(binding.root, R.string.errorLoadingTravels ,Snackbar.LENGTH_LONG).show()
             } else {
                 travelRecyclerAdapter.updateList(it)
             }

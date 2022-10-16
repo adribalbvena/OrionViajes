@@ -1,8 +1,6 @@
 package ar.edu.ort.orionviajes.holders
 
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.R
@@ -14,7 +12,7 @@ class TravelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val budget: TextView
     private val startDate: TextView
     private val endDate: TextView
-    private val btnEditTravel: Button
+    private val btnEditTravel: TextView
 
     init {
         title = itemView.findViewById(R.id.tvTravelTitle)
@@ -31,7 +29,7 @@ class TravelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         endDate.text = travel.endDate
     }
 
-    fun getBtnEditTravel(): Button{
+    fun getBtnEditTravel(): TextView{
         return btnEditTravel
     }
 }

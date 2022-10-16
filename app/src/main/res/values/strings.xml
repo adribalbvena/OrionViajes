@@ -31,4 +31,21 @@
     <string name="shared_preferences_key">"ar.edu.ort.orionviajes_shared_preferences"</string>
     <string name="shared_preferences_token_key">"TOKEN"</string>
     <string name="orion_api_token_header_key">"x-auth-token"</string>
+    <string name="expense_label">Título Del Gasto</string>
+    <string name="category_label">Categoría</string>
+    <string name="paymentMethod_label">Método De Pago</string>
+    <string name="amount_label">Monto</string>
+    <string name="date_label">Fecha</string>
+    <string name="deteleTavelLabel">Eliminar</string>
+    <string name="areYouShureDeleteTravel">Estas seguro de que quieres eliminar este viaje?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="successDeletedTravel">Viaje eliminado con éxito!</string>
+    <string name="successUpdateTravel">Viaje actualizado con éxito!</string>
+    <string name="successCreateTravel">Viaje creado con éxito!</string>
+    <string name="errorLoadingTravels">Error al cargar los viajes</string>
+
+
+
+
 </resources>
