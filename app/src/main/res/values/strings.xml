@@ -28,4 +28,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="shared_preferences_key">"ar.edu.ort.orionviajes_shared_preferences"</string>
+    <string name="shared_preferences_token_key">"TOKEN"</string>
+    <string name="orion_api_token_header_key">"x-auth-token"</string>
 </resources>

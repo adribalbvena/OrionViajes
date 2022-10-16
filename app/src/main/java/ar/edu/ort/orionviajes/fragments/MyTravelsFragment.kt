@@ -14,11 +14,12 @@ import ar.edu.ort.orionviajes.adapters.TravelRecyclerAdapter
 import ar.edu.ort.orionviajes.TravelViewModel
 import ar.edu.ort.orionviajes.data.TravelX
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
+import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
 import ar.edu.ort.orionviajes.listener.OnTravelClickedListener
 import com.google.android.material.snackbar.Snackbar
 
 
-class MyTravelsFragment : Fragment(), OnTravelClickedListener{
+class MyTravelsFragment : Fragment(), OnTravelClickedListener {
     companion object {
         fun newInstance() = MyTravelsFragment()
     }
@@ -26,8 +27,8 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener{
     private var _binding: FragmentMyTravelsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var travelViewModel : TravelViewModel
-    private lateinit var travelRecyclerAdapter : TravelRecyclerAdapter
+    private lateinit var travelViewModel: TravelViewModel
+    private lateinit var travelRecyclerAdapter: TravelRecyclerAdapter
 
     private lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -37,7 +38,7 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener{
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentMyTravelsBinding.inflate(inflater,container,false)
+        _binding = FragmentMyTravelsBinding.inflate(inflater, container, false)
         val view = binding.root
 
 
@@ -79,17 +80,21 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener{
 //
 //    }
 
-
     fun initTravelsViewModel() {
-        travelViewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
-        travelViewModel.travels.observe(viewLifecycleOwner, Observer{
+        activity?.let {
+            travelViewModel =
+                ViewModelProvider(this, TravelViewModelFactory(it)).get(TravelViewModel::class.java)
+        }
+
+        travelViewModel.travels.observe(viewLifecycleOwner, Observer {
             if (it == null) {
-                Snackbar.make(binding.root, "Error al cargar los viajes" ,Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, "Error al cargar los viajes", Snackbar.LENGTH_LONG)
+                    .show()
             } else {
                 travelRecyclerAdapter.updateList(it)
             }
-
         })
+
         travelViewModel.getTravels()
     }
 
@@ -100,7 +105,6 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener{
             val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToCreateTravelFragment()
             findNavController().navigate(action)
         }
-
     }
 
     override fun onTravelSelected(travel: TravelX) {
@@ -112,8 +116,6 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener{
         val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToEditTravelFragment(travel)
         findNavController().navigate(action)
     }
-
-
 
 
 }

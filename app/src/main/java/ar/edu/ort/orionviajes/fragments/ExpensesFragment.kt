@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.ExpenseViewModel
 import ar.edu.ort.orionviajes.adapters.ExpenseRecyclerAdapter
 import ar.edu.ort.orionviajes.databinding.FragmentExpensesBinding
+import ar.edu.ort.orionviajes.factories.ExpenseViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlin.math.exp
 
 
 class ExpensesFragment : Fragment() {
-    private var _binding : FragmentExpensesBinding? = null
-    private val binding get() =  _binding!!
+    private var _binding: FragmentExpensesBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var expenseRecyclerAdapter: ExpenseRecyclerAdapter
 
@@ -27,7 +28,6 @@ class ExpensesFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     //private val travel = ExpensesFragmentArgs.fromBundle(requireArguments()).travelId
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +48,7 @@ class ExpensesFragment : Fragment() {
         initExpensesRecyclerView()
         initExpenseViewModel(travel.id)
 
-        binding.btnAddExpense.setOnClickListener{
+        binding.btnAddExpense.setOnClickListener {
             binding.btnFormExpense.visibility = View.VISIBLE
             binding.btnScanExpense.visibility = View.VISIBLE
         }
@@ -56,7 +56,7 @@ class ExpensesFragment : Fragment() {
         return view
     }
 
-    private fun initExpensesRecyclerView(){
+    private fun initExpensesRecyclerView() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.expensesRecyclerView.apply {
             setHasFixedSize(true)
@@ -67,10 +67,17 @@ class ExpensesFragment : Fragment() {
     }
 
     fun initExpenseViewModel(travel_id: String) {
-        expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
-        expenseViewModel.expenses.observe(viewLifecycleOwner, Observer{
+        activity?.let {
+            expenseViewModel = ViewModelProvider(
+                this,
+                ExpenseViewModelFactory(it)
+            ).get(ExpenseViewModel::class.java)
+        }
+
+        expenseViewModel.expenses.observe(viewLifecycleOwner, Observer {
             if (it == null) {
-                Snackbar.make(binding.root, "Error al cargar los gastos" , Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, "Error al cargar los gastos", Snackbar.LENGTH_LONG)
+                    .show()
             } else {
                 expenseRecyclerAdapter.submitList(it)
             }
