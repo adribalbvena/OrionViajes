@@ -3,21 +3,18 @@ package ar.edu.ort.orionviajes.fragments
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
-import ar.edu.ort.orionviajes.TravelViewModel
+import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import ar.edu.ort.orionviajes.data.TravelX
-import ar.edu.ort.orionviajes.databinding.FragmentCreateTravelBinding
 import ar.edu.ort.orionviajes.databinding.FragmentEditTravelBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import ar.edu.ort.orionviajes.viewmodels.EditDeleteTravelViewModel
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -25,7 +22,7 @@ class EditTravelFragment : Fragment() {
 
     private lateinit var binding : FragmentEditTravelBinding
 
-    private lateinit var travelViewModel : TravelViewModel
+    private lateinit var editDeleteTravelViewModel: EditDeleteTravelViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +68,7 @@ class EditTravelFragment : Fragment() {
         builder.setTitle(R.string.deteleTavelLabel)
         builder.setMessage(R.string.areYouShureDeleteTravel)
         builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener {dialog, id ->
-            travelViewModel.deleteTravel(travel_id)
+            editDeleteTravelViewModel.deleteTravel(travel_id)
             Snackbar.make(binding.root, R.string.successDeletedTravel , Snackbar.LENGTH_LONG).show()
             activity?.supportFragmentManager?.popBackStack()
             dialog.cancel()
@@ -85,7 +82,7 @@ class EditTravelFragment : Fragment() {
 
 
     private fun addUpdateObservable() {
-        travelViewModel.updateTravel.observe(viewLifecycleOwner, Observer{
+        editDeleteTravelViewModel.updateTravel.observe(viewLifecycleOwner, Observer{
             Snackbar.make(binding.root, R.string.successUpdateTravel , Snackbar.LENGTH_LONG).show()
             //Utilizar siempre el findNavController ya que estas con el NavGraph
             findNavController().navigateUp()
@@ -104,7 +101,7 @@ class EditTravelFragment : Fragment() {
 
         val travel = TravelX(travel_id, title, budget.toFloat(), startDate, endDate)
 
-        travelViewModel.updateTravel(travel_id, travel)
+        editDeleteTravelViewModel.updateTravel(travel_id, travel)
     }
 
     fun loadTravel(travel : TravelX) {
@@ -115,7 +112,7 @@ class EditTravelFragment : Fragment() {
     }
 
     private fun initTravelViewModel() {
-        travelViewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
+        editDeleteTravelViewModel = ViewModelProvider(this).get(EditDeleteTravelViewModel::class.java)
     }
 
     fun datePicker(view: View){

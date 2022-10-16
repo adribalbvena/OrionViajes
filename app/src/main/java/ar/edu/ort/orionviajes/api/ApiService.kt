@@ -1,9 +1,6 @@
 package ar.edu.ort.orionviajes.api
 
-import ar.edu.ort.orionviajes.data.ExpensesResponse
-import ar.edu.ort.orionviajes.data.GetTravelsResponse
-import ar.edu.ort.orionviajes.data.SingleTravelResponse
-import ar.edu.ort.orionviajes.data.TravelX
+import ar.edu.ort.orionviajes.data.*
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -34,4 +31,9 @@ interface ApiService {
     //EXPENSES
     @GET("travels/{travel_id}/expenses")
     fun getExpenses(@Path("travel_id") travel_id: String): Call<ExpensesResponse>
+
+    @POST("travels/{travel_id}/expenses")
+    fun addExpense(@Path("travel_id") travel_id: String, @Body params: Expense): Call<SingleExpenseResponse>
+
+
 }
