@@ -1,5 +1,6 @@
 package ar.edu.ort.orionviajes.viewmodels
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ar.edu.ort.orionviajes.api.ApiClient
@@ -9,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CreateTravelViewModel: ViewModel() {
+class CreateTravelViewModel(private val context: Context): ViewModel() {
 
     var addTravel: MutableLiveData<GetTravelsResponse?>
 
@@ -18,7 +19,7 @@ class CreateTravelViewModel: ViewModel() {
     }
 
     fun addTravel(travel : TravelX){
-        val apiService = ApiClient.apiService
+        val apiService = ApiClient.getTravelsApi(context)
         val call = apiService.addTravel(travel)
         call.enqueue(object : Callback<GetTravelsResponse> {
             override fun onResponse(

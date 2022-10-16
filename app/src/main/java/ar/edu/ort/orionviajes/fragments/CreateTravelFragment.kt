@@ -13,6 +13,9 @@ import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import ar.edu.ort.orionviajes.data.TravelX
 import ar.edu.ort.orionviajes.databinding.FragmentCreateTravelBinding
+import ar.edu.ort.orionviajes.factories.CreateExpenseViewModelFactory
+import ar.edu.ort.orionviajes.factories.CreateTravelViewModelFactory
+import ar.edu.ort.orionviajes.viewmodels.CreateExpenseViewModel
 import ar.edu.ort.orionviajes.viewmodels.CreateTravelViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -58,7 +61,11 @@ class CreateTravelFragment : Fragment() {
 
 
     private fun initTravelViewModel() {
-        createTravelViewModel = ViewModelProvider(this).get(CreateTravelViewModel::class.java)
+        activity?.let {
+            createTravelViewModel =
+                ViewModelProvider(this, CreateTravelViewModelFactory(it)).get(
+                    CreateTravelViewModel::class.java)
+        }
     }
 
     private fun addTravel() {

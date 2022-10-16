@@ -13,7 +13,10 @@ import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.data.Expense
 import ar.edu.ort.orionviajes.databinding.FragmentCreateExpenseBinding
+import ar.edu.ort.orionviajes.factories.CreateExpenseViewModelFactory
+import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
 import ar.edu.ort.orionviajes.viewmodels.CreateExpenseViewModel
+import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class CreateExpenseFragment : Fragment() {
@@ -63,7 +66,10 @@ class CreateExpenseFragment : Fragment() {
     }
 
     private fun initCreateExpenseViewModel() {
-        createExpenseViewModel = ViewModelProvider(this).get(CreateExpenseViewModel::class.java)
+        activity?.let {
+            createExpenseViewModel =
+                ViewModelProvider(this, CreateExpenseViewModelFactory(it)).get(CreateExpenseViewModel::class.java)
+        }
     }
 
     private fun addExpense(travel_id: String) {

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.viewmodels.ExpenseViewModel
 import ar.edu.ort.orionviajes.adapters.ExpenseRecyclerAdapter
 import ar.edu.ort.orionviajes.databinding.FragmentExpensesBinding
+import ar.edu.ort.orionviajes.factories.ExpenseViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -26,6 +27,13 @@ class ExpensesFragment : Fragment() {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
 
+    //private val travel = ExpensesFragmentArgs.fromBundle(requireArguments()).travelId
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +48,7 @@ class ExpensesFragment : Fragment() {
         initExpensesRecyclerView()
         initExpenseViewModel(travel.id)
 
-        binding.btnAddExpense.setOnClickListener{
+        binding.btnAddExpense.setOnClickListener {
             binding.btnFormExpense.visibility = View.VISIBLE
             binding.btnScanExpense.visibility = View.VISIBLE
         }
@@ -53,7 +61,7 @@ class ExpensesFragment : Fragment() {
         return view
     }
 
-    private fun initExpensesRecyclerView(){
+    private fun initExpensesRecyclerView() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
         binding.expensesRecyclerView.setHasFixedSize(true)
@@ -70,10 +78,17 @@ class ExpensesFragment : Fragment() {
     }
 
     fun initExpenseViewModel(travel_id: String) {
-        expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
-        expenseViewModel.expenses.observe(viewLifecycleOwner, Observer{
+        activity?.let {
+            expenseViewModel = ViewModelProvider(
+                this,
+                ExpenseViewModelFactory(it)
+            ).get(ExpenseViewModel::class.java)
+        }
+
+        expenseViewModel.expenses.observe(viewLifecycleOwner, Observer {
             if (it == null) {
-                Snackbar.make(binding.root, "Error al cargar los gastos" , Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, "Error al cargar los gastos", Snackbar.LENGTH_LONG)
+                    .show()
             } else {
                 expenseRecyclerAdapter.updateList(it)
             }
