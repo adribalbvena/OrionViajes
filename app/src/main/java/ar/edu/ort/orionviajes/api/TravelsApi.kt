@@ -1,10 +1,7 @@
 package ar.edu.ort.orionviajes.api
 
 import ar.edu.ort.orionviajes.Constants
-import ar.edu.ort.orionviajes.data.ExpensesResponse
-import ar.edu.ort.orionviajes.data.GetTravelsResponse
-import ar.edu.ort.orionviajes.data.SingleTravelResponse
-import ar.edu.ort.orionviajes.data.TravelX
+import ar.edu.ort.orionviajes.data.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -36,4 +33,7 @@ interface TravelsApi {
     //EXPENSES
     @GET("${Constants.TRAVELS_ENDPOINT}/{travel_id}/expenses")
     fun getExpenses(@Path("travel_id") travel_id: String): Call<ExpensesResponse>
+
+    @POST("${Constants.TRAVELS_ENDPOINT}/{travel_id}/expenses")
+    fun addExpense(@Path("travel_id") travel_id: String, @Body expense: Expense): Call<SingleExpenseResponse>
 }

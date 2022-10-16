@@ -14,13 +14,14 @@ import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import ar.edu.ort.orionviajes.data.TravelX
 import ar.edu.ort.orionviajes.databinding.FragmentEditTravelBinding
+import ar.edu.ort.orionviajes.factories.EditDeleteTravelViewModelFactory
 import ar.edu.ort.orionviajes.viewmodels.EditDeleteTravelViewModel
 import com.google.android.material.snackbar.Snackbar
 
 
 class EditTravelFragment : Fragment() {
 
-    private lateinit var binding : FragmentEditTravelBinding
+    private lateinit var binding: FragmentEditTravelBinding
 
     private lateinit var editDeleteTravelViewModel: EditDeleteTravelViewModel
 
@@ -43,14 +44,14 @@ class EditTravelFragment : Fragment() {
         //addDeleteObservable()
 
         val travel = EditTravelFragmentArgs.fromBundle(requireArguments()).travel
-       // Toast.makeText(context, dato.id.toString(), Toast.LENGTH_SHORT).show()
+        // Toast.makeText(context, dato.id.toString(), Toast.LENGTH_SHORT).show()
         loadTravel(travel)
 
-        binding.btnUpdateTravel.setOnClickListener{
+        binding.btnUpdateTravel.setOnClickListener {
             updateTravel(travel.id)
         }
 
-        binding.btnDeleteTravel.setOnClickListener{
+        binding.btnDeleteTravel.setOnClickListener {
             showAlertDialog(travel.id)
         }
 
@@ -67,13 +68,13 @@ class EditTravelFragment : Fragment() {
         var builder = AlertDialog.Builder(activity)
         builder.setTitle(R.string.deteleTavelLabel)
         builder.setMessage(R.string.areYouShureDeleteTravel)
-        builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener {dialog, id ->
+        builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, id ->
             editDeleteTravelViewModel.deleteTravel(travel_id)
-            Snackbar.make(binding.root, R.string.successDeletedTravel , Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, R.string.successDeletedTravel, Snackbar.LENGTH_LONG).show()
             activity?.supportFragmentManager?.popBackStack()
             dialog.cancel()
         })
-        builder.setNegativeButton(R.string.no,DialogInterface.OnClickListener { dialog, id ->
+        builder.setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, id ->
             dialog.cancel()
         })
         var alert = builder.create()
@@ -82,8 +83,8 @@ class EditTravelFragment : Fragment() {
 
 
     private fun addUpdateObservable() {
-        editDeleteTravelViewModel.updateTravel.observe(viewLifecycleOwner, Observer{
-            Snackbar.make(binding.root, R.string.successUpdateTravel , Snackbar.LENGTH_LONG).show()
+        editDeleteTravelViewModel.updateTravel.observe(viewLifecycleOwner, Observer {
+            Snackbar.make(binding.root, R.string.successUpdateTravel, Snackbar.LENGTH_LONG).show()
             //Utilizar siempre el findNavController ya que estas con el NavGraph
             findNavController().navigateUp()
 
@@ -93,7 +94,7 @@ class EditTravelFragment : Fragment() {
         })
     }
 
-    fun updateTravel(travel_id : String) {
+    fun updateTravel(travel_id: String) {
         val title = binding.editTextTitleTravelEdit.text.toString()
         val budget = binding.editTextBudgetTravelEdit.text.toString()
         val startDate = binding.startDateEditTil.text.toString()
@@ -104,32 +105,38 @@ class EditTravelFragment : Fragment() {
         editDeleteTravelViewModel.updateTravel(travel_id, travel)
     }
 
-    fun loadTravel(travel : TravelX) {
-                binding.editTextTitleTravelEdit.setText(travel.title)
-                binding.editTextBudgetTravelEdit.setText(travel.budget.toString())
-                binding.startDateEditTil.setText(travel.startDate) //esto estaria bueno editarlo en la api para q aparezca el formato bien
-                binding.endDateEditTil.setText(travel.endDate)
+    fun loadTravel(travel: TravelX) {
+        binding.editTextTitleTravelEdit.setText(travel.title)
+        binding.editTextBudgetTravelEdit.setText(travel.budget.toString())
+        binding.startDateEditTil.setText(travel.startDate) //esto estaria bueno editarlo en la api para q aparezca el formato bien
+        binding.endDateEditTil.setText(travel.endDate)
     }
 
     private fun initTravelViewModel() {
-        editDeleteTravelViewModel = ViewModelProvider(this).get(EditDeleteTravelViewModel::class.java)
+        activity?.let {
+            editDeleteTravelViewModel =
+                ViewModelProvider(this, EditDeleteTravelViewModelFactory(it)).get(
+                    EditDeleteTravelViewModel::class.java
+                )
+        }
     }
 
-    fun datePicker(view: View){
+    fun datePicker(view: View) {
         binding = FragmentEditTravelBinding.bind(view)
 
         binding.apply {
-            startDateEditTil.setOnClickListener{
+            startDateEditTil.setOnClickListener {
                 val datePickerFragment = DatePickerFragment()
                 val supportFragmentManager = requireActivity().supportFragmentManager
 
                 supportFragmentManager.setFragmentResultListener(
                     "REQUEST_KEY",
-                    viewLifecycleOwner) {
-                        resultKey, bundle -> if (resultKey == "REQUEST_KEY") {
-                    val date = bundle.getString("SELECTED_DATE")
-                    startDateEditTil.text = date
-                }
+                    viewLifecycleOwner
+                ) { resultKey, bundle ->
+                    if (resultKey == "REQUEST_KEY") {
+                        val date = bundle.getString("SELECTED_DATE")
+                        startDateEditTil.text = date
+                    }
                 }
 
                 datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
@@ -142,12 +149,13 @@ class EditTravelFragment : Fragment() {
 
                 supportFragmentManager.setFragmentResultListener(
                     "REQUEST_KEY",
-                    viewLifecycleOwner) {
-                        resultKey, bundle -> if (resultKey == "REQUEST_KEY") {
-                    val date2 = bundle.getString("SELECTED_DATE")
-                    endDateEditTil.text = date2
+                    viewLifecycleOwner
+                ) { resultKey, bundle ->
+                    if (resultKey == "REQUEST_KEY") {
+                        val date2 = bundle.getString("SELECTED_DATE")
+                        endDateEditTil.text = date2
 
-                }
+                    }
                 }
 
                 datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
