@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.adapters.TravelRecyclerAdapter
-import ar.edu.ort.orionviajes.TravelViewModel
+import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import ar.edu.ort.orionviajes.data.TravelX
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
 import ar.edu.ort.orionviajes.listener.OnTravelClickedListener

@@ -1,4 +1,4 @@
-package ar.edu.ort.orionviajes
+package ar.edu.ort.orionviajes.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

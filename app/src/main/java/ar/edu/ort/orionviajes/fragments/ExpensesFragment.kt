@@ -8,14 +8,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ar.edu.ort.orionviajes.ExpenseViewModel
+import ar.edu.ort.orionviajes.viewmodels.ExpenseViewModel
 import ar.edu.ort.orionviajes.adapters.ExpenseRecyclerAdapter
 import ar.edu.ort.orionviajes.databinding.FragmentExpensesBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlin.math.exp
 
 
 class ExpensesFragment : Fragment() {
@@ -48,7 +46,7 @@ class ExpensesFragment : Fragment() {
         }
 
         binding.btnFormExpense.setOnClickListener{
-            val action = ExpensesFragmentDirections.actionExpensesFragmentToCreateExpenseFragment()
+            val action = ExpensesFragmentDirections.actionExpensesFragmentToCreateExpenseFragment(travel)
             view.findNavController().navigate(action)
         }
 
