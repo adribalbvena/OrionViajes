@@ -47,5 +47,13 @@
         <argument
             android:name="travelId"
             app:argType="ar.edu.ort.orionviajes.data.TravelX" />
+        <action
+            android:id="@+id/action_expensesFragment_to_createExpenseFragment"
+            app:destination="@id/createExpenseFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/createExpenseFragment"
+        android:name="ar.edu.ort.orionviajes.fragments.CreateExpenseFragment"
+        android:label="fragment_create_expense"
+        tools:layout="@layout/fragment_create_expense" />
 </navigation>
