@@ -23,8 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class EditTravelFragment : Fragment() {
 
-    private var _binding : FragmentEditTravelBinding? = null
-    private val binding get() =  _binding!!
+    private lateinit var binding : FragmentEditTravelBinding
 
     private lateinit var travelViewModel : TravelViewModel
 
@@ -39,7 +38,7 @@ class EditTravelFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentEditTravelBinding.inflate(inflater, container, false)
+        binding = FragmentEditTravelBinding.inflate(inflater, container, false)
         val view = binding.root
 
         initTravelViewModel()
@@ -69,15 +68,15 @@ class EditTravelFragment : Fragment() {
 
     fun showAlertDialog(travel_id: String) {
         var builder = AlertDialog.Builder(activity)
-        builder.setTitle("Eliminar")
-        builder.setMessage("Estas seguro de que quieres eliminar este viaje?")
-        builder.setPositiveButton("Si", DialogInterface.OnClickListener {dialog, id ->
+        builder.setTitle(R.string.deteleTavelLabel)
+        builder.setMessage(R.string.areYouShureDeleteTravel)
+        builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener {dialog, id ->
             travelViewModel.deleteTravel(travel_id)
-            Snackbar.make(binding.root, "Viaje eliminado con éxito!" , Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, R.string.successDeletedTravel , Snackbar.LENGTH_LONG).show()
             activity?.supportFragmentManager?.popBackStack()
             dialog.cancel()
         })
-        builder.setNegativeButton("No",DialogInterface.OnClickListener { dialog, id ->
+        builder.setNegativeButton(R.string.no,DialogInterface.OnClickListener { dialog, id ->
             dialog.cancel()
         })
         var alert = builder.create()
@@ -87,7 +86,7 @@ class EditTravelFragment : Fragment() {
 
     private fun addUpdateObservable() {
         travelViewModel.updateTravel.observe(viewLifecycleOwner, Observer{
-            Snackbar.make(binding.root, "Viaje actualizado con éxito!" , Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, R.string.successUpdateTravel , Snackbar.LENGTH_LONG).show()
             //Utilizar siempre el findNavController ya que estas con el NavGraph
             findNavController().navigateUp()
 
@@ -120,7 +119,7 @@ class EditTravelFragment : Fragment() {
     }
 
     fun datePicker(view: View){
-        _binding = FragmentEditTravelBinding.bind(view)
+        binding = FragmentEditTravelBinding.bind(view)
 
         binding.apply {
             startDateEditTil.setOnClickListener{

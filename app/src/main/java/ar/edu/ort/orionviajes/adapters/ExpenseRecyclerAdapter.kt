@@ -1,49 +1,33 @@
 package ar.edu.ort.orionviajes.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.data.Expense
-import ar.edu.ort.orionviajes.databinding.ItemExpenseBinding
+import ar.edu.ort.orionviajes.holders.ExpenseViewHolder
 
-class ExpenseRecyclerAdapter() : ListAdapter<Expense, ExpenseRecyclerAdapter.ExpenseViewHolder>(ExpenseDiffutilCallback()) {
+class ExpenseRecyclerAdapter(): RecyclerView.Adapter<ExpenseViewHolder>() {
 
-   // private lateinit var binding: ItemExpenseBinding
+    var expenseList: List<Expense> = emptyList()
 
-    class ExpenseViewHolder(val binding: ItemExpenseBinding) : RecyclerView.ViewHolder(binding.root)
-
-    class ExpenseDiffutilCallback: DiffUtil.ItemCallback<Expense>(){
-        override fun areItemsTheSame(oldItem: Expense, newItem: Expense): Boolean {
-            return oldItem == newItem
-        }
-
-        @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: Expense, newItem: Expense): Boolean {
-            return oldItem === newItem
-        }
-
-    }
+    override fun getItemCount() = expenseList.size
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemExpenseBinding.inflate(inflater, parent, false)
-        return ExpenseViewHolder(binding)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_expense, parent, false)
+        return ExpenseViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.binding.tvExpenseTitle.text = item.title
-        holder.binding.tvAmount.text = item.amount.toString()
-        holder.binding.tvCurrency.text = item.currency
-        holder.binding.categoryExpense.text = item.category
-        holder.binding.payMethodExpense.text = item.paymentMethod
-        holder.binding.tvExpenseDate.text = item.date
+        val expense = expenseList[position]
+        holder.bind(expense)
 
+    }
+
+    fun updateList(expense: List<Expense>) {
+        this.expenseList = expense
+        notifyDataSetChanged();
     }
 
 }
