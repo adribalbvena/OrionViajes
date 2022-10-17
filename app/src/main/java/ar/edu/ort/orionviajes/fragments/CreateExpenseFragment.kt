@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
+import ar.edu.ort.orionviajes.data.CreateExpenseDto
 import ar.edu.ort.orionviajes.data.Expense
 import ar.edu.ort.orionviajes.databinding.FragmentCreateExpenseBinding
 import ar.edu.ort.orionviajes.factories.CreateExpenseViewModelFactory
@@ -81,7 +82,7 @@ class CreateExpenseFragment : Fragment() {
         val date = binding.dateExpenseTil.text.toString()
 
         //NO PONE EL ID Q VIENE EN LA API
-        val expense = Expense("", title, currency, amount.toFloat(), category,paymentMethod,date)
+        val expense = CreateExpenseDto(title, currency, amount.toFloat(), category,paymentMethod,date)
 
         createExpenseViewModel.addExpense(travel_id, expense)
     }

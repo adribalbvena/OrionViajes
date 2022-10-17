@@ -13,6 +13,8 @@
         <entry key="..\:/repos/ORT/OrionViajes/app/src/main/res/layout/fragment_login.xml" value="0.31354166666666666" />
         <entry key="..\:/repos/ORT/OrionViajes/app/src/main/res/layout/fragment_register.xml" value="0.2994791666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/fragment_create_travel.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_expenses.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_my_travels.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_travel.xml" value="0.33" />
       </map>

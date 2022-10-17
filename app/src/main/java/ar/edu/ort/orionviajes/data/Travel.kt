@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-data class TravelX(
+data class Travel(
     @field:SerializedName("id")
     val id: String,
     @field:SerializedName("title")
@@ -39,12 +39,12 @@ data class TravelX(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<TravelX> {
-        override fun createFromParcel(parcel: Parcel): TravelX {
-            return TravelX(parcel)
+    companion object CREATOR : Parcelable.Creator<Travel> {
+        override fun createFromParcel(parcel: Parcel): Travel {
+            return Travel(parcel)
         }
 
-        override fun newArray(size: Int): Array<TravelX?> {
+        override fun newArray(size: Int): Array<Travel?> {
             return arrayOfNulls(size)
         }
     }

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.adapters.TravelRecyclerAdapter
 import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
-import ar.edu.ort.orionviajes.data.TravelX
+import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
 import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
 import ar.edu.ort.orionviajes.listener.OnTravelClickedListener
@@ -106,12 +106,12 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
         }
     }
 
-    override fun onTravelSelected(travel: TravelX) {
+    override fun onTravelSelected(travel: Travel) {
         val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToExpensesFragment(travel)
         findNavController().navigate(action)
     }
 
-    override fun onTravelEditClick(travel: TravelX) {
+    override fun onTravelEditClick(travel: Travel) {
         val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToEditTravelFragment(travel)
         findNavController().navigate(action)
     }

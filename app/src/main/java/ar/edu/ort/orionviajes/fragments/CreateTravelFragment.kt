@@ -10,12 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
-import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
-import ar.edu.ort.orionviajes.data.TravelX
+import ar.edu.ort.orionviajes.data.CreateTravelDto
 import ar.edu.ort.orionviajes.databinding.FragmentCreateTravelBinding
-import ar.edu.ort.orionviajes.factories.CreateExpenseViewModelFactory
 import ar.edu.ort.orionviajes.factories.CreateTravelViewModelFactory
-import ar.edu.ort.orionviajes.viewmodels.CreateExpenseViewModel
 import ar.edu.ort.orionviajes.viewmodels.CreateTravelViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -74,7 +71,7 @@ class CreateTravelFragment : Fragment() {
         val startDate = binding.startDateTil.text.toString()
         val endDate = binding.endDateTil.text.toString()
 
-        val travel = TravelX("", title, budget.toFloat(), startDate, endDate)
+        val travel = CreateTravelDto(title, budget.toFloat(), startDate, endDate)
 
         createTravelViewModel.addTravel(travel)
     }

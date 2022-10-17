@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ar.edu.ort.orionviajes.api.ApiClient
+import ar.edu.ort.orionviajes.data.CreateTravelDto
 import ar.edu.ort.orionviajes.data.SingleTravelResponse
-import ar.edu.ort.orionviajes.data.TravelX
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,7 +20,7 @@ class EditDeleteTravelViewModel(private val context: Context) : ViewModel() {
         deleteTravel = MutableLiveData()
     }
 
-    fun updateTravel(travel_id: String, travel: TravelX) {
+    fun updateTravel(travel_id: String, travel: CreateTravelDto) {
         val apiService = ApiClient.getTravelsApi(context)
         val call = apiService.updateTravel(travel_id, travel)
         call.enqueue(object : Callback<SingleTravelResponse> {

@@ -11,8 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
-import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
-import ar.edu.ort.orionviajes.data.TravelX
+import ar.edu.ort.orionviajes.data.CreateTravelDto
+import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentEditTravelBinding
 import ar.edu.ort.orionviajes.factories.EditDeleteTravelViewModelFactory
 import ar.edu.ort.orionviajes.viewmodels.EditDeleteTravelViewModel
@@ -71,7 +71,7 @@ class EditTravelFragment : Fragment() {
         builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, id ->
             editDeleteTravelViewModel.deleteTravel(travel_id)
             Snackbar.make(binding.root, R.string.successDeletedTravel, Snackbar.LENGTH_LONG).show()
-            activity?.supportFragmentManager?.popBackStack()
+            findNavController().navigateUp()
             dialog.cancel()
         })
         builder.setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, id ->
@@ -100,12 +100,12 @@ class EditTravelFragment : Fragment() {
         val startDate = binding.startDateEditTil.text.toString()
         val endDate = binding.endDateEditTil.text.toString()
 
-        val travel = TravelX(travel_id, title, budget.toFloat(), startDate, endDate)
+        val travel = CreateTravelDto(title, budget.toFloat(), startDate, endDate)
 
         editDeleteTravelViewModel.updateTravel(travel_id, travel)
     }
 
-    fun loadTravel(travel: TravelX) {
+    fun loadTravel(travel: Travel) {
         binding.editTextTitleTravelEdit.setText(travel.title)
         binding.editTextBudgetTravelEdit.setText(travel.budget.toString())
         binding.startDateEditTil.setText(travel.startDate) //esto estaria bueno editarlo en la api para q aparezca el formato bien
