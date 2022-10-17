@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/frame_create_expense"
+android:id="@+id/frame_edit_expense"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".fragments.EditExpenseFragment">
@@ -126,7 +126,7 @@ tools:context=".fragments.EditExpenseFragment">
     tools:layout_editor_absoluteX="1dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/expenseTitle_til"
+        android:id="@+id/expenseTitleEdit_til"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -137,14 +137,14 @@ tools:context=".fragments.EditExpenseFragment">
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_title_expense"
+            android:id="@+id/editText_title_expenseEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/expenseCurrency_til"
+        android:id="@+id/expenseCurrencyEdit_til"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -155,7 +155,7 @@ tools:context=".fragments.EditExpenseFragment">
         tools:layout_editor_absoluteX="16dp">
 
         <AutoCompleteTextView
-            android:id="@+id/autoCompleteTxtView_currency"
+            android:id="@+id/autoCompleteTxtViewEdit_currency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none" />
@@ -163,7 +163,7 @@ tools:context=".fragments.EditExpenseFragment">
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/expenseAmount_til"
+        android:id="@+id/expenseAmountEdit_til"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -173,14 +173,14 @@ tools:context=".fragments.EditExpenseFragment">
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_amount_expense"
+            android:id="@+id/editText_amount_expenseEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/expenseCategory_til"
+        android:id="@+id/expenseCategoryEdit_til"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -191,7 +191,7 @@ tools:context=".fragments.EditExpenseFragment">
         tools:layout_editor_absoluteX="16dp">
 
         <AutoCompleteTextView
-            android:id="@+id/autoCompleteTxtView_category"
+            android:id="@+id/autoCompleteTxtViewEdit_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none" />
@@ -199,7 +199,7 @@ tools:context=".fragments.EditExpenseFragment">
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/expensePaymentMethod_til"
+        android:id="@+id/expensePaymentMethodEdit_til"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -210,7 +210,7 @@ tools:context=".fragments.EditExpenseFragment">
         tools:layout_editor_absoluteX="16dp">
 
         <AutoCompleteTextView
-            android:id="@+id/autoCompleteTxtView_payment_method"
+            android:id="@+id/autoCompleteTxtViewEdit_payment_method"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none" />
@@ -218,7 +218,7 @@ tools:context=".fragments.EditExpenseFragment">
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/dateExpense_til"
+        android:id="@+id/dateExpenseEdit_til"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -231,7 +231,7 @@ tools:context=".fragments.EditExpenseFragment">
 
 
 <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/btnAddExpense"
+    android:id="@+id/btnUpdateExpense"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
@@ -240,6 +240,17 @@ tools:context=".fragments.EditExpenseFragment">
     android:src="@drawable/ic_check"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent" />
+
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/btnDeleteExpense"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:contentDescription="@string/btnCancelItem"
+    android:src="@drawable/ic_cancel"
+    android:layout_margin="16dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

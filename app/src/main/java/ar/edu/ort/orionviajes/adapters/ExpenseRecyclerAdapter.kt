@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.data.Expense
 import ar.edu.ort.orionviajes.holders.ExpenseViewHolder
+import ar.edu.ort.orionviajes.listener.OnExpenseClickedListener
 
-class ExpenseRecyclerAdapter(): RecyclerView.Adapter<ExpenseViewHolder>() {
+class ExpenseRecyclerAdapter(
+    private val onExpenseClickedListener: OnExpenseClickedListener
+): RecyclerView.Adapter<ExpenseViewHolder>() {
 
     var expenseList: List<Expense> = emptyList()
 
@@ -22,6 +25,10 @@ class ExpenseRecyclerAdapter(): RecyclerView.Adapter<ExpenseViewHolder>() {
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
         val expense = expenseList[position]
         holder.bind(expense)
+
+        holder.itemView.setOnClickListener {
+            onExpenseClickedListener.onExpenseSelected(expense)
+        }
 
     }
 
