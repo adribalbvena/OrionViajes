@@ -91,7 +91,7 @@ class CreateExpenseFragment : Fragment() {
         createExpenseViewModel.addExpense.observe(viewLifecycleOwner, Observer {
             //aca falta hacer algun manejo de errores
 
-            Snackbar.make(binding.root, "Gasto creado con éxito!", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, R.string.successCreateExpense, Snackbar.LENGTH_LONG).show()
             findNavController().navigateUp()
         })
     }

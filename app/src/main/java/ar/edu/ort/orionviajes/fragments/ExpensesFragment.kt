@@ -101,7 +101,8 @@ class ExpensesFragment : Fragment(), OnExpenseClickedListener {
     }
 
     override fun onExpenseSelected(expense: Expense) {
-        val action = ExpensesFragmentDirections.actionExpensesFragmentToEditExpenseFragment(expense)
+        val travelId = ExpensesFragmentArgs.fromBundle(requireArguments()).travelId
+        val action = ExpensesFragmentDirections.actionExpensesFragmentToEditExpenseFragment(expense,travelId)
         findNavController().navigate(action)
     }
 

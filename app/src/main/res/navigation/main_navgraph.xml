@@ -65,5 +65,8 @@
         <argument
             android:name="expense"
             app:argType="ar.edu.ort.orionviajes.data.Expense" />
+        <argument
+            android:name="travel"
+            app:argType="ar.edu.ort.orionviajes.data.Travel" />
     </fragment>
 </navigation>

@@ -36,4 +36,10 @@ interface TravelsApi {
 
     @POST("${Constants.TRAVELS_ENDPOINT}/{travel_id}/expenses")
     fun addExpense(@Path("travel_id") travel_id: String, @Body expense: CreateExpenseDto): Call<SingleExpenseResponse>
+
+    @PUT("${Constants.TRAVELS_ENDPOINT}/{travel_id}/expenses/{expense_id}")
+    fun updateExpense(@Path("travel_id") travel_id:String, @Path("expense_id",) expense_id : String, @Body expense: CreateExpenseDto): Call<SingleExpenseResponse>
+
+    @DELETE("${Constants.TRAVELS_ENDPOINT}/{travel_id}/expenses/{expense_id}")
+    fun deleteExpense(@Path("travel_id") travel_id:String, @Path("expense_id",) expense_id : String) : Call<SingleExpenseResponse>
 }

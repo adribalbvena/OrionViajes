@@ -44,7 +44,6 @@ class EditTravelFragment : Fragment() {
         //addDeleteObservable()
 
         val travel = EditTravelFragmentArgs.fromBundle(requireArguments()).travel
-        // Toast.makeText(context, dato.id.toString(), Toast.LENGTH_SHORT).show()
         loadTravel(travel)
 
         binding.btnUpdateTravel.setOnClickListener {
@@ -105,10 +104,10 @@ class EditTravelFragment : Fragment() {
         editDeleteTravelViewModel.updateTravel(travel_id, travel)
     }
 
-    fun loadTravel(travel: Travel) {
+    private fun loadTravel(travel: Travel) {
         binding.editTextTitleTravelEdit.setText(travel.title)
         binding.editTextBudgetTravelEdit.setText(travel.budget.toString())
-        binding.startDateEditTil.setText(travel.startDate) //esto estaria bueno editarlo en la api para q aparezca el formato bien
+        binding.startDateEditTil.setText(travel.startDate)
         binding.endDateEditTil.setText(travel.endDate)
     }
 
