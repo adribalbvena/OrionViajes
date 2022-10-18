@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.R
-import ar.edu.ort.orionviajes.data.TravelX
+import ar.edu.ort.orionviajes.data.Travel
 
 class TravelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -22,7 +22,7 @@ class TravelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         btnEditTravel = itemView.findViewById(R.id.btnEditTravel)
     }
 
-    fun bind(travel: TravelX) {
+    fun bind(travel: Travel) {
         title.text = travel.title
         budget.text = travel.budget.toString()
         startDate.text = travel.startDate

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.adapters.TravelRecyclerAdapter
 import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
-import ar.edu.ort.orionviajes.data.TravelX
+import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
 import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
 import ar.edu.ort.orionviajes.listener.OnTravelClickedListener
@@ -69,16 +69,6 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
         }*/
     }
 
-//    private fun onItemSelected(it: TravelX) {
-//        //Toast.makeText(context, it.id, Toast.LENGTH_SHORT).show()
-//        val travelBundle = Bundle()
-//        travelBundle.putString("data", it.id)
-//        val fragment = CreateTravelFragment()
-//        fragment.arguments = travelBundle
-//        //esto no funciona, da null, tal vez parcelando?
-//        //funciono parcelando asi q esto no tiene sentido
-//
-//    }
 
     fun initTravelsViewModel() {
         activity?.let {
@@ -106,12 +96,12 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
         }
     }
 
-    override fun onTravelSelected(travel: TravelX) {
+    override fun onTravelSelected(travel: Travel) {
         val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToExpensesFragment(travel)
         findNavController().navigate(action)
     }
 
-    override fun onTravelEditClick(travel: TravelX) {
+    override fun onTravelEditClick(travel: Travel) {
         val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToEditTravelFragment(travel)
         findNavController().navigate(action)
     }

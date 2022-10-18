@@ -44,6 +44,13 @@
     <string name="successUpdateTravel">Viaje actualizado con éxito!</string>
     <string name="successCreateTravel">Viaje creado con éxito!</string>
     <string name="errorLoadingTravels">Error al cargar los viajes</string>
+    <string name="successCreateExpense">Gasto creado con éxito!</string>
+    <string name="successUpdateExpense">Gasto actualizado con éxito!</string>
+    <string name="successDeletedExpense">Gasto eliminado con éxito!</string>
+    <string name="areYouShureDeleteExpense">Estas seguro de que quieres eliminar este gasto?</string>
+
+
+
 
 
 

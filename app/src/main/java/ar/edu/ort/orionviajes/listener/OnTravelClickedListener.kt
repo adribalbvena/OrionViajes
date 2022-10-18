@@ -1,8 +1,8 @@
 package ar.edu.ort.orionviajes.listener
 
-import ar.edu.ort.orionviajes.data.TravelX
+import ar.edu.ort.orionviajes.data.Travel
 
 interface OnTravelClickedListener {
-    fun onTravelSelected(travel: TravelX)
-    fun onTravelEditClick(travel: TravelX)
+    fun onTravelSelected(travel: Travel)
+    fun onTravelEditClick(travel: Travel)
 }

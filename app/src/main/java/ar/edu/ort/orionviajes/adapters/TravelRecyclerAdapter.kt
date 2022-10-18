@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.R
-import ar.edu.ort.orionviajes.data.TravelX
+import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.holders.TravelViewHolder
 import ar.edu.ort.orionviajes.listener.OnTravelClickedListener
 
@@ -12,7 +12,7 @@ class TravelRecyclerAdapter(
     private val onTravelClickedListener: OnTravelClickedListener
 ): RecyclerView.Adapter<TravelViewHolder>() {
 
-    var travelList: List<TravelX> = emptyList()
+    var travelList: List<Travel> = emptyList()
 
     override fun getItemCount() = travelList.size
 
@@ -36,7 +36,7 @@ class TravelRecyclerAdapter(
         }
     }
 
-    fun updateList(travels: List<TravelX>){
+    fun updateList(travels: List<Travel>){
         this.travelList = travels
         notifyDataSetChanged();
     }

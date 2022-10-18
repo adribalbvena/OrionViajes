@@ -1,14 +1,10 @@
 package ar.edu.ort.orionviajes.viewmodels
 
 import android.content.Context
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.GetTravelsResponse
-import ar.edu.ort.orionviajes.data.SingleTravelResponse
-import ar.edu.ort.orionviajes.data.TravelX
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

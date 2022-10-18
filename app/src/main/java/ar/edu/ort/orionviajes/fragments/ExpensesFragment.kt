@@ -8,16 +8,19 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.viewmodels.ExpenseViewModel
 import ar.edu.ort.orionviajes.adapters.ExpenseRecyclerAdapter
+import ar.edu.ort.orionviajes.data.Expense
 import ar.edu.ort.orionviajes.databinding.FragmentExpensesBinding
 import ar.edu.ort.orionviajes.factories.ExpenseViewModelFactory
+import ar.edu.ort.orionviajes.listener.OnExpenseClickedListener
 import com.google.android.material.snackbar.Snackbar
 
 
-class ExpensesFragment : Fragment() {
+class ExpensesFragment : Fragment(), OnExpenseClickedListener {
     private lateinit var binding: FragmentExpensesBinding
     //private val binding get() =  _binding!!
 
@@ -66,7 +69,7 @@ class ExpensesFragment : Fragment() {
 
         binding.expensesRecyclerView.setHasFixedSize(true)
         binding.expensesRecyclerView.layoutManager = linearLayoutManager
-        expenseRecyclerAdapter = ExpenseRecyclerAdapter()
+        expenseRecyclerAdapter = ExpenseRecyclerAdapter(this)
         binding.expensesRecyclerView.adapter = expenseRecyclerAdapter
 
 //        binding.expensesRecyclerView.apply {
@@ -96,5 +99,12 @@ class ExpensesFragment : Fragment() {
 
         expenseViewModel.getExpenses(travel_id)
     }
+
+    override fun onExpenseSelected(expense: Expense) {
+        val travelId = ExpensesFragmentArgs.fromBundle(requireArguments()).travelId
+        val action = ExpensesFragmentDirections.actionExpensesFragmentToEditExpenseFragment(expense,travelId)
+        findNavController().navigate(action)
+    }
+
 
 }
