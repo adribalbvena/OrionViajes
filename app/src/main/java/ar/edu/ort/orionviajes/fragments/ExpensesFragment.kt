@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.viewmodels.ExpenseViewModel
 import ar.edu.ort.orionviajes.adapters.ExpenseRecyclerAdapter
 import ar.edu.ort.orionviajes.data.Expense
@@ -26,17 +28,12 @@ import ar.edu.ort.orionviajes.viewmodels.ExpensesListViewModel
 import com.google.android.material.snackbar.Snackbar
 
 
-class ExpensesFragment : Fragment(), OnExpenseClickedListener {
+class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
     private lateinit var binding: FragmentExpensesBinding
-
     private lateinit var expenseRecyclerAdapter: ExpenseRecyclerAdapter
-
     private lateinit var expenseViewModel: ExpenseViewModel
-
     private lateinit var linearLayoutManager: LinearLayoutManager
-
     private var count: Float = 0.0f
-
     private lateinit var expensesList: ExpensesResponse
 
 
@@ -72,41 +69,29 @@ class ExpensesFragment : Fragment(), OnExpenseClickedListener {
             view.findNavController().navigate(action)
         }
 
-        //esto es solo por ahora hasta q ponga el botoncito en el nav
-        binding.button.setOnClickListener{
-            val action = ExpensesFragmentDirections.actionExpensesFragmentToReportsFragment()
-            view.findNavController().navigate(action)
-        }
-
         return view
     }
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity?.addMenuProvider(this, viewLifecycleOwner)
+    }
 
     private fun getExpensesTotal(list : ExpensesResponse, budget: Float): Float {
-        //val list = expenseRecyclerAdapter.expenseList
         var count = 0.0F
-
         for (expense in list) {
             count += expense.amount
-
         }
-
         return (budget - count)
     }
 
-
-
     private fun initExpensesRecyclerView() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-
         binding.expensesRecyclerView.setHasFixedSize(true)
         binding.expensesRecyclerView.layoutManager = linearLayoutManager
         expenseRecyclerAdapter = ExpenseRecyclerAdapter(this)
         binding.expensesRecyclerView.adapter = expenseRecyclerAdapter
-
     }
-
 
     @SuppressLint("SetTextI18n")
     fun initExpenseViewModel(travel: Travel) {
@@ -141,6 +126,19 @@ class ExpensesFragment : Fragment(), OnExpenseClickedListener {
         val travelId = ExpensesFragmentArgs.fromBundle(requireArguments()).travelId
         val action = ExpensesFragmentDirections.actionExpensesFragmentToEditExpenseFragment(expense,travelId)
         findNavController().navigate(action)
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.expenses_menu, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        if(menuItem.itemId == R.id.dashboard){
+            val action = ExpensesFragmentDirections.actionExpensesFragmentToReportsFragment()
+            findNavController().navigate(action)
+            return true
+        }
+        return false
     }
 
 
