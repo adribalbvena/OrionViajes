@@ -172,7 +172,8 @@ tools:context=".fragments.EditExpenseFragment">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_amount_expenseEdit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
