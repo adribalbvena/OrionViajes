@@ -48,11 +48,8 @@
     <string name="successUpdateExpense">Gasto actualizado con éxito!</string>
     <string name="successDeletedExpense">Gasto eliminado con éxito!</string>
     <string name="areYouShureDeleteExpense">Estas seguro de que quieres eliminar este gasto?</string>
-
-
-
-
-
+    <string name="remaining_budget">Presupuesto restante:</string>
+    <string name="spends_label">Gastos</string>
 
 
 </resources>

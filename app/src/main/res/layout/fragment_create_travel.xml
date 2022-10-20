@@ -32,23 +32,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--    <com.google.android.material.textfield.TextInputLayout-->
-        <!--        android:id="@+id/travelCurrency_til"-->
-        <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_margin="16dp"-->
-        <!--        android:hint="@string/currency_label"-->
-        <!--        app:layout_constraintTop_toBottomOf="@+id/travelTitle_til"-->
-        <!--        tools:layout_editor_absoluteX="16dp">-->
-
-        <!--        <AutoCompleteTextView-->
-        <!--            android:id="@+id/autoCompleteTxtView"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:inputType="none" />-->
-
-        <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/travelBudget_til"
@@ -62,7 +45,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText_budget_travel"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
