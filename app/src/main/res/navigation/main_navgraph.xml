@@ -75,6 +75,6 @@
     <fragment
         android:id="@+id/reportsFragment"
         android:name="ar.edu.ort.orionviajes.fragments.ReportsFragment"
-        android:label="fragment_reports"
+        android:label="Reportes"
         tools:layout="@layout/fragment_reports" />
 </navigation>

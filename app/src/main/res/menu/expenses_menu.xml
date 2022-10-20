@@ -2,10 +2,16 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+<!--    <item-->
+<!--        android:id="@+id/myTravelsFragment"-->
+<!--        android:title="@string/myTravels" />-->
+<!--    <item-->
+<!--        android:id="@+id/logout"-->
+<!--        android:title="Salir" />-->
     <item
-        android:id="@+id/myTravelsFragment"
-        android:title="@string/myTravels" />
-    <item
-        android:id="@+id/logout"
-        android:title="Salir" />
+        android:id="@+id/dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/ic_dashboard"
+        app:showAsAction="always"/>
+
 </menu>
