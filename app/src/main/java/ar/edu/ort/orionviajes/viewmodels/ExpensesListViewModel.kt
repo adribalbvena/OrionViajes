@@ -5,13 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ar.edu.ort.orionviajes.data.Expense
+import ar.edu.ort.orionviajes.data.ExpensesResponse
 
 class ExpensesListViewModel(private val context: Context) : ViewModel(){
 
-    private val mutableExpensesList = MutableLiveData<List<Expense>>()
-    val expensesList: LiveData<List<Expense>> get() = mutableExpensesList
-
-    fun expensesList(expenses : List<Expense>) {
-        mutableExpensesList.value = expenses
-    }
+     val mutableExpensesList = MutableLiveData<ArrayList<Expense>>()
+//    val expensesList: LiveData<ExpensesResponse> get() = mutableExpensesList
+//
+//    fun expensesList(expenses : ExpensesResponse) {
+//        mutableExpensesList.value = expenses
+//    }
 }

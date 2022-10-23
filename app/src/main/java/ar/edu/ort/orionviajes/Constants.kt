@@ -6,4 +6,10 @@ object Constants {
     const val USERS_ENDPOINT = "users/"
     const val LOGIN_CONTROLLER = "${USERS_ENDPOINT}login/"
     const val TRAVELS_ENDPOINT = "orion/travels"
+
+
+    val CATEGORIES = listOf<String>("Comida", "Bebida", "Transporte", "Alojamiento", "Entretenimiento", "Otros")
+    val PAYMENT_METHOD = listOf<String>("Efectivo", "Tarjeta")
+    val CURRENCIES = listOf<String>("ARS", "EUR", "USD", "CHF")
+
 }

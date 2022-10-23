@@ -48,8 +48,8 @@
             android:id="@+id/action_expensesFragment_to_editExpenseFragment"
             app:destination="@id/editExpenseFragment" />
         <action
-            android:id="@+id/action_expensesFragment_to_reportsFragment"
-            app:destination="@id/reportsFragment" />
+            android:id="@+id/action_expensesFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/createExpenseFragment"
@@ -73,8 +73,12 @@
             app:argType="ar.edu.ort.orionviajes.data.Travel" />
     </fragment>
     <fragment
-        android:id="@+id/reportsFragment"
-        android:name="ar.edu.ort.orionviajes.fragments.ReportsFragment"
+        android:id="@+id/dashboardFragment"
+        android:name="ar.edu.ort.orionviajes.fragments.DashboardFragment"
         android:label="Reportes"
-        tools:layout="@layout/fragment_reports" />
+        tools:layout="@layout/fragment_dashboard" >
+        <argument
+            android:name="travel"
+            app:argType="ar.edu.ort.orionviajes.data.Travel" />
+    </fragment>
 </navigation>
