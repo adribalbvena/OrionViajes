@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.data.Expense
+import ar.edu.ort.orionviajes.data.ExpensesResponse
 import ar.edu.ort.orionviajes.databinding.FragmentCategoryBinding
 import ar.edu.ort.orionviajes.factories.ExpenseViewModelFactory
 import ar.edu.ort.orionviajes.factories.ExpensesListViewModelFactory
@@ -34,6 +35,7 @@ class CategoryFragment : Fragment() {
     lateinit var pieChart: PieChart
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,6 +50,7 @@ class CategoryFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentCategoryBinding.inflate(inflater,container,false)
         val view = binding.root
+
 
         pieChart = binding.pieChart
 

@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.data.CreateExpenseDto
 import ar.edu.ort.orionviajes.data.Expense
@@ -124,7 +125,7 @@ class EditExpenseFragment : Fragment() {
     }
 
     fun paymentMethodPicker() {
-        val paymentMethod = listOf("Efectivo", "Tarjeta")
+        val paymentMethod = Constants.PAYMENT_METHOD
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, paymentMethod)
         with(binding.autoCompleteTxtViewEditPaymentMethod){
             setAdapter(adapter)
@@ -132,7 +133,7 @@ class EditExpenseFragment : Fragment() {
     }
 
     fun categoryPicker() {
-        val category = listOf("Comida", "Bebida", "Transporte", "Alojamiento")
+        val category = Constants.CATEGORIES
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, category)
         // (textField.editText as? AutoCompleteTextView)?.setAdapter(adapter)
         with(binding.autoCompleteTxtViewEditCategory){
@@ -141,7 +142,7 @@ class EditExpenseFragment : Fragment() {
     }
 
     fun currencyPicker() {
-        val currency = listOf("ARS", "EUR", "USD", "CHF")
+        val currency = Constants.CURRENCIES
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, currency)
         with(binding.autoCompleteTxtViewEditCurrency){
             setAdapter(adapter)

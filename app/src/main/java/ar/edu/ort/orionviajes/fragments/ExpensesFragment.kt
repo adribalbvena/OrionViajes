@@ -26,15 +26,17 @@ import ar.edu.ort.orionviajes.factories.ExpensesListViewModelFactory
 import ar.edu.ort.orionviajes.listener.OnExpenseClickedListener
 import ar.edu.ort.orionviajes.viewmodels.ExpensesListViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlin.math.exp
 
 
 class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
     private lateinit var binding: FragmentExpensesBinding
     private lateinit var expenseRecyclerAdapter: ExpenseRecyclerAdapter
     private lateinit var expenseViewModel: ExpenseViewModel
+   // private lateinit var expensesListViewModel: ExpensesListViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var count: Float = 0.0f
-    private lateinit var expensesList: ExpensesResponse
+    private lateinit var expensesList: ArrayList<Expense>   //ExpensesResponse
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +56,7 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
 
         initExpensesRecyclerView()
         initExpenseViewModel(travel)
+       // initExpensesListViewModel()
 
         val progressBar = binding.progressBarBudget
         progressBar.max = travel.budget.toInt()
@@ -77,7 +80,8 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
         activity?.addMenuProvider(this, viewLifecycleOwner)
     }
 
-    private fun getExpensesTotal(list : ExpensesResponse, budget: Float): Float {
+    //Era expense respone
+    private fun getExpensesTotal(list : ArrayList<Expense>, budget: Float): Float {
         var count = 0.0F
         for (expense in list) {
             count += expense.amount
@@ -92,6 +96,17 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
         expenseRecyclerAdapter = ExpenseRecyclerAdapter(this)
         binding.expensesRecyclerView.adapter = expenseRecyclerAdapter
     }
+
+//    fun initExpensesListViewModel(){
+//        activity?.let {
+//            expensesListViewModel = ViewModelProvider(
+//                this,
+//                ExpensesListViewModelFactory(it)
+//            ).get(ExpensesListViewModel::class.java)
+//        }}
+
+
+
 
     @SuppressLint("SetTextI18n")
     fun initExpenseViewModel(travel: Travel) {
@@ -115,6 +130,7 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
                 binding.progressBarBudget.setProgress(count.toInt())
                 binding.remainingBudgetNumbers.setText("${count}/${travel.budget}")
 
+
             }
         })
 
@@ -133,13 +149,12 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        val travel = ExpensesFragmentArgs.fromBundle(requireArguments()).travelId
         if(menuItem.itemId == R.id.dashboard){
-            val action = ExpensesFragmentDirections.actionExpensesFragmentToReportsFragment()
+            val action = ExpensesFragmentDirections.actionExpensesFragmentToDashboardFragment(travel)
             findNavController().navigate(action)
             return true
         }
         return false
     }
-
-
 }
