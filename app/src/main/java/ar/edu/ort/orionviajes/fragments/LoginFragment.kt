@@ -13,6 +13,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.SessionManager
 import ar.edu.ort.orionviajes.activities.MainActivity
@@ -27,6 +29,7 @@ class LoginFragment : Fragment() {
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var loginButton: Button
+    private lateinit var buttonRegister: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +42,7 @@ class LoginFragment : Fragment() {
         emailInput = view.findViewById(R.id.editText_email_login)
         passwordInput = view.findViewById(R.id.editText_password_login)
         loginButton = view.findViewById(R.id.button_login)
+        buttonRegister = view.findViewById(R.id.buttonRegister)
 
         return view;
     }
@@ -48,6 +52,11 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
             onLoginPressed()
+        }
+
+        buttonRegister.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment2()
+            findNavController().navigate(action)
         }
     }
 

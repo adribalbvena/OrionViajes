@@ -26,7 +26,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Contraseña</string>
-    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in">Registrarme</string>
     <string name="action_login">Ingresar</string>
     <string name="invalid_username">Nombre de usuario inválido</string>
     <string name="invalid_password">La contraseña debe tener al menos 5 caractere</string>
