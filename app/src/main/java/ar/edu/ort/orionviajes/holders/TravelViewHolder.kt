@@ -9,14 +9,12 @@ import ar.edu.ort.orionviajes.data.Travel
 class TravelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val title: TextView
-    private val budget: TextView
     private val startDate: TextView
     private val endDate: TextView
     private val btnEditTravel: TextView
 
     init {
         title = itemView.findViewById(R.id.tvTravelTitle)
-        budget = itemView.findViewById(R.id.tvTravelBudget)
         startDate = itemView.findViewById(R.id.tvTravelStartDate)
         endDate = itemView.findViewById(R.id.tvTravelEndDate)
         btnEditTravel = itemView.findViewById(R.id.btnEditTravel)
@@ -24,7 +22,6 @@ class TravelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(travel: Travel) {
         title.text = travel.title
-        budget.text = travel.budget.toString()
         startDate.text = travel.startDate
         endDate.text = travel.endDate
     }

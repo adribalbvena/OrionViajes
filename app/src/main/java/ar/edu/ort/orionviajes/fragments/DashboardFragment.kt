@@ -1,10 +1,8 @@
 package ar.edu.ort.orionviajes.fragments
 
 import android.graphics.Color
-import android.graphics.DashPathEffect
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,21 +15,15 @@ import ar.edu.ort.orionviajes.data.Expense
 import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentDashboardBinding
 import ar.edu.ort.orionviajes.factories.ExpenseViewModelFactory
-import ar.edu.ort.orionviajes.factories.ExpensesListViewModelFactory
 import ar.edu.ort.orionviajes.viewmodels.ExpenseViewModel
-import ar.edu.ort.orionviajes.viewmodels.ExpensesListViewModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.LegendEntry
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.MPPointF
-import kotlin.math.exp
 
 class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding

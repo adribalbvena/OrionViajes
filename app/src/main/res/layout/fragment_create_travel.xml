@@ -14,6 +14,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_horizontal"
         tools:layout_editor_absoluteX="1dp">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -54,34 +55,51 @@
             android:id="@+id/startDate_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="start"
+            android:drawableStart="@drawable/ic_date2"
+            android:drawablePadding="5dp"
             android:hint="@string/startDate_label"
-            android:textSize="21sp"
+            android:textSize="16sp"
             tools:layout_editor_absoluteX="28dp" />
 
         <TextView
             android:id="@+id/endDate_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="start"
+            android:drawableStart="@drawable/ic_date2"
+            android:drawablePadding="5dp"
             android:hint="@string/endDate_label"
-            android:textSize="21sp"
+            android:textSize="16sp"
+
             tools:layout_editor_absoluteX="16dp" />
+
+        <Button
+            android:id="@+id/btnAddTravel"
+            android:layout_gravity="right"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add" />
 
 
     </LinearLayout>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddTravel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:contentDescription="@string/btnAddItem"
-        android:src="@drawable/ic_check"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/btnAddTravel"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:clickable="true"-->
+<!--        android:contentDescription="@string/btnAddItem"-->
+<!--        android:src="@drawable/ic_check"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

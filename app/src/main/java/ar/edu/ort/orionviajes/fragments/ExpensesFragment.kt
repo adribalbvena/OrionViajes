@@ -2,14 +2,11 @@ package ar.edu.ort.orionviajes.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.ProgressBar
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,15 +15,11 @@ import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.viewmodels.ExpenseViewModel
 import ar.edu.ort.orionviajes.adapters.ExpenseRecyclerAdapter
 import ar.edu.ort.orionviajes.data.Expense
-import ar.edu.ort.orionviajes.data.ExpensesResponse
 import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentExpensesBinding
 import ar.edu.ort.orionviajes.factories.ExpenseViewModelFactory
-import ar.edu.ort.orionviajes.factories.ExpensesListViewModelFactory
 import ar.edu.ort.orionviajes.listener.OnExpenseClickedListener
-import ar.edu.ort.orionviajes.viewmodels.ExpensesListViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlin.math.exp
 
 
 class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
