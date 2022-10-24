@@ -20,7 +20,8 @@
             android:src="@drawable/ic_baseline_arrow_right_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnEditTravel"
+
+            app:layout_constraintStart_toEndOf="@+id/tvTravelEndDate"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -28,11 +29,10 @@
             android:id="@+id/btnEditTravel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
             android:padding="6dp"
             android:text="@string/tvEditTravel"
-            app:layout_constraintBottom_toTopOf="@+id/tvTravelEndDate"
-            app:layout_constraintStart_toEndOf="@+id/tvTravelBudget" />
+            app:layout_constraintStart_toEndOf="@+id/ivTravel"
+            app:layout_constraintTop_toBottomOf="@+id/tvTravelStartDate" />
 
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:padding="6dp"
             app:layout_constraintStart_toEndOf="@+id/tvTo"
-            app:layout_constraintTop_toBottomOf="@+id/tvTravelBudget"
+            app:layout_constraintTop_toBottomOf="@+id/tvTravelTitle"
             tools:text="2022-10-10" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             app:layout_constraintStart_toEndOf="@+id/tvTravelStartDate"
-            app:layout_constraintTop_toBottomOf="@+id/tvTravelBudget"
+            app:layout_constraintTop_toBottomOf="@+id/tvTravelTitle"
             tools:text="@string/tvTo" />
 
         <TextView
@@ -60,24 +60,24 @@
             android:layout_height="wrap_content"
             android:padding="6dp"
             app:layout_constraintStart_toEndOf="@+id/ivTravel"
-            app:layout_constraintTop_toBottomOf="@+id/tvTravelBudget"
+            app:layout_constraintTop_toBottomOf="@+id/tvTravelTitle"
             tools:text="2022-09-29" />
 
-        <TextView
-            android:id="@+id/tvTravelBudget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="6dp"
-            app:layout_constraintStart_toEndOf="@+id/ivTravel"
-            app:layout_constraintTop_toBottomOf="@+id/tvTravelTitle"
-            tools:text="3000" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvTravelBudget"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:padding="6dp"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/ivTravel"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tvTravelTitle"-->
+        <!--            tools:text="3000" />-->
 
         <TextView
             android:id="@+id/tvTravelTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="21dp"
             android:padding="6dp"
+            android:textSize="21dp"
             app:layout_constraintStart_toEndOf="@+id/ivTravel"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="TITLE" />

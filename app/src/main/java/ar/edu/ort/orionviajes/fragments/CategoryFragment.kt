@@ -3,22 +3,12 @@ package ar.edu.ort.orionviajes.fragments
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import ar.edu.ort.orionviajes.R
-import ar.edu.ort.orionviajes.data.Expense
-import ar.edu.ort.orionviajes.data.ExpensesResponse
 import ar.edu.ort.orionviajes.databinding.FragmentCategoryBinding
-import ar.edu.ort.orionviajes.factories.ExpenseViewModelFactory
-import ar.edu.ort.orionviajes.factories.ExpensesListViewModelFactory
-import ar.edu.ort.orionviajes.viewmodels.ExpenseViewModel
-import ar.edu.ort.orionviajes.viewmodels.ExpensesListViewModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -26,7 +16,6 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.MPPointF
-import com.google.android.material.snackbar.Snackbar
 
 
 class CategoryFragment : Fragment() {

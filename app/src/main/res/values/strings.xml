@@ -5,8 +5,11 @@
     <string name="travel_label">Título Del Viaje</string>
     <string name="budget_label">Presupuesto</string>
     <string name="currency_label">Moneda</string>
-    <string name="startDate_label">Fecha De Inicio</string>
-    <string name="endDate_label">Fecha De Fin</string>
+    <string name="startDatetv">Fecha De Inicio:</string>
+    <string name="endDatetv">Fecha De Fin:</string>
+
+    <string name="startDate_label">Seleccionar fecha de inicio</string>
+    <string name="endDate_label">Seleccionar fecha de fin</string>
     <string name="bntAdd">+</string>
     <string name="travel_empty_label">Todavía no tenés viajes creados.</string>
     <string name="btnAddItem">Agregar</string>
@@ -22,11 +25,11 @@
     <string name="splash_placeholder_text">ORION Travel</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Sign in</string>
-    <string name="action_login">Login</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="action_login">Ingresar</string>
+    <string name="invalid_username">Nombre de usuario inválido</string>
+    <string name="invalid_password">La contraseña debe tener al menos 5 caractere</string>
     <string name="login_failed">"Login failed"</string>
     <string name="shared_preferences_key">"ar.edu.ort.orionviajes_shared_preferences"</string>
     <string name="shared_preferences_token_key">"TOKEN"</string>
@@ -35,7 +38,7 @@
     <string name="category_label">Categoría</string>
     <string name="paymentMethod_label">Método De Pago</string>
     <string name="amount_label">Monto</string>
-    <string name="date_label">Fecha</string>
+    <string name="date_label">Seleccionar Fecha</string>
     <string name="deteleTavelLabel">Eliminar</string>
     <string name="areYouShureDeleteTravel">Estas seguro de que quieres eliminar este viaje?</string>
     <string name="yes">Si</string>
@@ -57,6 +60,14 @@
     <string name="alojamiento">Alojamiento</string>
     <string name="entretenimiento">Entretenimiento</string>
     <string name="otros">Otros</string>
+    <string name="create_expense_label">Agregar Gasto</string>
+    <string name="edit_expense_label">Editar Gasto</string>
+    <string name="dashboard_label">Reportes</string>
+    <string name="add">Crear</string>
+    <string name="delete">Eliminar</string>
+    <string name="update">Guardar</string>
+
+
 
 
 
