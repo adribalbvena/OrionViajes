@@ -7,46 +7,100 @@
     android:layout_height="match_parent"
     tools:context=".fragments.RegisterFragment" >
 
-    <EditText
-        android:id="@+id/editText_password_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints="password"
-        android:ems="10"
-        android:hint="@string/prompt_password"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:textColorHint="#757575"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
 
-    <EditText
-        android:id="@+id/editText_email_register"
+    <TextView
+        android:id="@+id/textViewRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:autofillHints="email"
-        android:ems="10"
-        android:hint="@string/prompt_email"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_weight="1"
+        android:layout_marginTop="30dp"
+        android:text="Para registrarte, ingresá tus datos:"
+        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/registerEmail_til"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:hint="@string/prompt_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewRegister">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_email_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/registerPassword_til"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="16dp"
+        android:hint="@string/prompt_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registerEmail_til">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_password_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+<!--    <EditText-->
+<!--        android:id="@+id/editText_password_register"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:autofillHints="password"-->
+<!--        android:ems="10"-->
+<!--        android:hint="@string/prompt_password"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:minHeight="48dp"-->
+<!--        android:textColorHint="#757575"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.4" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/editText_email_register"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:autofillHints="email"-->
+<!--        android:ems="10"-->
+<!--        android:hint="@string/prompt_email"-->
+<!--        android:inputType="textEmailAddress"-->
+<!--        android:minHeight="48dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.3" />-->
 
     <Button
         android:id="@+id/button_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/action_sign_in"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/registerPassword_til" />
 </androidx.constraintlayout.widget.ConstraintLayout>
