@@ -66,12 +66,7 @@
     <string name="add">Crear</string>
     <string name="delete">Eliminar</string>
     <string name="update">Guardar</string>
-
-
-
-
-
-
+    <string name="scan_expense">Ecanear Gasto</string>
 
 
 </resources>

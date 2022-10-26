@@ -2,6 +2,7 @@ package ar.edu.ort.orionviajes
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 class SessionManager(context: Context) {
     private var prefs: SharedPreferences =
@@ -26,4 +27,13 @@ class SessionManager(context: Context) {
     fun fetchAuthToken(): String? {
         return prefs.getString(USER_TOKEN, null)
     }
+
+    /**
+     * Function to delete auth token
+     */
+    fun deleteAuthToken() {
+       val editor = prefs.edit()
+       editor.clear()
+       }
+
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.interceptors.AuthInterceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

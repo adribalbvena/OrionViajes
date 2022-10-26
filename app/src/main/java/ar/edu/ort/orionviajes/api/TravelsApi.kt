@@ -3,6 +3,7 @@ package ar.edu.ort.orionviajes.api
 import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.data.*
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface TravelsApi {

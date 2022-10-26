@@ -18,10 +18,10 @@
             android:id="@+id/btnArrowExpense"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_baseline_arrow_right_24"
             app:layout_constraintBottom_toTopOf="@+id/payMethodExpense"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvExpenseDate"
             app:layout_constraintTop_toBottomOf="@+id/tvAmount" />
 
         <com.google.android.material.chip.Chip
@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            app:chipBackgroundColor="@color/light_yellow"
             app:layout_constraintStart_toEndOf="@+id/categoryExpense"
             app:layout_constraintTop_toBottomOf="@+id/tvExpenseDate"
             tools:text="Metodo De Pago" />
@@ -38,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
+            app:chipBackgroundColor="@color/light_yellow"
             app:layout_constraintStart_toEndOf="@+id/ivExpense"
             app:layout_constraintTop_toBottomOf="@+id/tvExpenseDate"
             tools:text="Categoria" />
@@ -67,9 +69,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="6dp"
+            android:layout_marginEnd="16dp"
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvExpenseTitle"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="IMPORTE" />
 
@@ -87,7 +89,7 @@
             android:id="@+id/ivExpense"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_bill"
+            android:src="@drawable/ic_expense"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

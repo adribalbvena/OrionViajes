@@ -12,9 +12,13 @@
     //Paleta
     <color name="teal_tree">#025951</color>
     <color name="ocean_depths">#006175</color>
+    <color name="ocean_depths_variant">#005566</color>
     <color name="orange_expense">#D95032</color>
     <color name="harvest_gold">#DA9100</color>
     <color name="brown">#8C4B26</color>
-    <color name="beige">#BFAB93</color>
+    <color name="beige">#BDA88F</color>
+    <color name="medium_beige">#E3DACF</color>
+    <color name="light_beige">#F6F3EF</color>
+    <color name="light_yellow">#FFEABB</color>
 
 </resources>

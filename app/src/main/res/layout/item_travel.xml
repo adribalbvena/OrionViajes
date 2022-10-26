@@ -17,11 +17,10 @@
             android:id="@+id/btnArrowTravel"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_baseline_arrow_right_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintStart_toEndOf="@+id/tvTravelEndDate"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -86,7 +85,7 @@
             android:id="@+id/ivTravel"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_airticket"
+            android:src="@drawable/ic_travel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
