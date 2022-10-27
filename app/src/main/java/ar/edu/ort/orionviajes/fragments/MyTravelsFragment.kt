@@ -20,7 +20,6 @@ import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
 import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
-import ar.edu.ort.orionviajes.handleApiError
 import ar.edu.ort.orionviajes.listener.OnTravelClickedListener
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call

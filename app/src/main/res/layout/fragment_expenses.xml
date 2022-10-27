@@ -37,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/remaining_budget"
+                android:textStyle="bold"
                 android:textSize="16sp"
                 android:paddingBottom="16dp"
                 />
@@ -46,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:paddingStart="8dp"
                 android:paddingBottom="16dp"
                 tools:text="300/3000" />

@@ -84,7 +84,13 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
         for (expense in list) {
             count += expense.amount
         }
-        return (budget - count)
+        val total = (budget - count)
+
+        if(total < 0.0F){
+            binding.remainingBudgetNumbers.setTextColor(getResources().getColor(R.color.orange_expense))
+        }
+
+        return total
     }
 
     private fun initExpensesRecyclerView() {

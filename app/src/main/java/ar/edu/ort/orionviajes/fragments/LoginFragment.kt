@@ -20,7 +20,6 @@ import ar.edu.ort.orionviajes.SessionManager
 import ar.edu.ort.orionviajes.activities.MainActivity
 import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.UserDto
-import ar.edu.ort.orionviajes.snackbar
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
