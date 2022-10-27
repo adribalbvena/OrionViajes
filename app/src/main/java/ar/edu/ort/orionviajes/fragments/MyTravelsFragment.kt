@@ -1,6 +1,7 @@
 package ar.edu.ort.orionviajes.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.edu.ort.orionviajes.R
+import ar.edu.ort.orionviajes.SessionManager
 import ar.edu.ort.orionviajes.adapters.TravelRecyclerAdapter
+import ar.edu.ort.orionviajes.api.ApiClient
+import ar.edu.ort.orionviajes.data.GetTravelsResponse
 import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
 import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
 import ar.edu.ort.orionviajes.listener.OnTravelClickedListener
 import com.google.android.material.snackbar.Snackbar
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MyTravelsFragment : Fragment(), OnTravelClickedListener {
@@ -43,6 +50,7 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
 
 
         initTravelsRecyclerView()
+        //getTravels()
         initTravelsViewModel()
 
         return view
@@ -53,21 +61,45 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
     private fun initTravelsRecyclerView() {
         linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        //travelViewModel.getTravels()
-
         binding.travelsRecyclerView.setHasFixedSize(true)
         binding.travelsRecyclerView.layoutManager = linearLayoutManager
         travelRecyclerAdapter = TravelRecyclerAdapter(this)
         binding.travelsRecyclerView.adapter = travelRecyclerAdapter
 
-        /*binding.travelsRecyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = linearLayoutManager
-            travelViewModel.getTravels()
-            travelRecyclerAdapter = TravelRecyclerAdapter(this)
-            adapter = travelRecyclerAdapter
-        }*/
     }
+
+//    fun getTravels() {
+//        val apiService = ApiClient.getTravelsApi(requireContext())
+//        val call = apiService.getTravels()
+//        call.enqueue(object : Callback<GetTravelsResponse> {
+//            override fun onResponse(
+//                call: Call<GetTravelsResponse>,
+//                response: Response<GetTravelsResponse>
+//            ) {
+//                if (response.isSuccessful) {
+//                   // val travelList = response.body()
+//                    travelRecyclerAdapter.updateList(response.body()!!)
+//
+//                } else {
+//                    //aca voy a hacer en todos if response.code == 401
+//                    // if this is login fragment credenciales invalidas y sino, logout
+//                    //if response.errorBody, algo salio mal
+//                    if(response.code() == 401){
+//                        //logout
+//                        activity?.let {
+//                            SessionManager(it).deleteAuthToken()
+//                        }
+//                    }
+//
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<GetTravelsResponse>, t: Throwable) {
+//                Snackbar.make(requireView(), "Ups! Algo salió mal", Snackbar.LENGTH_LONG).show()
+//            }
+//
+//        })
+//    }
 
 
     fun initTravelsViewModel() {
@@ -82,6 +114,7 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
             } else {
                 travelRecyclerAdapter.updateList(it)
             }
+
         })
 
         travelViewModel.getTravels()

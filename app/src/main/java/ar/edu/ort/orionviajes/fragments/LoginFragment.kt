@@ -20,6 +20,7 @@ import ar.edu.ort.orionviajes.SessionManager
 import ar.edu.ort.orionviajes.activities.MainActivity
 import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.UserDto
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -99,12 +100,16 @@ class LoginFragment : Fragment() {
             //setFragmentResult("login", bundleOf("bundleKey" to "asd"))
         } else {
             //TODO: show warning to user
+            if (response.code() == 401) {
+                Snackbar.make(requireView(), "Credenciales invalidas", Snackbar.LENGTH_LONG).show()
+            }
             Log.e(TAG, response.body().toString())
         }
     }
 
     private fun onLoginFailure(t: Throwable) {
         //TODO: show warning to user
+        Snackbar.make(requireView(), "Ups! Algo salió mal", Snackbar.LENGTH_LONG).show()
         Log.e(TAG, t.toString())
     }
 

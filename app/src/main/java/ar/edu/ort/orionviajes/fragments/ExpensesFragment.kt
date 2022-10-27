@@ -65,6 +65,11 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
             view.findNavController().navigate(action)
         }
 
+        binding.btnScanExpense.setOnClickListener{
+            val action = ExpensesFragmentDirections.actionExpensesFragmentToScanFragment()
+            view.findNavController().navigate(action)
+        }
+
         return view
     }
 
@@ -79,7 +84,13 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
         for (expense in list) {
             count += expense.amount
         }
-        return (budget - count)
+        val total = (budget - count)
+
+        if(total < 0.0F){
+            binding.remainingBudgetNumbers.setTextColor(getResources().getColor(R.color.orange_expense))
+        }
+
+        return total
     }
 
     private fun initExpensesRecyclerView() {
