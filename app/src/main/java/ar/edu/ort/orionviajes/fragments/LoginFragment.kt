@@ -78,7 +78,7 @@ class LoginFragment : Fragment() {
     private fun validEmail(): String? {
         val emailText = emailInput.text.toString()
         if(!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()){
-            return R.string.invalidEmail.toString()
+            return "Dirección de email inválida"
         }
         return null
     }

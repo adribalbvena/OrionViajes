@@ -70,39 +70,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-<!--    <EditText-->
-<!--        android:id="@+id/editText_password_login"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:autofillHints="password"-->
-<!--        android:ems="10"-->
-<!--        android:hint="@string/prompt_password"-->
-<!--        android:inputType="textPassword"-->
-<!--        android:minHeight="48dp"-->
-<!--        android:textColorHint="#757575"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.4" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/editText_email_login"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:autofillHints="email"-->
-<!--        android:ems="10"-->
-<!--        android:hint="@string/prompt_email"-->
-<!--        android:inputType="textEmailAddress"-->
-<!--        android:minHeight="48dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.3" />-->
-
     <Button
         android:id="@+id/button_login"
         android:layout_width="wrap_content"
@@ -113,16 +80,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginPassword_til" />
 
-    <TextView
-        android:id="@+id/textViewO"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="o"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_login" />
 
     <Button
         android:id="@+id/buttonRegister"
@@ -132,7 +89,7 @@
         android:text="Registrarme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewO"
+        app:layout_constraintTop_toBottomOf="@+id/button_login"
         style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
     <ImageView
