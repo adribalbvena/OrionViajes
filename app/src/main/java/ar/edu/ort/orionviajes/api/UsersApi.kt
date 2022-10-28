@@ -9,4 +9,8 @@ interface UsersApi {
     @POST(Constants.LOGIN_CONTROLLER)
     @Headers("Accept:application/json", "Content-Type:application/json")
     fun login(@Body user: UserDto): Call<String>
+
+    @POST(Constants.REGISTER_CONTROLLER)
+    @Headers("Accept:application/json", "Content-Type:application/json")
+    fun register(@Body user: UserDto): Call<Unit>
 }
