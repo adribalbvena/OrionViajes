@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import ar.edu.ort.orionviajes.activities.MainActivity
 import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.UserDto
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +30,7 @@ import retrofit2.Response
 
 class LoginFragment : Fragment() {
     private lateinit var emailInput: EditText
+    private lateinit var emailContainter: TextInputLayout
     private lateinit var passwordInput: EditText
     private lateinit var loginButton: Button
     private lateinit var buttonRegister: Button
@@ -41,9 +44,12 @@ class LoginFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_login, container, false);
 
         emailInput = view.findViewById(R.id.editText_email_login)
+        emailContainter = view.findViewById(R.id.loginEmail_til)
         passwordInput = view.findViewById(R.id.editText_password_login)
         loginButton = view.findViewById(R.id.button_login)
         buttonRegister = view.findViewById(R.id.buttonRegister)
+
+        emailFocusListener()
 
         return view;
     }
@@ -59,6 +65,22 @@ class LoginFragment : Fragment() {
             val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment2()
             findNavController().navigate(action)
         }
+    }
+
+    private fun emailFocusListener(){
+        emailInput.setOnFocusChangeListener { _, focused ->
+            if(!focused) {
+                emailContainter.helperText = validEmail()
+            }
+        }
+    }
+
+    private fun validEmail(): String? {
+        val emailText = emailInput.text.toString()
+        if(!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()){
+            return R.string.invalidEmail.toString()
+        }
+        return null
     }
 
     private fun onLoginPressed() {
@@ -85,7 +107,7 @@ class LoginFragment : Fragment() {
 
     private fun validateInputs(): Boolean {
         if (TextUtils.isEmpty(emailInput.text.toString()) || TextUtils.isEmpty(passwordInput.text.toString())) {
-            //TODO: show warning to user
+            Snackbar.make(requireView(), R.string.emptyEmailandPass, Snackbar.LENGTH_LONG).show()
             return false
         }
 
@@ -99,17 +121,15 @@ class LoginFragment : Fragment() {
             this.activity?.finish()
             //setFragmentResult("login", bundleOf("bundleKey" to "asd"))
         } else {
-            //TODO: show warning to user
             if (response.code() == 401) {
-                Snackbar.make(requireView(), "Credenciales invalidas", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(requireView(), R.string.invalidCredentials, Snackbar.LENGTH_LONG).show()
             }
             Log.e(TAG, response.body().toString())
         }
     }
 
     private fun onLoginFailure(t: Throwable) {
-        //TODO: show warning to user
-        Snackbar.make(requireView(), "Ups! Algo salió mal", Snackbar.LENGTH_LONG).show()
+        Snackbar.make(requireView(), R.string.somethingWentWrong, Snackbar.LENGTH_LONG).show()
         Log.e(TAG, t.toString())
     }
 

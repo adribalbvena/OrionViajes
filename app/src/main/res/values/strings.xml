@@ -67,6 +67,11 @@
     <string name="delete">Eliminar</string>
     <string name="update">Guardar</string>
     <string name="scan_expense">Ecanear Gasto</string>
+    <string name="required">Requerido</string>
+    <string name="invalidCredentials">\"Credenciales inválidas\"</string>
+    <string name="somethingWentWrong">Ups!... Algo salió mal</string>
+    <string name="emptyEmailandPass">Los campos Email y Constraseña no pueden estar vacíos!</string>
+    <string name="invalidEmail">Dirección de Email inválida</string>
 
 
 </resources>
