@@ -13,6 +13,7 @@ class SessionManager(context: Context) {
         const val USER_TOKEN = "user_token"
     }
 
+
     /**
      * Function to save auth token
      */

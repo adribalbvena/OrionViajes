@@ -1,18 +1,18 @@
 package ar.edu.ort.orionviajes.fragments
 
 import android.Manifest
+import android.content.ContentValues
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.camera.core.AspectRatio
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
@@ -21,13 +21,17 @@ import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.TextReaderAnalyzer
 import ar.edu.ort.orionviajes.databinding.FragmentScanBinding
+import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class ScanFragment : Fragment() {
 
     private lateinit var binding: FragmentScanBinding
+    private var imageCapture: ImageCapture? = null
     private val cameraExecutor: ExecutorService by lazy { Executors.newSingleThreadExecutor() }
     private lateinit var viewFinder: PreviewView
 
@@ -48,7 +52,7 @@ class ScanFragment : Fragment() {
         // Inflate the layout for this fragment
         binding= FragmentScanBinding.inflate(inflater, container, false)
 
-
+        binding.capturePhoto.setOnClickListener{ takePhoto()}
 
         return binding.root
     }
@@ -60,7 +64,11 @@ class ScanFragment : Fragment() {
                 val preview = Preview.Builder()
                     .build()
                     .also { it.setSurfaceProvider(binding.cameraPreviewView.surfaceProvider) }
-                cameraProviderFuture.get().bind(preview, imageAnalyzer)
+
+                imageCapture = ImageCapture.Builder()
+                    .build()
+
+                cameraProviderFuture.get().bind(preview, imageCapture!!, imageAnalyzer)
             },
             ContextCompat.getMainExecutor(requireContext())
         )
@@ -68,6 +76,7 @@ class ScanFragment : Fragment() {
 
     private fun ProcessCameraProvider.bind(
         preview: Preview,
+        imageCapture: ImageCapture,
         imageAnalyzer: ImageAnalysis
     ) = try {
         unbindAll()
@@ -75,11 +84,38 @@ class ScanFragment : Fragment() {
             this@ScanFragment,
             CameraSelector.DEFAULT_BACK_CAMERA,
             preview,
+            imageCapture,
             imageAnalyzer
         )
     } catch (ise: IllegalStateException) {
-        Log.e(TAG.name, "Binding fallido", ise)
+        Log.e(TAG, "Binding fallido", ise)
     }
+
+    private fun takePhoto() {
+        // Get a stable reference of the modifiable image capture use case
+        val imageCapture = imageCapture ?: return
+
+
+        // Set up image capture listener, which is triggered after photo has
+        // been taken
+        imageCapture.takePicture(
+            ContextCompat.getMainExecutor(requireContext()), object: ImageCapture.OnImageCapturedCallback() {
+                override fun onCaptureSuccess(image: ImageProxy) {
+                    //usar la imagen, mostrarla en un imageview o algo
+                    Toast.makeText(requireContext(), "Imagen capturada con éxito!", Toast.LENGTH_SHORT).show()
+                    image.close()
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    val errorType = exception.imageCaptureError
+                    Log.d("IMAGE CAPTURE ERORR:", errorType.toString())
+                    Toast.makeText(requireContext(), "Error al capturar la imagen.", Toast.LENGTH_SHORT).show()
+
+                }
+
+            })
+    }
+
 
     @androidx.camera.core.ExperimentalGetImage
     private val imageAnalyzer by lazy {
@@ -95,7 +131,7 @@ class ScanFragment : Fragment() {
     }
 
     private fun onTextFound(foundText: String){
-        Log.d(TAG.name, "Tenemos este texto: $foundText")
+        Log.d(TAG, "TENEMOS ESTE TEXTO: $foundText")
     }
 
     override fun onRequestPermissionsResult(
@@ -133,7 +169,8 @@ class ScanFragment : Fragment() {
     }
 
     private companion object {
-        val TAG = ScanFragment::class.java
+        val TAG = ScanFragment::class.java.toString()
+        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         const val REQUEST_CODE_PERMISSIONS = 10
         val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
     }

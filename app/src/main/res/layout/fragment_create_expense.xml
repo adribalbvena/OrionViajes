@@ -141,7 +141,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText_title_expense"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:maxLength="16"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -238,17 +239,6 @@
 
         </LinearLayout>
 
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/btnAddExpense"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:clickable="true"-->
-<!--        android:contentDescription="@string/btnAddItem"-->
-<!--        android:src="@drawable/ic_check"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
 
 <!--</androidx.constraintlayout.widget.ConstraintLayout>-->

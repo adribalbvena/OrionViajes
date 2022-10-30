@@ -10,7 +10,7 @@ object Constants {
 
 
     val CATEGORIES = listOf<String>("Comida", "Bebida", "Transporte", "Alojamiento", "Entretenimiento", "Otros")
-    val PAYMENT_METHOD = listOf<String>("Efectivo", "Tarjeta")
+    val PAYMENT_METHOD = listOf<String>("Tarjeta", "Efectivo")
     val CURRENCIES = listOf<String>("ARS", "EUR", "USD", "CHF")
 
 }

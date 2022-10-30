@@ -2,10 +2,9 @@ package ar.edu.ort.orionviajes.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.MenuProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -27,7 +26,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MyTravelsFragment : Fragment(), OnTravelClickedListener {
+class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
     companion object {
         fun newInstance() = MyTravelsFragment()
     }
@@ -137,6 +136,22 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
     override fun onTravelEditClick(travel: Travel) {
         val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToEditTravelFragment(travel)
         findNavController().navigate(action)
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.drawer_menu, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        if(menuItem.itemId == R.id.logout) {
+//            activity?.let {
+//                SessionManager(it).deleteAuthToken()
+//                findNavController().navigateUp()
+//            }
+            return true
+        } else {
+            return false
+        }
     }
 
 
