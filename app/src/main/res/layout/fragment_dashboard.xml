@@ -62,7 +62,7 @@
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barChartPaymentMethod"
                     android:layout_width="300dp"
-                    android:layout_height="300dp"
+                    android:layout_height="410dp"
                     android:layout_gravity="bottom" />
 
             </androidx.cardview.widget.CardView>

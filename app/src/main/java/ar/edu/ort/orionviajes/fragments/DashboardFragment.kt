@@ -157,6 +157,7 @@ class DashboardFragment : Fragment() {
         barChart.legend.isEnabled = false
         barChart.description.isEnabled = false
         barChart.setDrawValueAboveBar(false)
+        barChart.data.setValueTextSize(12f)
 
         //Valores X configuraciones
         val xaxis = barChart.xAxis
