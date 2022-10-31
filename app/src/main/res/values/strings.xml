@@ -80,6 +80,7 @@
     <string name="takePicture">Capturar</string>
     <string name="spendPaymentMethod">Gastos por Método de Pago</string>
     <string name="profile">Mi Perfil</string>
+    <string name="recognizeText">Reconocer Texto</string>
 
 
 </resources>
