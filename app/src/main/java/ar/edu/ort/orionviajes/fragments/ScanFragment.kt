@@ -88,9 +88,28 @@ class ScanFragment : Fragment() {
             val textTaskResult = textRecognizer.process(inputImage)
                 .addOnSuccessListener { text ->
                     progressDialog.dismiss()
+//                    for(block in text.textBlocks){
+//                        for(line in block.lines){
+//                            Log.d("TEXTO RECONOCIDO:", line.text)
+//                        }
+//                    }
+//                    val recognizedText = text.textBlocks[0].lines[0].elements[0].
                     val recognizedText = text.text
+                    if(recognizedText == null){
+                        showSnackbar("Error al reconocer el ticket")
+                        return@addOnSuccessListener
+                    }
+                    val regex = Regex("(TOTAL|AMOUNT)\\s*\$?\\s*\\d+[.,-]?\\d+", RegexOption.IGNORE_CASE)
+                    val total = regex.find(recognizedText)!!.value
+                    if(total == null){
+                        showSnackbar("Error al encontrar el monto")
+                        return@addOnSuccessListener
+                    }
 
-                    Log.d("TEXTO RECONOCIDO:", recognizedText)
+                    val regexReal = Regex("\\d+[.,-]?\\d+")
+                    val totalReal = regexReal.find(total)!!.value
+
+                    Log.d("TEXTO RECONOCIDO:", totalReal)
 
                     //binding.textedit.text = recognizedText o algo asi
 
