@@ -28,6 +28,7 @@
         <entry key="app/src/main/res/layout/fragment_create_travel.xml" value="0.5332122802734375" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.19015045166015626" />
         <entry key="app/src/main/res/layout/fragment_edit_expense.xml" value="0.3540308634440104" />
+        <entry key="app/src/main/res/layout/fragment_edit_scaned_expense.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/fragment_edit_travel.xml" value="0.3420148672976155" />
         <entry key="app/src/main/res/layout/fragment_expenses.xml" value="0.4923234390992835" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />

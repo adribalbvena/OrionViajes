@@ -19,6 +19,8 @@ import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
+import ar.edu.ort.orionviajes.data.Receipt
 import ar.edu.ort.orionviajes.databinding.FragmentScanBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.mlkit.vision.common.InputImage
@@ -88,30 +90,31 @@ class ScanFragment : Fragment() {
             val textTaskResult = textRecognizer.process(inputImage)
                 .addOnSuccessListener { text ->
                     progressDialog.dismiss()
-//                    for(block in text.textBlocks){
-//                        for(line in block.lines){
-//                            Log.d("TEXTO RECONOCIDO:", line.text)
-//                        }
+
+                    val recognizedText = text.text.toString()
+//                    for (block in text.textBlocks){
+//                        recognizedText += block.text.toString()
 //                    }
-//                    val recognizedText = text.textBlocks[0].lines[0].elements[0].
-                    val recognizedText = text.text
-                    if(recognizedText == null){
-                        showSnackbar("Error al reconocer el ticket")
-                        return@addOnSuccessListener
-                    }
+
                     val regex = Regex("(TOTAL|AMOUNT)\\s*\$?\\s*\\d+[.,-]?\\d+", RegexOption.IGNORE_CASE)
-                    val total = regex.find(recognizedText)!!.value
-                    if(total == null){
-                        showSnackbar("Error al encontrar el monto")
-                        return@addOnSuccessListener
-                    }
+                    val total = regex.find(recognizedText)!!.value //hacer una fun para filtrar y q adentro tenga el try catch para el find
+
 
                     val regexReal = Regex("\\d+[.,-]?\\d+")
                     val totalReal = regexReal.find(total)!!.value
 
-                    Log.d("TEXTO RECONOCIDO:", totalReal)
+                    Log.d("TEXTO RECONOCIDO", totalReal)
 
-                    //binding.textedit.text = recognizedText o algo asi
+
+                    //hace el replace para reemplazar las comas y guiones de los tickets
+                    val receiptTotal = totalReal.replace(",", ".").replace("-",".")
+
+
+                    val receipt = Receipt(receiptTotal.toFloat())
+                    val action = ScanFragmentDirections.actionScanFragmentToEditScanedExpenseFragment(receipt)
+                    findNavController().navigate(action)
+                    //falta pasar el travel tmb
+
 
                 }
                 .addOnFailureListener{ e->
