@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_myTravelsFragment_to_expensesFragment"
             app:destination="@id/expensesFragment" />
+        <action
+            android:id="@+id/action_myTravelsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/createTravelFragment"
@@ -89,4 +92,9 @@
         android:name="ar.edu.ort.orionviajes.fragments.ScanFragment"
         android:label="@string/scan_expense"
         tools:layout="@layout/fragment_scan" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ar.edu.ort.orionviajes.fragments.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

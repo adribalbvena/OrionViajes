@@ -3,10 +3,10 @@ package ar.edu.ort.orionviajes.fragments
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ar.edu.ort.orionviajes.Constants
@@ -17,20 +17,23 @@ import ar.edu.ort.orionviajes.databinding.FragmentDashboardBinding
 import ar.edu.ort.orionviajes.factories.ExpenseViewModelFactory
 import ar.edu.ort.orionviajes.viewmodels.ExpenseViewModel
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.MPPointF
 
 class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
     private lateinit var pieChart: PieChart
+    private lateinit var barChart: BarChart
     private lateinit var expenseViewModel: ExpenseViewModel
     private lateinit var expensesList: ArrayList<Expense>
     private var expensesForCategory = ArrayList<Float>()
+    private var expensesForPaymentMethod = ArrayList<Float>()
 
 
     override fun onCreateView(
@@ -93,6 +96,7 @@ class DashboardFragment : Fragment() {
             i++
         }
 
+
         val dataSet = PieDataSet(entries, "")
 
         dataSet.setDrawIcons(false)
@@ -132,6 +136,57 @@ class DashboardFragment : Fragment() {
 
     }
 
+    fun setBarChart(){
+        barChart = binding.barChartPaymentMethod
+
+        //carga de datos
+        var barEntries: ArrayList<BarEntry> = ArrayList()
+        var i = 0
+        for (expense in expensesForPaymentMethod) {
+            barEntries.add(BarEntry(i.toFloat(), expense))
+            i++
+        }
+
+        val barDataSet = BarDataSet(barEntries, "")
+
+        var labels = Constants.PAYMENT_METHOD.toTypedArray()
+
+        val data = BarData(barDataSet)
+        barChart.data = data
+
+        barChart.legend.isEnabled = false
+        barChart.description.isEnabled = false
+        barChart.setDrawValueAboveBar(false)
+        barChart.data.setValueTextSize(12f)
+
+        //Valores X configuraciones
+        val xaxis = barChart.xAxis
+        xaxis.position = XAxis.XAxisPosition.BOTTOM
+        xaxis.isGranularityEnabled = true
+        xaxis.granularity = 1f
+
+        //esto sirve para poder poner las etiquetas con nombres
+        val formatter: ValueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return labels.get(value.toInt())
+            }
+        }
+
+        xaxis.valueFormatter = formatter
+
+        //xaxis.setDrawLabels(false)
+
+        val colors: ArrayList<Int> = ArrayList()
+        colors.add(resources.getColor(R.color.orange_expense))
+        colors.add(resources.getColor(R.color.ocean_depths))
+
+        barDataSet.colors = colors
+
+
+        barChart.animateY(1400)
+
+    }
+
     fun initExpenseViewModel(travel: Travel) {
         activity?.let {
             expenseViewModel = ViewModelProvider(
@@ -152,6 +207,8 @@ class DashboardFragment : Fragment() {
             var countAccommodation = 0f
             var countEntertainment = 0f
             var countOthers = 0f
+            var countCard = 0f
+            var countCash = 0f
             for (expense in expensesList) {
                 when(expense.category) {
                     "Comida" -> countFood+= expense.amount
@@ -161,6 +218,11 @@ class DashboardFragment : Fragment() {
                     "Entretenimiento" -> countEntertainment+= expense.amount
                     "Otros" -> countOthers+= expense.amount
                 }
+                when(expense.paymentMethod) {
+                    "Tarjeta" -> countCard+= expense.amount
+                    "Efectivo" -> countCash+= expense.amount
+                }
+
             }
             var total = countFood + countDrinks + countTransport + countAccommodation + countEntertainment + countOthers
             countFood = (countFood / total) * 100
@@ -177,8 +239,12 @@ class DashboardFragment : Fragment() {
             expensesForCategory.add(countEntertainment)
             expensesForCategory.add(countOthers)
 
+            expensesForPaymentMethod.add(countCard)
+            expensesForPaymentMethod.add(countCash)
+
             //Seteamos el grafico
             setPieChart()
+            setBarChart()
         })
     }
 
