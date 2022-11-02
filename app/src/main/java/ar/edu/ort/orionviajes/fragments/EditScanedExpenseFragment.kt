@@ -1,20 +1,27 @@
 package ar.edu.ort.orionviajes.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.R
+import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateExpenseDto
 import ar.edu.ort.orionviajes.data.Receipt
+import ar.edu.ort.orionviajes.data.SingleExpenseResponse
 import ar.edu.ort.orionviajes.databinding.FragmentEditScanedExpenseBinding
+import com.google.android.material.snackbar.Snackbar
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
-
-
 
 class EditScanedExpenseFragment : Fragment() {
     private lateinit var binding: FragmentEditScanedExpenseBinding
@@ -34,13 +41,30 @@ class EditScanedExpenseFragment : Fragment() {
         binding = FragmentEditScanedExpenseBinding.inflate(inflater, container, false)
 
         val receipt = EditScanedExpenseFragmentArgs.fromBundle(requireArguments()).receipt
+        val travelId = EditScanedExpenseFragmentArgs.fromBundle(requireArguments()).travelId
 
         loadReceipt(receipt)
+
+
+
+        binding.btnSaveScanedExpense.setOnClickListener{
+            val expense = getScanedExpense()
+            Log.d("GASTO:", expense.toString())
+             addExpense(travelId, expense)
+        }
 
         return binding.root
     }
 
-    private fun saveScanedExpense() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        datePicker(view)
+        currencyPicker()
+        categoryPicker()
+        paymentMethodPicker()
+    }
+
+    private fun getScanedExpense(): CreateExpenseDto {
         val title = binding.editTextTitleExpenseEditScaned.text.toString()
         val currency = binding.autoCompleteTxtViewEditScanedCurrency.text.toString()
         val amount = binding.editTextAmountExpenseEditScaned.text.toString()
@@ -49,9 +73,31 @@ class EditScanedExpenseFragment : Fragment() {
         val date = binding.dateScanedExpenseEditTil.text.toString()
 
         val expense = CreateExpenseDto(title, currency, amount.toFloat(), category, paymentMethod, date)
+        return expense
+    }
 
-        //necesito el travel id y el addExpense para agregar
-       // editDeleteExpenseViewModel.updateExpense(travel_id, expense_id, expense)
+    private fun addExpense(travelId : String, expense: CreateExpenseDto) {
+        val apiService = ApiClient.getTravelsApi(requireContext())
+        val call = apiService.addExpense(travelId, expense)
+        call.enqueue(object : Callback<Unit> {
+            override fun onResponse(
+                call: Call<Unit>,
+                response: Response<Unit>
+            ) {
+                if (response.isSuccessful){
+                    Snackbar.make(requireView(), "Gasto agregado con éxito!", Snackbar.LENGTH_LONG).show()
+                    //val action = EditScanedExpenseFragmentDirections.actionEditScanedExpenseFragmentToExpensesFragment()
+                    //findNavController().navigate(action)
+                    //falta poder navegar desde aca a expenses
+                }
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                Snackbar.make(requireView(), R.string.somethingWentWrong, Snackbar.LENGTH_LONG).show()
+                Log.d("ERROR AL CARGAR GASTO", t.toString())
+            }
+
+        })
     }
 
 

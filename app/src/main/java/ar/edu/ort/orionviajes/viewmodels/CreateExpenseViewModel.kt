@@ -13,15 +13,15 @@ import retrofit2.Response
 
 class CreateExpenseViewModel(private val context: Context): ViewModel() {
 
-    var addExpense: MutableLiveData<SingleExpenseResponse?> = MutableLiveData()
+    var addExpense: MutableLiveData<Unit?> = MutableLiveData()
 
     fun addExpense(travel_id: String, expense: CreateExpenseDto) {
         val apiService = getTravelsApi(context)
         val call = apiService.addExpense(travel_id, expense)
-        call.enqueue(object : Callback<SingleExpenseResponse>{
+        call.enqueue(object : Callback<Unit>{
             override fun onResponse(
-                call: Call<SingleExpenseResponse>,
-                response: Response<SingleExpenseResponse>
+                call: Call<Unit>,
+                response: Response<Unit>
             ) {
                 if (response.isSuccessful){
                     addExpense.postValue(response.body())
@@ -30,7 +30,7 @@ class CreateExpenseViewModel(private val context: Context): ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<SingleExpenseResponse>, t: Throwable) {
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
                 addExpense.postValue(null)
             }
 

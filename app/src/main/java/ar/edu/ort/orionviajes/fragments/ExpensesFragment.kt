@@ -66,7 +66,7 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
         }
 
         binding.btnScanExpense.setOnClickListener{
-            val action = ExpensesFragmentDirections.actionExpensesFragmentToScanFragment()
+            val action = ExpensesFragmentDirections.actionExpensesFragmentToScanFragment(travel.id)
             view.findNavController().navigate(action)
         }
 

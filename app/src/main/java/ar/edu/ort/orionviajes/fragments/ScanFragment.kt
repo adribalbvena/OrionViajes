@@ -109,9 +109,9 @@ class ScanFragment : Fragment() {
                     //hace el replace para reemplazar las comas y guiones de los tickets
                     val receiptTotal = totalReal.replace(",", ".").replace("-",".")
 
-
+                    val travelId = ScanFragmentArgs.fromBundle(requireArguments()).travelId
                     val receipt = Receipt(receiptTotal.toFloat())
-                    val action = ScanFragmentDirections.actionScanFragmentToEditScanedExpenseFragment(receipt)
+                    val action = ScanFragmentDirections.actionScanFragmentToEditScanedExpenseFragment(receipt, travelId)
                     findNavController().navigate(action)
                     //falta pasar el travel tmb
 
