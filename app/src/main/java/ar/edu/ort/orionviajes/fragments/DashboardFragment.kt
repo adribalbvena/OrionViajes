@@ -7,15 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.R
+import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.Expense
-import ar.edu.ort.orionviajes.data.Travel
+import ar.edu.ort.orionviajes.data.ExpensesResponse
 import ar.edu.ort.orionviajes.databinding.FragmentDashboardBinding
-import ar.edu.ort.orionviajes.factories.ExpenseViewModelFactory
-import ar.edu.ort.orionviajes.viewmodels.ExpenseViewModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
@@ -25,13 +22,15 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.MPPointF
+import com.google.android.material.snackbar.Snackbar
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
     private lateinit var pieChart: PieChart
     private lateinit var barChart: BarChart
-    private lateinit var expenseViewModel: ExpenseViewModel
-    private lateinit var expensesList: ArrayList<Expense>
     private var expensesForCategory = ArrayList<Float>()
     private var expensesForPaymentMethod = ArrayList<Float>()
 
@@ -44,10 +43,7 @@ class DashboardFragment : Fragment() {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
         val travel = DashboardFragmentArgs.fromBundle(requireArguments()).travel
-
-        initExpenseViewModel(travel)
-        addObservable()
-
+        getExpenses(travel.id)
 
         return binding.root
     }
@@ -84,14 +80,12 @@ class DashboardFragment : Fragment() {
         pieChart.legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
         pieChart.setDrawEntryLabels(false)
 
-
-
         //Carga de datos
         val entries: ArrayList<PieEntry> = ArrayList()
         var i = 0
         for (entry in expensesForCategory){
-            var value = expensesForCategory[i]
-            var label = Constants.CATEGORIES[i]
+            val value = expensesForCategory[i]
+            val label = Constants.CATEGORIES[i]
             entries.add(PieEntry(value, label))
             i++
         }
@@ -187,65 +181,74 @@ class DashboardFragment : Fragment() {
 
     }
 
-    fun initExpenseViewModel(travel: Travel) {
-        activity?.let {
-            expenseViewModel = ViewModelProvider(
-                this,
-                ExpenseViewModelFactory(it)
-            ).get(ExpenseViewModel::class.java)
-        }
-        expenseViewModel.getExpenses(travel.id)
-
-    }
-
-    fun addObservable(){
-        expenseViewModel.expenses.observe(viewLifecycleOwner, Observer {
-            expensesList = it as ArrayList<Expense>
-            var countFood = 0f
-            var countDrinks = 0f
-            var countTransport = 0f
-            var countAccommodation = 0f
-            var countEntertainment = 0f
-            var countOthers = 0f
-            var countCard = 0f
-            var countCash = 0f
-            for (expense in expensesList) {
-                when(expense.category) {
-                    "Comida" -> countFood+= expense.amount
-                    "Bebida" -> countDrinks+= expense.amount
-                    "Transporte" -> countTransport+= expense.amount
-                    "Alojamiento" -> countAccommodation+= expense.amount
-                    "Entretenimiento" -> countEntertainment+= expense.amount
-                    "Otros" -> countOthers+= expense.amount
+    private fun getExpenses(travel_id : String){
+        val apiService = ApiClient.getTravelsApi(requireContext())
+        val call = apiService.getExpenses(travel_id)
+        call.enqueue(object : Callback<ExpensesResponse>{
+            override fun onResponse(
+                call: Call<ExpensesResponse>,
+                response: Response<ExpensesResponse>
+            ) {
+                if (response.isSuccessful){
+                    prepareDataForCharts(response.body()!!)
                 }
-                when(expense.paymentMethod) {
-                    "Tarjeta" -> countCard+= expense.amount
-                    "Efectivo" -> countCash+= expense.amount
-                }
-
             }
-            var total = countFood + countDrinks + countTransport + countAccommodation + countEntertainment + countOthers
-            countFood = (countFood / total) * 100
-            countDrinks = (countDrinks / total) * 100
-            countTransport = (countTransport / total) * 100
-            countAccommodation = (countAccommodation / total) * 100
-            countEntertainment = (countEntertainment / total) * 100
-            countOthers = (countOthers / total) * 100
 
-            expensesForCategory.add(countFood)
-            expensesForCategory.add(countDrinks)
-            expensesForCategory.add(countTransport)
-            expensesForCategory.add(countAccommodation)
-            expensesForCategory.add(countEntertainment)
-            expensesForCategory.add(countOthers)
+            override fun onFailure(call: Call<ExpensesResponse>, t: Throwable) {
+                Snackbar.make(requireView(), "Ups! Algo salió mal", Snackbar.LENGTH_LONG).show()
+            }
 
-            expensesForPaymentMethod.add(countCard)
-            expensesForPaymentMethod.add(countCash)
-
-            //Seteamos el grafico
-            setPieChart()
-            setBarChart()
         })
+
+
     }
+
+    private fun prepareDataForCharts(list : ArrayList<Expense>){
+        var countFood = 0f
+        var countDrinks = 0f
+        var countTransport = 0f
+        var countAccommodation = 0f
+        var countEntertainment = 0f
+        var countOthers = 0f
+        var countCard = 0f
+        var countCash = 0f
+        for (expense in list) {
+            when(expense.category) {
+                "Comida" -> countFood+= expense.amount
+                "Bebida" -> countDrinks+= expense.amount
+                "Transporte" -> countTransport+= expense.amount
+                "Alojamiento" -> countAccommodation+= expense.amount
+                "Entretenimiento" -> countEntertainment+= expense.amount
+                "Otros" -> countOthers+= expense.amount
+            }
+            when(expense.paymentMethod) {
+                "Tarjeta" -> countCard+= expense.amount
+                "Efectivo" -> countCash+= expense.amount
+            }
+
+        }
+        val total = countFood + countDrinks + countTransport + countAccommodation + countEntertainment + countOthers
+        countFood = (countFood / total) * 100
+        countDrinks = (countDrinks / total) * 100
+        countTransport = (countTransport / total) * 100
+        countAccommodation = (countAccommodation / total) * 100
+        countEntertainment = (countEntertainment / total) * 100
+        countOthers = (countOthers / total) * 100
+
+        expensesForCategory.add(countFood)
+        expensesForCategory.add(countDrinks)
+        expensesForCategory.add(countTransport)
+        expensesForCategory.add(countAccommodation)
+        expensesForCategory.add(countEntertainment)
+        expensesForCategory.add(countOthers)
+
+        expensesForPaymentMethod.add(countCard)
+        expensesForPaymentMethod.add(countCash)
+
+        //Seteamos el grafico
+        setPieChart()
+        setBarChart()
+    }
+
 
 }

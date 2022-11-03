@@ -131,8 +131,8 @@ class ScanFragment : Fragment() {
 
     private fun showInputImageDialog() {
         val popupMenu = PopupMenu(requireContext(), binding.capturePhoto)
-        popupMenu.menu.add(Menu.NONE, 1,2, "CÁMARA")
-        popupMenu.menu.add(Menu.NONE, 2,2, "GALERÍA")
+        popupMenu.menu.add(Menu.NONE, 1,2, "Cámara")
+        popupMenu.menu.add(Menu.NONE, 2,2, "Galería")
 
         popupMenu.show()
 

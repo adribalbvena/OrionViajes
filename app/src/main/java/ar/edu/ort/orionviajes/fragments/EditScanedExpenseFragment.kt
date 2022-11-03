@@ -28,11 +28,6 @@ class EditScanedExpenseFragment : Fragment() {
     private val calendar = Calendar.getInstance()
 
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,20 +74,20 @@ class EditScanedExpenseFragment : Fragment() {
     private fun addExpense(travelId : String, expense: CreateExpenseDto) {
         val apiService = ApiClient.getTravelsApi(requireContext())
         val call = apiService.addExpense(travelId, expense)
-        call.enqueue(object : Callback<Unit> {
+        call.enqueue(object : Callback<SingleExpenseResponse> {
             override fun onResponse(
-                call: Call<Unit>,
-                response: Response<Unit>
+                call: Call<SingleExpenseResponse>,
+                response: Response<SingleExpenseResponse>
             ) {
                 if (response.isSuccessful){
-                    Snackbar.make(requireView(), "Gasto agregado con éxito!", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(requireView(), response.body()!!.message.toString(), Snackbar.LENGTH_LONG).show()
                     val travel = EditScanedExpenseFragmentArgs.fromBundle(requireArguments()).travelId
                     val action = EditScanedExpenseFragmentDirections.actionEditScanedExpenseFragmentToExpensesFragment(travel)
                     findNavController().navigate(action)
                 }
             }
 
-            override fun onFailure(call: Call<Unit>, t: Throwable) {
+            override fun onFailure(call: Call<SingleExpenseResponse>, t: Throwable) {
                 Snackbar.make(requireView(), R.string.somethingWentWrong, Snackbar.LENGTH_LONG).show()
                 Log.d("ERROR AL CARGAR GASTO", t.toString())
             }

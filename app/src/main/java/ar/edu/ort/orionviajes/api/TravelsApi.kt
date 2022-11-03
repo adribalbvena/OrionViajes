@@ -14,7 +14,7 @@ interface TravelsApi {
 
     @POST(Constants.TRAVELS_ENDPOINT)
     @Headers("Accept:application/json", "Content-Type:application/json")
-    fun addTravel(@Body travel: CreateTravelDto): Call<GetTravelsResponse>
+    fun addTravel(@Body travel: CreateTravelDto): Call<SingleTravelResponse>
 
     @GET("${Constants.TRAVELS_ENDPOINT}/{travel_id}")
     @Headers("Accept:application/json", "Content-Type:application/json")
@@ -36,7 +36,7 @@ interface TravelsApi {
     fun getExpenses(@Path("travel_id") travel_id: String): Call<ExpensesResponse>
 
     @POST("${Constants.TRAVELS_ENDPOINT}/{travel_id}/expenses")
-    fun addExpense(@Path("travel_id") travel_id: String, @Body expense: CreateExpenseDto): Call<Unit>//Call<SingleExpenseResponse>
+    fun addExpense(@Path("travel_id") travel_id: String, @Body expense: CreateExpenseDto): Call<SingleExpenseResponse>
 
     @PUT("${Constants.TRAVELS_ENDPOINT}/{travel_id}/expenses/{expense_id}")
     fun updateExpense(@Path("travel_id") travel_id:String, @Path("expense_id",) expense_id : String, @Body expense: CreateExpenseDto): Call<SingleExpenseResponse>

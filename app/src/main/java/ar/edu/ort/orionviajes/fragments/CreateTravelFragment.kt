@@ -10,18 +10,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
+import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateTravelDto
+import ar.edu.ort.orionviajes.data.SingleTravelResponse
 import ar.edu.ort.orionviajes.databinding.FragmentCreateTravelBinding
 import ar.edu.ort.orionviajes.factories.CreateTravelViewModelFactory
 import ar.edu.ort.orionviajes.viewmodels.CreateTravelViewModel
 import com.google.android.material.snackbar.Snackbar
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CreateTravelFragment : Fragment() {
     private lateinit var binding: FragmentCreateTravelBinding
-
-    private lateinit var createTravelViewModel: CreateTravelViewModel
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,20 +32,10 @@ class CreateTravelFragment : Fragment() {
         binding = FragmentCreateTravelBinding.inflate(inflater,container,false)
         val view = binding.root
 
-        initTravelViewModel()
-        addTravelObservable()
 
             binding.btnAddTravel.setOnClickListener {
                 addTravel()
         }
-
-        //Lista de las monedas disponibles
-//        val currency = listOf("ARS", "EUR", "USD", "CHF")
-//        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, currency)
-//       // (textField.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-//        with(binding.autoCompleteTxtView){
-//            setAdapter(adapter)
-//        }
 
         return view
     }
@@ -57,14 +48,6 @@ class CreateTravelFragment : Fragment() {
     }
 
 
-    private fun initTravelViewModel() {
-        activity?.let {
-            createTravelViewModel =
-                ViewModelProvider(this, CreateTravelViewModelFactory(it)).get(
-                    CreateTravelViewModel::class.java)
-        }
-    }
-
     private fun addTravel() {
         val title = binding.editTextTitleTravel.text.toString()
         val budget = binding.editTextBudgetTravel.text.toString()
@@ -73,18 +56,25 @@ class CreateTravelFragment : Fragment() {
 
         val travel = CreateTravelDto(title, budget.toFloat(), startDate, endDate)
 
-        createTravelViewModel.addTravel(travel)
-    }
+        val apiService = ApiClient.getTravelsApi(requireContext())
+        val call = apiService.addTravel(travel)
+        call.enqueue(object : Callback<SingleTravelResponse>{
+            override fun onResponse(
+                call: Call<SingleTravelResponse>,
+                response: Response<SingleTravelResponse>
+            ) {
+                if(response.isSuccessful){
+                    Snackbar.make(requireView(), response.body()!!.message.toString(), Snackbar.LENGTH_LONG).show()
+                    findNavController().navigateUp()
+                }
+            }
+            override fun onFailure(call: Call<SingleTravelResponse>, t: Throwable) {
+                Snackbar.make(requireView(), R.string.somethingWentWrong, Snackbar.LENGTH_LONG).show()
+                Log.d("ERROR AL CREAR VIAJE", t.toString())
+            }
 
-
-    private fun addTravelObservable() {
-        createTravelViewModel.addTravel.observe(viewLifecycleOwner, Observer {
-            //aca falta hacer algun manejo de errores
-            Log.d("TRAVELS", it.toString())
-            //llegan en null los viajes
-                Snackbar.make(binding.root, R.string.successCreateTravel, Snackbar.LENGTH_LONG).show()
-                 findNavController().navigateUp()
         })
+
     }
 
     fun datePicker(view: View){

@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +16,7 @@ import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.GetTravelsResponse
 import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentMyTravelsBinding
-import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
 import ar.edu.ort.orionviajes.listener.OnTravelClickedListener
-import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,13 +24,10 @@ import retrofit2.Response
 
 
 class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
-    companion object {
-        fun newInstance() = MyTravelsFragment()
-    }
+
 
     private lateinit var binding: FragmentMyTravelsBinding
 
-    private lateinit var travelViewModel: TravelViewModel
     private lateinit var travelRecyclerAdapter: TravelRecyclerAdapter
 
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -48,13 +41,10 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
         binding = FragmentMyTravelsBinding.inflate(inflater,container,false)
         val view = binding.root
 
-
         initTravelsRecyclerView()
         getTravels()
-        //initTravelsViewModel()
 
         return view
-
     }
 
 
@@ -81,9 +71,6 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
                     travelRecyclerAdapter.updateList(response.body()!!)
 
                 } else {
-                    //aca voy a hacer en todos if response.code == 401
-                    // if this is login fragment credenciales invalidas y sino, logout
-                    //if response.errorBody, algo salio mal
                     if(response.code() == 401){
                         //logout
                         Snackbar.make(requireView(), "Tu sesión ha expirado! Vuelve a ingresar", Snackbar.LENGTH_LONG).show()
@@ -97,33 +84,12 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
 
                 }
             }
-
             override fun onFailure(call: Call<GetTravelsResponse>, t: Throwable) {
                 Snackbar.make(requireView(), "Ups! Algo salió mal", Snackbar.LENGTH_LONG).show()
             }
 
         })
     }
-
-//
-//    fun initTravelsViewModel() {
-//        activity?.let {
-//            travelViewModel =
-//                ViewModelProvider(this, TravelViewModelFactory(it)).get(TravelViewModel::class.java)
-//        }
-//
-//        travelViewModel.travels.observe(viewLifecycleOwner, Observer {
-//            if (it == null) {
-//                Snackbar.make(binding.root, R.string.errorLoadingTravels ,Snackbar.LENGTH_LONG).show()
-//            } else {
-//                travelRecyclerAdapter.updateList(it)
-//            }
-//
-//        })
-//
-//        travelViewModel.getTravels()
-//    }
-
 
     override fun onStart() {
         super.onStart()

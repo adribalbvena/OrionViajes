@@ -12,25 +12,22 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.R
+import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateExpenseDto
 import ar.edu.ort.orionviajes.data.Expense
+import ar.edu.ort.orionviajes.data.SingleExpenseResponse
 import ar.edu.ort.orionviajes.databinding.FragmentCreateExpenseBinding
 import ar.edu.ort.orionviajes.factories.CreateExpenseViewModelFactory
 import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
 import ar.edu.ort.orionviajes.viewmodels.CreateExpenseViewModel
 import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import com.google.android.material.snackbar.Snackbar
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CreateExpenseFragment : Fragment() {
     private lateinit var binding: FragmentCreateExpenseBinding
-
-    private lateinit var createExpenseViewModel: CreateExpenseViewModel
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,23 +36,11 @@ class CreateExpenseFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentCreateExpenseBinding.inflate(inflater, container, false)
         val view = binding.root
-        initCreateExpenseViewModel()
-        addExpenseObservable()
 
-        //Lista de las monedas disponibles
-//        val currency = listOf("ARS", "EUR", "USD", "CHF")
-//        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, currency)
-//       // (textField.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-//        with(binding.autoCompleteTxtViewCurrency){
-//            setAdapter(adapter)
-//        }
-
-        //tengo q traer el viaje
         val travel = CreateExpenseFragmentArgs.fromBundle(requireArguments()).travelId
         binding.btnAddExpense.setOnClickListener{
             addExpense(travel.id)
         }
-
         return view
     }
 
@@ -67,13 +52,6 @@ class CreateExpenseFragment : Fragment() {
         paymetMethodPicker()
     }
 
-    private fun initCreateExpenseViewModel() {
-        activity?.let {
-            createExpenseViewModel =
-                ViewModelProvider(this, CreateExpenseViewModelFactory(it)).get(CreateExpenseViewModel::class.java)
-        }
-    }
-
     private fun addExpense(travel_id: String) {
         val title = binding.editTextTitleExpense.text.toString()
         val currency = binding.autoCompleteTxtViewCurrency.text.toString()
@@ -82,20 +60,27 @@ class CreateExpenseFragment : Fragment() {
         val paymentMethod = binding.autoCompleteTxtViewPaymentMethod.text.toString()
         val date = binding.dateExpenseTil.text.toString()
 
-        //NO PONE EL ID Q VIENE EN LA API
         val expense = CreateExpenseDto(title, currency, amount.toFloat(), category,paymentMethod,date)
 
-        createExpenseViewModel.addExpense(travel_id, expense)
-    }
+        val apiService = ApiClient.getTravelsApi(requireContext())
+        val call = apiService.addExpense(travel_id, expense)
+        call.enqueue(object : Callback<SingleExpenseResponse>{
+            override fun onResponse(
+                call: Call<SingleExpenseResponse>,
+                response: Response<SingleExpenseResponse>
+            ) {
+                Snackbar.make(requireView(), response.body()!!.message.toString(), Snackbar.LENGTH_LONG).show()
+                findNavController().navigateUp()
+            }
 
-    private fun addExpenseObservable() {
-        createExpenseViewModel.addExpense.observe(viewLifecycleOwner, Observer {
-            //aca falta hacer algun manejo de errores
+            override fun onFailure(call: Call<SingleExpenseResponse>, t: Throwable) {
+                Snackbar.make(requireView(), R.string.somethingWentWrong, Snackbar.LENGTH_LONG).show()
+                Log.d("ERROR AL CARGAR GASTO", t.toString())
+            }
 
-            Snackbar.make(binding.root, R.string.successCreateExpense, Snackbar.LENGTH_LONG).show()
-            findNavController().navigateUp()
         })
     }
+
 
     fun paymetMethodPicker() {
         val paymentMethod = Constants.PAYMENT_METHOD
