@@ -9,9 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.R
@@ -19,17 +16,11 @@ import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateExpenseDto
 import ar.edu.ort.orionviajes.data.Expense
 import ar.edu.ort.orionviajes.data.SingleExpenseResponse
-import ar.edu.ort.orionviajes.databinding.FragmentCreateExpenseBinding
-import ar.edu.ort.orionviajes.databinding.FragmentCreateTravelBinding
 import ar.edu.ort.orionviajes.databinding.FragmentEditExpenseBinding
-import ar.edu.ort.orionviajes.databinding.FragmentEditTravelBinding
-import ar.edu.ort.orionviajes.factories.EditDeleteExpenseViewModelFactory
-import ar.edu.ort.orionviajes.viewmodels.EditDeleteExpenseViewModel
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.exp
 
 class EditExpenseFragment : Fragment() {
 

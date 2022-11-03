@@ -1,21 +1,18 @@
 package ar.edu.ort.orionviajes.fragments
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateTravelDto
 import ar.edu.ort.orionviajes.data.SingleTravelResponse
 import ar.edu.ort.orionviajes.databinding.FragmentCreateTravelBinding
-import ar.edu.ort.orionviajes.factories.CreateTravelViewModelFactory
-import ar.edu.ort.orionviajes.viewmodels.CreateTravelViewModel
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,6 +31,9 @@ class CreateTravelFragment : Fragment() {
 
 
             binding.btnAddTravel.setOnClickListener {
+                if (!validateInputs()){
+                    return@setOnClickListener
+                }
                 addTravel()
         }
 
@@ -45,6 +45,16 @@ class CreateTravelFragment : Fragment() {
 
         datePicker(view)
 
+    }
+
+    private fun validateInputs() : Boolean{
+        //validar los campos vacios
+        if(TextUtils.isEmpty(binding.editTextTitleTravel.text) || TextUtils.isEmpty(binding.editTextBudgetTravel.text)
+            || TextUtils.isEmpty(binding.startDateTil.text) || TextUtils.isEmpty(binding.endDateTil.text)) {
+            Snackbar.make(requireView(), R.string.emptyFields, Snackbar.LENGTH_LONG).show()
+            return false
+        }
+        return true
     }
 
 

@@ -7,24 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateExpenseDto
-import ar.edu.ort.orionviajes.data.Expense
 import ar.edu.ort.orionviajes.data.SingleExpenseResponse
 import ar.edu.ort.orionviajes.databinding.FragmentCreateExpenseBinding
-import ar.edu.ort.orionviajes.factories.CreateExpenseViewModelFactory
-import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
-import ar.edu.ort.orionviajes.viewmodels.CreateExpenseViewModel
-import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class CreateExpenseFragment : Fragment() {
     private lateinit var binding: FragmentCreateExpenseBinding
@@ -41,8 +35,10 @@ class CreateExpenseFragment : Fragment() {
         binding.btnAddExpense.setOnClickListener{
             addExpense(travel.id)
         }
+
         return view
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

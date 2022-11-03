@@ -81,6 +81,7 @@
     <string name="spendPaymentMethod">Gastos por Método de Pago</string>
     <string name="profile">Mi Perfil</string>
     <string name="recognizeText">Reconocer Texto</string>
+    <string name="emptyFields">Los campos no pueden estar vacíos!</string>
 
 
 </resources>

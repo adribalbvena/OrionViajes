@@ -96,15 +96,16 @@ class ScanFragment : Fragment() {
 //                        recognizedText += block.text.toString()
 //                    }
 
-                    val regex = Regex("(TOTAL|AMOUNT)\\s*\$?\\s*\\d+[.,-]?\\d+", RegexOption.IGNORE_CASE)
-                    val total = regex.find(recognizedText)!!.value //hacer una fun para filtrar y q adentro tenga el try catch para el find
-
-
-                    val regexReal = Regex("\\d+[.,-]?\\d+")
-                    val totalReal = regexReal.find(total)!!.value
+//                    val regex = Regex("(TOTAL|AMOUNT)\\s*\$?\\s*\\d+[.,-]?\\d+", RegexOption.IGNORE_CASE)
+//                    val total = regex.find(recognizedText)!!.value //hacer una fun para filtrar y q adentro tenga el manejo de errores para el find
+//                    Log.d("REGEX", total.toString())
+//
+//
+//                    val regexReal = Regex("\\d+[.,-]?\\d+")
+//                    val totalReal = regexReal.find(total)!!.value
+                    val totalReal = passToRegex(recognizedText)
 
                     Log.d("TEXTO RECONOCIDO", totalReal)
-
 
                     //hace el replace para reemplazar las comas y guiones de los tickets
                     val receiptTotal = totalReal.replace(",", ".").replace("-",".")
@@ -113,19 +114,31 @@ class ScanFragment : Fragment() {
                     val receipt = Receipt(receiptTotal.toFloat())
                     val action = ScanFragmentDirections.actionScanFragmentToEditScanedExpenseFragment(receipt, travelId)
                     findNavController().navigate(action)
-                    //falta pasar el travel tmb
-
-
                 }
                 .addOnFailureListener{ e->
                     progressDialog.dismiss()
-                    showSnackbar("Error al reconocer ticket: ${e.message}")
+                    showSnackbar("Error al reconocer la imagen")
                 }
-
         } catch (e: Exception) {
             progressDialog.dismiss()
-            showSnackbar("Error al preparar la imagen: ${e.message}")
+            showSnackbar("Error al preparar la imagen")
         }
+    }
+
+    private fun passToRegex(total : String) : String {
+        var recognizedText = "0"
+        val regex = Regex("(TOTAL|AMOUNT)\\s*\$?\\s*\\d+[.,-]?\\d+", RegexOption.IGNORE_CASE)
+        val regexNumbers = Regex("\\d+[.,-]?\\d+")
+
+        try {
+            recognizedText = regex.find(total)!!.value
+            recognizedText = regexNumbers.find(recognizedText)!!.value
+
+        } catch (e: Exception) {
+            Log.d("ERROR", e.message.toString())
+            showSnackbar("Error al reconocer el ticket")
+        }
+        return recognizedText
     }
 
 

@@ -1,7 +1,12 @@
 package ar.edu.ort.orionviajes
-//
-//import android.view.View
+
+import android.view.View
+//import android.widget.ArrayAdapter
 //import androidx.fragment.app.Fragment
+import ar.edu.ort.orionviajes.databinding.FragmentScanBinding
+
+
+
 //import ar.edu.ort.orionviajes.fragments.LoginFragment
 //import com.google.android.material.snackbar.Snackbar
 //

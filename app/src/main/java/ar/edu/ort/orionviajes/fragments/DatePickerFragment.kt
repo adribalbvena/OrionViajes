@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
 import java.util.*
 
+
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
     private val calendar = Calendar.getInstance()
 
@@ -18,7 +19,6 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val picker = DatePickerDialog(requireActivity(), this, year, month, day)
-        picker.datePicker.minDate = calendar.timeInMillis
         calendar.add(Calendar.YEAR, +2)
         picker.datePicker.maxDate = calendar.timeInMillis
 
