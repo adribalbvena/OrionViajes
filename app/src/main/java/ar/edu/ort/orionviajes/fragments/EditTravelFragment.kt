@@ -3,33 +3,27 @@ package ar.edu.ort.orionviajes.fragments
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.R
+import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateTravelDto
+import ar.edu.ort.orionviajes.data.SingleTravelResponse
 import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentEditTravelBinding
-import ar.edu.ort.orionviajes.factories.EditDeleteTravelViewModelFactory
-import ar.edu.ort.orionviajes.viewmodels.EditDeleteTravelViewModel
 import com.google.android.material.snackbar.Snackbar
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class EditTravelFragment : Fragment() {
 
     private lateinit var binding: FragmentEditTravelBinding
-
-    private lateinit var editDeleteTravelViewModel: EditDeleteTravelViewModel
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +32,6 @@ class EditTravelFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentEditTravelBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        initTravelViewModel()
-        addUpdateObservable()
-        //addDeleteObservable()
 
         val travel = EditTravelFragmentArgs.fromBundle(requireArguments()).travel
         loadTravel(travel)
@@ -68,9 +58,7 @@ class EditTravelFragment : Fragment() {
         builder.setTitle(R.string.deteleTavelLabel)
         builder.setMessage(R.string.areYouShureDeleteTravel)
         builder.setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, id ->
-            editDeleteTravelViewModel.deleteTravel(travel_id)
-            Snackbar.make(binding.root, R.string.successDeletedTravel, Snackbar.LENGTH_LONG).show()
-            findNavController().navigateUp()
+              deleteTravel(travel_id)
             dialog.cancel()
         })
         builder.setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, id ->
@@ -80,20 +68,30 @@ class EditTravelFragment : Fragment() {
         alert.show()
     }
 
+    private fun deleteTravel(travel_id : String){
+        val apiService = ApiClient.getTravelsApi(requireContext())
+        val call = apiService.deleteTravel(travel_id)
+        call.enqueue(object : Callback<SingleTravelResponse>{
+            override fun onResponse(
+                call: Call<SingleTravelResponse>,
+                response: Response<SingleTravelResponse>
+            ) {
+                if (response.isSuccessful){
+                    Snackbar.make(requireView(), response.body()!!.message.toString(), Snackbar.LENGTH_LONG).show()
+                    findNavController().navigateUp()
+                }
+            }
 
-    private fun addUpdateObservable() {
-        editDeleteTravelViewModel.updateTravel.observe(viewLifecycleOwner, Observer {
-            Snackbar.make(binding.root, R.string.successUpdateTravel, Snackbar.LENGTH_LONG).show()
-            //Utilizar siempre el findNavController ya que estas con el NavGraph
-            findNavController().navigateUp()
-
-            //Esta cambiando el NavController y luego se va a romper.
-            //activity?.supportFragmentManager?.popBackStack()
+            override fun onFailure(call: Call<SingleTravelResponse>, t: Throwable) {
+                Snackbar.make(requireView(), R.string.somethingWentWrong, Snackbar.LENGTH_LONG).show()
+                Log.d("ERROR AL ELIMINAR VIAJE", t.toString())
+            }
 
         })
+
     }
 
-    fun updateTravel(travel_id: String) {
+    private fun updateTravel(travel_id: String) {
         val title = binding.editTextTitleTravelEdit.text.toString()
         val budget = binding.editTextBudgetTravelEdit.text.toString()
         val startDate = binding.startDateEditTil.text.toString()
@@ -101,7 +99,25 @@ class EditTravelFragment : Fragment() {
 
         val travel = CreateTravelDto(title, budget.toFloat(), startDate, endDate)
 
-        editDeleteTravelViewModel.updateTravel(travel_id, travel)
+        val apiService = ApiClient.getTravelsApi(requireContext())
+        val call = apiService.updateTravel(travel_id, travel)
+        call.enqueue(object : Callback<SingleTravelResponse>{
+            override fun onResponse(
+                call: Call<SingleTravelResponse>,
+                response: Response<SingleTravelResponse>
+            ) {
+                if (response.isSuccessful){
+                    Snackbar.make(requireView(), response.body()!!.message.toString(), Snackbar.LENGTH_LONG).show()
+                    findNavController().navigateUp()
+                }
+            }
+
+            override fun onFailure(call: Call<SingleTravelResponse>, t: Throwable) {
+                Snackbar.make(requireView(), R.string.somethingWentWrong, Snackbar.LENGTH_LONG).show()
+                Log.d("ERROR AL ACTUALIZAR VIAJE", t.toString())
+            }
+
+        })
     }
 
     private fun loadTravel(travel: Travel) {
@@ -111,14 +127,6 @@ class EditTravelFragment : Fragment() {
         binding.endDateEditTil.setText(travel.endDate)
     }
 
-    private fun initTravelViewModel() {
-        activity?.let {
-            editDeleteTravelViewModel =
-                ViewModelProvider(this, EditDeleteTravelViewModelFactory(it)).get(
-                    EditDeleteTravelViewModel::class.java
-                )
-        }
-    }
 
     fun datePicker(view: View) {
         binding = FragmentEditTravelBinding.bind(view)

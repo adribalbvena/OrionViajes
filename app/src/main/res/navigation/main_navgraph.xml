@@ -91,10 +91,33 @@
         android:id="@+id/scanFragment"
         android:name="ar.edu.ort.orionviajes.fragments.ScanFragment"
         android:label="@string/scan_expense"
-        tools:layout="@layout/fragment_scan" />
+        tools:layout="@layout/fragment_scan" >
+        <action
+            android:id="@+id/action_scanFragment_to_editScanedExpenseFragment"
+            app:destination="@id/editScanedExpenseFragment" />
+        <argument
+            android:name="travelId"
+            app:argType="ar.edu.ort.orionviajes.data.Travel" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="ar.edu.ort.orionviajes.fragments.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/editScanedExpenseFragment"
+        android:name="ar.edu.ort.orionviajes.fragments.EditScanedExpenseFragment"
+        android:label="@string/create_expense_label" >
+        <argument
+            android:name="receipt"
+            app:argType="ar.edu.ort.orionviajes.data.Receipt" />
+        <argument
+            android:name="travelId"
+            app:argType="ar.edu.ort.orionviajes.data.Travel" />
+        <action
+            android:id="@+id/action_editScanedExpenseFragment_to_expensesFragment"
+            app:destination="@id/expensesFragment"
+            app:popUpTo="@id/expensesFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

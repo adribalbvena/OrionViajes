@@ -14,7 +14,7 @@ interface TravelsApi {
 
     @POST(Constants.TRAVELS_ENDPOINT)
     @Headers("Accept:application/json", "Content-Type:application/json")
-    fun addTravel(@Body travel: CreateTravelDto): Call<GetTravelsResponse>
+    fun addTravel(@Body travel: CreateTravelDto): Call<SingleTravelResponse>
 
     @GET("${Constants.TRAVELS_ENDPOINT}/{travel_id}")
     @Headers("Accept:application/json", "Content-Type:application/json")

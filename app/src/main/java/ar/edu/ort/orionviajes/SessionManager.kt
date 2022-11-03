@@ -2,8 +2,6 @@ package ar.edu.ort.orionviajes
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.core.content.edit
-import ar.edu.ort.orionviajes.viewmodels.EditDeleteTravelViewModel
 
 class SessionManager(context: Context) {
     private var prefs: SharedPreferences =
