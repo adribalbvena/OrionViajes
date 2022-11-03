@@ -41,7 +41,7 @@ class EditScanedExpenseFragment : Fragment() {
         binding = FragmentEditScanedExpenseBinding.inflate(inflater, container, false)
 
         val receipt = EditScanedExpenseFragmentArgs.fromBundle(requireArguments()).receipt
-        val travelId = EditScanedExpenseFragmentArgs.fromBundle(requireArguments()).travelId
+        val travel = EditScanedExpenseFragmentArgs.fromBundle(requireArguments()).travelId
 
         loadReceipt(receipt)
 
@@ -50,7 +50,7 @@ class EditScanedExpenseFragment : Fragment() {
         binding.btnSaveScanedExpense.setOnClickListener{
             val expense = getScanedExpense()
             Log.d("GASTO:", expense.toString())
-             addExpense(travelId, expense)
+             addExpense(travel.id, expense)
         }
 
         return binding.root
@@ -86,9 +86,9 @@ class EditScanedExpenseFragment : Fragment() {
             ) {
                 if (response.isSuccessful){
                     Snackbar.make(requireView(), "Gasto agregado con éxito!", Snackbar.LENGTH_LONG).show()
-                    //val action = EditScanedExpenseFragmentDirections.actionEditScanedExpenseFragmentToExpensesFragment()
-                    //findNavController().navigate(action)
-                    //falta poder navegar desde aca a expenses
+                    val travel = EditScanedExpenseFragmentArgs.fromBundle(requireArguments()).travelId
+                    val action = EditScanedExpenseFragmentDirections.actionEditScanedExpenseFragmentToExpensesFragment(travel)
+                    findNavController().navigate(action)
                 }
             }
 

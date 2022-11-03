@@ -97,7 +97,7 @@
             app:destination="@id/editScanedExpenseFragment" />
         <argument
             android:name="travelId"
-            app:argType="string" />
+            app:argType="ar.edu.ort.orionviajes.data.Travel" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -113,9 +113,11 @@
             app:argType="ar.edu.ort.orionviajes.data.Receipt" />
         <argument
             android:name="travelId"
-            app:argType="string" />
+            app:argType="ar.edu.ort.orionviajes.data.Travel" />
         <action
             android:id="@+id/action_editScanedExpenseFragment_to_expensesFragment"
-            app:destination="@id/expensesFragment" />
+            app:destination="@id/expensesFragment"
+            app:popUpTo="@id/expensesFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
