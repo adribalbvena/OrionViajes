@@ -1,6 +1,7 @@
 package ar.edu.ort.orionviajes.fragments
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateExpenseDto
 import ar.edu.ort.orionviajes.data.SingleExpenseResponse
+import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentCreateExpenseBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -34,14 +36,15 @@ class CreateExpenseFragment : Fragment() {
         binding = FragmentCreateExpenseBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        loadTodayDate()
-
         val travel = CreateExpenseFragmentArgs.fromBundle(requireArguments()).travelId
+
+        loadData(travel.currency)
+
         binding.btnAddExpense.setOnClickListener{
             if(!validateInputs()) {
                 return@setOnClickListener
             }
-            addExpense(travel.id)
+            addExpense(travel)
         }
         return view
     }
@@ -50,7 +53,6 @@ class CreateExpenseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         datePicker(view)
-        currencyPicker()
         categoryPicker()
         paymetMethodPicker()
     }
@@ -66,9 +68,9 @@ class CreateExpenseFragment : Fragment() {
         return true
     }
 
-    private fun addExpense(travel_id: String) {
+    private fun addExpense(travel: Travel) {
         val title = binding.editTextTitleExpense.text.toString()
-        val currency = binding.autoCompleteTxtViewCurrency.text.toString()
+        val currency = travel.currency
         val amount = binding.editTextAmountExpense.text.toString()
         val category = binding.autoCompleteTxtViewCategory.text.toString()
         val paymentMethod = binding.autoCompleteTxtViewPaymentMethod.text.toString()
@@ -77,7 +79,7 @@ class CreateExpenseFragment : Fragment() {
         val expense = CreateExpenseDto(title, currency, amount.toFloat(), category,paymentMethod,date)
 
         val apiService = ApiClient.getTravelsApi(requireContext())
-        val call = apiService.addExpense(travel_id, expense)
+        val call = apiService.addExpense(travel.id, expense)
         call.enqueue(object : Callback<SingleExpenseResponse>{
             override fun onResponse(
                 call: Call<SingleExpenseResponse>,
@@ -95,10 +97,11 @@ class CreateExpenseFragment : Fragment() {
         })
     }
 
-    fun loadTodayDate(){
+    fun loadData(currency : String){
         val c = Calendar.getInstance()
         val date = SimpleDateFormat("dd-MM-yyyy", Locale("es", "ES")).format(c.time)
         binding.dateExpenseTil.text = date
+        binding.autoCompleteTxtViewCurrency.setText(currency)
     }
 
 
@@ -113,16 +116,7 @@ class CreateExpenseFragment : Fragment() {
     fun categoryPicker() {
         val category = Constants.CATEGORIES
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, category)
-        // (textField.editText as? AutoCompleteTextView)?.setAdapter(adapter)
         with(binding.autoCompleteTxtViewCategory){
-            setAdapter(adapter)
-        }
-    }
-
-    fun currencyPicker() {
-        val currency = Constants.CURRENCIES
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, currency)
-        with(binding.autoCompleteTxtViewCurrency){
             setAdapter(adapter)
         }
     }

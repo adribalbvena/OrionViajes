@@ -3,6 +3,7 @@ package ar.edu.ort.orionviajes.fragments
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateExpenseDto
 import ar.edu.ort.orionviajes.data.Expense
 import ar.edu.ort.orionviajes.data.SingleExpenseResponse
+import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentEditExpenseBinding
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
@@ -39,7 +41,11 @@ class EditExpenseFragment : Fragment() {
         loadExpense(expense)
 
         binding.btnUpdateExpense.setOnClickListener{
-            updateExpense(travel.id, expense.id)
+            if(!validateInputs()){
+                return@setOnClickListener
+            }
+
+            updateExpense(travel, expense.id)
         }
 
         binding.btnDeleteExpense.setOnClickListener{
@@ -52,10 +58,10 @@ class EditExpenseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         datePicker(view)
-        currencyPicker()
         categoryPicker()
         paymentMethodPicker()
     }
+
 
     fun showAlertDialog(travel_id: String, expense_id: String) {
         var builder = AlertDialog.Builder(activity)
@@ -93,9 +99,9 @@ class EditExpenseFragment : Fragment() {
 
     }
 
-    private fun updateExpense(travel_id : String, expense_id : String){
+    private fun updateExpense(travel : Travel, expense_id : String){
         val title = binding.editTextTitleExpenseEdit.text.toString()
-        val currency = binding.autoCompleteTxtViewEditCurrency.text.toString()
+        val currency = travel.currency
         val amount = binding.editTextAmountExpenseEdit.text.toString()
         val category =  binding.autoCompleteTxtViewEditCategory.text.toString()
         val paymentMethod = binding.autoCompleteTxtViewEditPaymentMethod.text.toString()
@@ -104,7 +110,7 @@ class EditExpenseFragment : Fragment() {
         val expense = CreateExpenseDto(title, currency, amount.toFloat(), category, paymentMethod, date)
 
         val apiService = ApiClient.getTravelsApi(requireContext())
-        val call = apiService.updateExpense(travel_id, expense_id, expense)
+        val call = apiService.updateExpense(travel.id, expense_id, expense)
         call.enqueue(object : Callback<SingleExpenseResponse>{
             override fun onResponse(
                 call: Call<SingleExpenseResponse>,
@@ -130,6 +136,17 @@ class EditExpenseFragment : Fragment() {
         binding.dateExpenseEditTil.text = expense.date
     }
 
+    private fun validateInputs() : Boolean{
+        //validar los campos vacios
+        if(TextUtils.isEmpty(binding.editTextTitleExpenseEdit.text) || TextUtils.isEmpty(binding.autoCompleteTxtViewEditCurrency.text)
+            || TextUtils.isEmpty(binding.editTextAmountExpenseEdit.text) || TextUtils.isEmpty(binding.autoCompleteTxtViewEditCategory.text)
+            || TextUtils.isEmpty(binding.autoCompleteTxtViewEditPaymentMethod.text) || TextUtils.isEmpty(binding.dateExpenseEditTil.text)) {
+            Snackbar.make(requireView(), R.string.emptyFields, Snackbar.LENGTH_LONG).show()
+            return false
+        }
+        return true
+    }
+
     fun paymentMethodPicker() {
         val paymentMethod = Constants.PAYMENT_METHOD
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, paymentMethod)
@@ -145,15 +162,6 @@ class EditExpenseFragment : Fragment() {
             setAdapter(adapter)
         }
     }
-
-    fun currencyPicker() {
-        val currency = Constants.CURRENCIES
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, currency)
-        with(binding.autoCompleteTxtViewEditCurrency){
-            setAdapter(adapter)
-        }
-    }
-
 
     fun datePicker(view: View){
         binding = FragmentEditExpenseBinding.bind(view)

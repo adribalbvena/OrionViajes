@@ -9,6 +9,8 @@ data class Travel(
     val id: String,
     @field:SerializedName("title")
     val title: String,
+    @field:SerializedName("currency")
+    val currency: String,
     @field:SerializedName("budget")
     val budget: Float,
     @field:SerializedName("startDate")
@@ -21,6 +23,7 @@ data class Travel(
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
         parcel.readString().toString(),
+        parcel.readString().toString(),
         parcel.readFloat(),
         parcel.readString().toString(),
         parcel.readString().toString()
@@ -30,6 +33,7 @@ data class Travel(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(title)
+        parcel.writeString(currency)
         parcel.writeFloat(budget)
         parcel.writeString(startDate)
         parcel.writeString(endDate)
