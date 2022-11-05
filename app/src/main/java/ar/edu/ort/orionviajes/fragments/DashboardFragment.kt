@@ -26,6 +26,8 @@ import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
@@ -104,7 +106,7 @@ class DashboardFragment : Fragment() {
         val colors: ArrayList<Int> = ArrayList()
         colors.add(resources.getColor(R.color.orange_expense))
         colors.add(resources.getColor(R.color.ocean_depths))
-        colors.add(resources.getColor(R.color.beige))
+        colors.add(resources.getColor(R.color.light_yellow))
         colors.add(resources.getColor(R.color.harvest_gold))
         colors.add(resources.getColor(R.color.brown))
         colors.add(resources.getColor(R.color.teal_tree))
@@ -113,7 +115,14 @@ class DashboardFragment : Fragment() {
 
         //Dataset on below line we are setting pie data set
         val data = PieData(dataSet)
-        data.setValueFormatter(PercentFormatter())
+        data.setValueFormatter(object: ValueFormatter(){
+            override fun getFormattedValue(value: Float): String {
+                val df = DecimalFormat("##,## %");
+                df.roundingMode = RoundingMode.CEILING
+                return df.format(value)
+            }
+        })
+
         data.setValueTextSize(14f)
         data.setValueTypeface(Typeface.DEFAULT_BOLD)
         data.setValueTextColor(Color.WHITE)
@@ -146,6 +155,14 @@ class DashboardFragment : Fragment() {
         var labels = Constants.PAYMENT_METHOD.toTypedArray()
 
         val data = BarData(barDataSet)
+        data.setValueFormatter(object: ValueFormatter(){
+            override fun getFormattedValue(value: Float): String {
+                val df = DecimalFormat("$ ##,##");
+                df.roundingMode = RoundingMode.FLOOR
+                return df.format(value)
+            }
+        })
+
         barChart.data = data
 
         barChart.legend.isEnabled = false
