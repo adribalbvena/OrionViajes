@@ -38,7 +38,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_height="wrap_content"/>
 
-<!--    <androidx.camera.view.PreviewView-->
+    <ProgressBar
+        android:id="@+id/progressBarScan"
+        style="?android:attr/progressBarStyle"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressTint="@color/orange_expense"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <androidx.camera.view.PreviewView-->
 <!--        android:id="@+id/cameraPreviewView"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent"-->

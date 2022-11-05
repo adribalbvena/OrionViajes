@@ -1,30 +1,29 @@
 package ar.edu.ort.orionviajes.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateExpenseDto
-import ar.edu.ort.orionviajes.data.Expense
 import ar.edu.ort.orionviajes.data.SingleExpenseResponse
+import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentCreateExpenseBinding
-import ar.edu.ort.orionviajes.factories.CreateExpenseViewModelFactory
-import ar.edu.ort.orionviajes.factories.TravelViewModelFactory
-import ar.edu.ort.orionviajes.viewmodels.CreateExpenseViewModel
-import ar.edu.ort.orionviajes.viewmodels.TravelViewModel
 import com.google.android.material.snackbar.Snackbar
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CreateExpenseFragment : Fragment() {
     private lateinit var binding: FragmentCreateExpenseBinding
@@ -38,23 +37,40 @@ class CreateExpenseFragment : Fragment() {
         val view = binding.root
 
         val travel = CreateExpenseFragmentArgs.fromBundle(requireArguments()).travelId
+
+        loadData(travel.currency)
+
         binding.btnAddExpense.setOnClickListener{
-            addExpense(travel.id)
+            if(!validateInputs()) {
+                return@setOnClickListener
+            }
+            addExpense(travel)
         }
         return view
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         datePicker(view)
-        currencyPicker()
         categoryPicker()
         paymetMethodPicker()
     }
 
-    private fun addExpense(travel_id: String) {
+    private fun validateInputs() : Boolean{
+        //validar los campos vacios
+        if(TextUtils.isEmpty(binding.editTextTitleExpense.text) || TextUtils.isEmpty(binding.autoCompleteTxtViewCurrency.text)
+            || TextUtils.isEmpty(binding.editTextAmountExpense.text) || TextUtils.isEmpty(binding.autoCompleteTxtViewCategory.text)
+            || TextUtils.isEmpty(binding.autoCompleteTxtViewPaymentMethod.text) || TextUtils.isEmpty(binding.dateExpenseTil.text)) {
+            Snackbar.make(requireView(), R.string.emptyFields, Snackbar.LENGTH_LONG).show()
+            return false
+        }
+        return true
+    }
+
+    private fun addExpense(travel: Travel) {
         val title = binding.editTextTitleExpense.text.toString()
-        val currency = binding.autoCompleteTxtViewCurrency.text.toString()
+        val currency = travel.currency
         val amount = binding.editTextAmountExpense.text.toString()
         val category = binding.autoCompleteTxtViewCategory.text.toString()
         val paymentMethod = binding.autoCompleteTxtViewPaymentMethod.text.toString()
@@ -63,7 +79,7 @@ class CreateExpenseFragment : Fragment() {
         val expense = CreateExpenseDto(title, currency, amount.toFloat(), category,paymentMethod,date)
 
         val apiService = ApiClient.getTravelsApi(requireContext())
-        val call = apiService.addExpense(travel_id, expense)
+        val call = apiService.addExpense(travel.id, expense)
         call.enqueue(object : Callback<SingleExpenseResponse>{
             override fun onResponse(
                 call: Call<SingleExpenseResponse>,
@@ -81,6 +97,13 @@ class CreateExpenseFragment : Fragment() {
         })
     }
 
+    fun loadData(currency : String){
+        val c = Calendar.getInstance()
+        val date = SimpleDateFormat("dd-MM-yyyy", Locale("es", "ES")).format(c.time)
+        binding.dateExpenseTil.text = date
+        binding.autoCompleteTxtViewCurrency.setText(currency)
+    }
+
 
     fun paymetMethodPicker() {
         val paymentMethod = Constants.PAYMENT_METHOD
@@ -93,16 +116,7 @@ class CreateExpenseFragment : Fragment() {
     fun categoryPicker() {
         val category = Constants.CATEGORIES
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, category)
-        // (textField.editText as? AutoCompleteTextView)?.setAdapter(adapter)
         with(binding.autoCompleteTxtViewCategory){
-            setAdapter(adapter)
-        }
-    }
-
-    fun currencyPicker() {
-        val currency = Constants.CURRENCIES
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, currency)
-        with(binding.autoCompleteTxtViewCurrency){
             setAdapter(adapter)
         }
     }

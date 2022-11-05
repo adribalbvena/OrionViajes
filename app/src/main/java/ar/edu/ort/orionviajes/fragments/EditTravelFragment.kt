@@ -3,12 +3,15 @@ package ar.edu.ort.orionviajes.fragments
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
+import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateTravelDto
@@ -37,6 +40,9 @@ class EditTravelFragment : Fragment() {
         loadTravel(travel)
 
         binding.btnUpdateTravel.setOnClickListener {
+            if (!validateInputs()){
+                return@setOnClickListener
+            }
             updateTravel(travel.id)
         }
 
@@ -51,6 +57,7 @@ class EditTravelFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         datePicker(view)
+        currencyPicker()
     }
 
     fun showAlertDialog(travel_id: String) {
@@ -91,16 +98,17 @@ class EditTravelFragment : Fragment() {
 
     }
 
-    private fun updateTravel(travel_id: String) {
+    private fun updateTravel(travelId: String) {
         val title = binding.editTextTitleTravelEdit.text.toString()
+        val currency = binding.autoCompleteTxtViewCurrencyEdit.text.toString()
         val budget = binding.editTextBudgetTravelEdit.text.toString()
         val startDate = binding.startDateEditTil.text.toString()
         val endDate = binding.endDateEditTil.text.toString()
 
-        val travel = CreateTravelDto(title, budget.toFloat(), startDate, endDate)
+        val travel = CreateTravelDto(title, currency, budget.toFloat(), startDate, endDate)
 
         val apiService = ApiClient.getTravelsApi(requireContext())
-        val call = apiService.updateTravel(travel_id, travel)
+        val call = apiService.updateTravel(travelId, travel)
         call.enqueue(object : Callback<SingleTravelResponse>{
             override fun onResponse(
                 call: Call<SingleTravelResponse>,
@@ -122,11 +130,29 @@ class EditTravelFragment : Fragment() {
 
     private fun loadTravel(travel: Travel) {
         binding.editTextTitleTravelEdit.setText(travel.title)
+        binding.autoCompleteTxtViewCurrencyEdit.setText(travel.currency)
         binding.editTextBudgetTravelEdit.setText(travel.budget.toString())
         binding.startDateEditTil.setText(travel.startDate)
         binding.endDateEditTil.setText(travel.endDate)
     }
 
+    private fun validateInputs() : Boolean{
+        //validar los campos vacios
+        if(TextUtils.isEmpty(binding.editTextTitleTravelEdit.text) || TextUtils.isEmpty(binding.autoCompleteTxtViewCurrencyEdit.text)
+            || TextUtils.isEmpty(binding.editTextBudgetTravelEdit.text) || TextUtils.isEmpty(binding.startDateEditTil.text) || TextUtils.isEmpty(binding.endDateEditTil.text)) {
+            Snackbar.make(requireView(), R.string.emptyFields, Snackbar.LENGTH_LONG).show()
+            return false
+        }
+        return true
+    }
+
+    fun currencyPicker() {
+        val currency = Constants.CURRENCIES
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, currency)
+        with(binding.autoCompleteTxtViewCurrencyEdit){
+            setAdapter(adapter)
+        }
+    }
 
     fun datePicker(view: View) {
         binding = FragmentEditTravelBinding.bind(view)

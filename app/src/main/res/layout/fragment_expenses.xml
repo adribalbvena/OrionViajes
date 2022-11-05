@@ -7,12 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ExpensesFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBarExpenses"
+        style="?android:attr/progressBarStyle"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/layoutLinear" />
+
     <LinearLayout
         android:id="@+id/layoutLinear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +41,9 @@
             />
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/remaining_budget"
@@ -60,6 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
+
     </LinearLayout>
 
 <!--    <androidx.recyclerview.widget.RecyclerView-->

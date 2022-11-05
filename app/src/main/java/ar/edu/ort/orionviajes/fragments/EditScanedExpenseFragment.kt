@@ -1,6 +1,5 @@
 package ar.edu.ort.orionviajes.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateExpenseDto
 import ar.edu.ort.orionviajes.data.Receipt
 import ar.edu.ort.orionviajes.data.SingleExpenseResponse
+import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentEditScanedExpenseBinding
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
@@ -25,7 +25,6 @@ import java.util.*
 
 class EditScanedExpenseFragment : Fragment() {
     private lateinit var binding: FragmentEditScanedExpenseBinding
-    private val calendar = Calendar.getInstance()
 
 
     override fun onCreateView(
@@ -38,14 +37,14 @@ class EditScanedExpenseFragment : Fragment() {
         val receipt = EditScanedExpenseFragmentArgs.fromBundle(requireArguments()).receipt
         val travel = EditScanedExpenseFragmentArgs.fromBundle(requireArguments()).travelId
 
-        loadReceipt(receipt)
+        loadReceipt(receipt, travel.currency)
 
 
 
         binding.btnSaveScanedExpense.setOnClickListener{
-            val expense = getScanedExpense()
+            val expense = getScanedExpense(travel.currency)
             Log.d("GASTO:", expense.toString())
-             addExpense(travel.id, expense)
+             addExpense(travel, expense)
         }
 
         return binding.root
@@ -54,26 +53,25 @@ class EditScanedExpenseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         datePicker(view)
-        currencyPicker()
         categoryPicker()
         paymentMethodPicker()
     }
 
-    private fun getScanedExpense(): CreateExpenseDto {
+    private fun getScanedExpense(currencyTravel : String): CreateExpenseDto {
         val title = binding.editTextTitleExpenseEditScaned.text.toString()
-        val currency = binding.autoCompleteTxtViewEditScanedCurrency.text.toString()
         val amount = binding.editTextAmountExpenseEditScaned.text.toString()
         val category = binding.autoCompleteTxtViewEditScanedCategory.text.toString()
         val paymentMethod = binding.autoCompleteTxtViewEditScanedPaymentMethod.text.toString()
         val date = binding.dateScanedExpenseEditTil.text.toString()
 
-        val expense = CreateExpenseDto(title, currency, amount.toFloat(), category, paymentMethod, date)
+        val expense =
+            CreateExpenseDto(title, currencyTravel, amount.toFloat(), category, paymentMethod, date)
         return expense
     }
 
-    private fun addExpense(travelId : String, expense: CreateExpenseDto) {
+    private fun addExpense(travel : Travel, expense: CreateExpenseDto) {
         val apiService = ApiClient.getTravelsApi(requireContext())
-        val call = apiService.addExpense(travelId, expense)
+        val call = apiService.addExpense(travel.id, expense)
         call.enqueue(object : Callback<SingleExpenseResponse> {
             override fun onResponse(
                 call: Call<SingleExpenseResponse>,
@@ -81,7 +79,6 @@ class EditScanedExpenseFragment : Fragment() {
             ) {
                 if (response.isSuccessful){
                     Snackbar.make(requireView(), response.body()!!.message.toString(), Snackbar.LENGTH_LONG).show()
-                    val travel = EditScanedExpenseFragmentArgs.fromBundle(requireArguments()).travelId
                     val action = EditScanedExpenseFragmentDirections.actionEditScanedExpenseFragmentToExpensesFragment(travel)
                     findNavController().navigate(action)
                 }
@@ -96,11 +93,13 @@ class EditScanedExpenseFragment : Fragment() {
     }
 
 
-    private fun loadReceipt(receipt: Receipt){
-        val date = SimpleDateFormat("dd-MM-yyyy", Locale("es", "ES")).format(calendar.time)
+    private fun loadReceipt(receipt: Receipt, currency: String){
+        val c = Calendar.getInstance()
+        val date = SimpleDateFormat("dd-MM-yyyy", Locale("es", "ES")).format(c.time)
 
+        binding.autoCompleteTxtViewEditScanedCurrency.setText(currency)
         binding.editTextAmountExpenseEditScaned.setText(receipt.total.toString())
-        binding.dateScanedExpenseEditTil.setText(date)
+        binding.dateScanedExpenseEditTil.text = date
     }
 
     fun paymentMethodPicker() {
@@ -114,20 +113,10 @@ class EditScanedExpenseFragment : Fragment() {
     fun categoryPicker() {
         val category = Constants.CATEGORIES
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, category)
-        // (textField.editText as? AutoCompleteTextView)?.setAdapter(adapter)
         with(binding.autoCompleteTxtViewEditScanedCategory){
             setAdapter(adapter)
         }
     }
-
-    fun currencyPicker() {
-        val currency = Constants.CURRENCIES
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, currency)
-        with(binding.autoCompleteTxtViewEditScanedCurrency){
-            setAdapter(adapter)
-        }
-    }
-
 
     fun datePicker(view: View){
         binding = FragmentEditScanedExpenseBinding.bind(view)

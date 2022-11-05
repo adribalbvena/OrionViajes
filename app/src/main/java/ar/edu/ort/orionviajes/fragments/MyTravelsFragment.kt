@@ -3,6 +3,7 @@ package ar.edu.ort.orionviajes.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -32,6 +33,8 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
 
+    private lateinit var progressBarTravels : ProgressBar
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +43,7 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
         // Inflate the layout for this fragment
         binding = FragmentMyTravelsBinding.inflate(inflater,container,false)
         val view = binding.root
+        progressBarTravels = binding.progressBarTravels
 
         initTravelsRecyclerView()
         getTravels()
@@ -59,6 +63,7 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
     }
 
     fun getTravels() {
+        progressBarTravels.visibility = View.VISIBLE
         val apiService = ApiClient.getTravelsApi(requireContext())
         val call = apiService.getTravels()
         call.enqueue(object : Callback<GetTravelsResponse> {
@@ -67,7 +72,8 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
                 response: Response<GetTravelsResponse>
             ) {
                 if (response.isSuccessful) {
-                   // val travelList = response.body()
+                    progressBarTravels.visibility = View.GONE
+                    // val travelList = response.body()
                     travelRecyclerAdapter.updateList(response.body()!!)
 
                 } else {
@@ -85,6 +91,7 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
                 }
             }
             override fun onFailure(call: Call<GetTravelsResponse>, t: Throwable) {
+                progressBarTravels.visibility = View.GONE
                 Snackbar.make(requireView(), "Ups! Algo salió mal", Snackbar.LENGTH_LONG).show()
             }
 
