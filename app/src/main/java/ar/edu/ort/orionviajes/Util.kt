@@ -1,9 +1,12 @@
 package ar.edu.ort.orionviajes
 
+import android.text.TextUtils
 import android.view.View
-//import android.widget.ArrayAdapter
-//import androidx.fragment.app.Fragment
+import androidx.fragment.app.Fragment
+import ar.edu.ort.orionviajes.databinding.FragmentCreateExpenseBinding
+import ar.edu.ort.orionviajes.databinding.FragmentExpensesBinding
 import ar.edu.ort.orionviajes.databinding.FragmentScanBinding
+import com.google.android.material.snackbar.Snackbar
 
 
 

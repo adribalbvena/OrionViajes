@@ -3,6 +3,7 @@ package ar.edu.ort.orionviajes.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -29,6 +30,7 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
     private lateinit var binding: FragmentExpensesBinding
     private lateinit var expenseRecyclerAdapter: ExpenseRecyclerAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var progressBarExpenses: ProgressBar
     private var count: Float = 0.0f
 
     override fun onCreateView(
@@ -38,6 +40,7 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
         // Inflate the layout for this fragment
         binding = FragmentExpensesBinding.inflate(inflater, container, false)
         val view = binding.root
+        progressBarExpenses = binding.progressBarExpenses
 
         val travel = ExpensesFragmentArgs.fromBundle(requireArguments()).travelId
 
@@ -102,6 +105,7 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
 
 
     private fun getExpenses(travel : Travel){
+        progressBarExpenses.visibility = View.VISIBLE
         val apiService = ApiClient.getTravelsApi(requireContext())
         val call = apiService.getExpenses(travel.id)
         call.enqueue(object : Callback<ExpensesResponse>{
@@ -110,6 +114,7 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
                 response: Response<ExpensesResponse>
             ) {
                 if (response.isSuccessful){
+                    progressBarExpenses.visibility = View.GONE
                     expenseRecyclerAdapter.updateList(response.body()!!)
                     setBudgetBar(response.body()!!, travel)
 
@@ -129,6 +134,7 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
             }
 
             override fun onFailure(call: Call<ExpensesResponse>, t: Throwable) {
+                progressBarExpenses.visibility = View.GONE
                 Snackbar.make(requireView(), "Ups! Algo salió mal", Snackbar.LENGTH_LONG).show()
             }
 

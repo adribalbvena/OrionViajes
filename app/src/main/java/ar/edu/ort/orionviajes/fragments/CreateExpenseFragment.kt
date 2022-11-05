@@ -1,6 +1,7 @@
 package ar.edu.ort.orionviajes.fragments
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,9 +16,11 @@ import ar.edu.ort.orionviajes.data.CreateExpenseDto
 import ar.edu.ort.orionviajes.data.SingleExpenseResponse
 import ar.edu.ort.orionviajes.databinding.FragmentCreateExpenseBinding
 import com.google.android.material.snackbar.Snackbar
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateExpenseFragment : Fragment() {
@@ -31,11 +34,15 @@ class CreateExpenseFragment : Fragment() {
         binding = FragmentCreateExpenseBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        loadTodayDate()
+
         val travel = CreateExpenseFragmentArgs.fromBundle(requireArguments()).travelId
         binding.btnAddExpense.setOnClickListener{
+            if(!validateInputs()) {
+                return@setOnClickListener
+            }
             addExpense(travel.id)
         }
-
         return view
     }
 
@@ -46,6 +53,17 @@ class CreateExpenseFragment : Fragment() {
         currencyPicker()
         categoryPicker()
         paymetMethodPicker()
+    }
+
+    private fun validateInputs() : Boolean{
+        //validar los campos vacios
+        if(TextUtils.isEmpty(binding.editTextTitleExpense.text) || TextUtils.isEmpty(binding.autoCompleteTxtViewCurrency.text)
+            || TextUtils.isEmpty(binding.editTextAmountExpense.text) || TextUtils.isEmpty(binding.autoCompleteTxtViewCategory.text)
+            || TextUtils.isEmpty(binding.autoCompleteTxtViewPaymentMethod.text) || TextUtils.isEmpty(binding.dateExpenseTil.text)) {
+            Snackbar.make(requireView(), R.string.emptyFields, Snackbar.LENGTH_LONG).show()
+            return false
+        }
+        return true
     }
 
     private fun addExpense(travel_id: String) {
@@ -75,6 +93,12 @@ class CreateExpenseFragment : Fragment() {
             }
 
         })
+    }
+
+    fun loadTodayDate(){
+        val c = Calendar.getInstance()
+        val date = SimpleDateFormat("dd-MM-yyyy", Locale("es", "ES")).format(c.time)
+        binding.dateExpenseTil.text = date
     }
 
 

@@ -25,7 +25,7 @@ import java.util.*
 
 class EditScanedExpenseFragment : Fragment() {
     private lateinit var binding: FragmentEditScanedExpenseBinding
-    private val calendar = Calendar.getInstance()
+    //private val calendar = Calendar.getInstance()
 
 
     override fun onCreateView(
@@ -97,10 +97,11 @@ class EditScanedExpenseFragment : Fragment() {
 
 
     private fun loadReceipt(receipt: Receipt){
-        val date = SimpleDateFormat("dd-MM-yyyy", Locale("es", "ES")).format(calendar.time)
+        val c = Calendar.getInstance()
+        val date = SimpleDateFormat("dd-MM-yyyy", Locale("es", "ES")).format(c.time)
 
         binding.editTextAmountExpenseEditScaned.setText(receipt.total.toString())
-        binding.dateScanedExpenseEditTil.setText(date)
+        binding.dateScanedExpenseEditTil.text = date
     }
 
     fun paymentMethodPicker() {

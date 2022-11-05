@@ -16,6 +16,7 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.ProgressBar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -43,7 +44,7 @@ class ScanFragment : Fragment() {
     private lateinit var cameraPermissions: Array<String>
     private lateinit var storagePermissions: Array<String>
 
-    private lateinit var progressDialog: ProgressDialog
+    private lateinit var progressBarScan : ProgressBar
 
     private lateinit var textRecognizer: TextRecognizer
 
@@ -58,9 +59,7 @@ class ScanFragment : Fragment() {
         cameraPermissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         storagePermissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-        progressDialog = ProgressDialog(requireContext())
-        progressDialog.setTitle("Por favor espere")
-        progressDialog.setCanceledOnTouchOutside(false)
+        progressBarScan = binding.progressBarScan
 
         textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
@@ -80,16 +79,17 @@ class ScanFragment : Fragment() {
     }
 
     private fun recognizeTextFromImage() {
-        progressDialog.setMessage("Preparando imagen...")
-        progressDialog.show()
+        progressBarScan.visibility = View.VISIBLE
 
         try{
             val inputImage = InputImage.fromFilePath(requireContext(), imageUri!!)
-            progressDialog.setMessage("Reconociendo el ticket...")
+            progressBarScan.visibility = View.VISIBLE
+
 
             val textTaskResult = textRecognizer.process(inputImage)
                 .addOnSuccessListener { text ->
-                    progressDialog.dismiss()
+                    progressBarScan.visibility = View.GONE
+
 
                     val recognizedText = text.text.toString()
 //                    for (block in text.textBlocks){
@@ -116,29 +116,29 @@ class ScanFragment : Fragment() {
                     findNavController().navigate(action)
                 }
                 .addOnFailureListener{ e->
-                    progressDialog.dismiss()
+                    progressBarScan.visibility = View.GONE
                     showSnackbar("Error al reconocer la imagen")
                 }
         } catch (e: Exception) {
-            progressDialog.dismiss()
+            progressBarScan.visibility = View.GONE
             showSnackbar("Error al preparar la imagen")
         }
     }
 
     private fun passToRegex(total : String) : String {
-        var recognizedText = "0"
+        var filteredAmount = "0"
         val regex = Regex("(TOTAL|AMOUNT)\\s*\$?\\s*\\d+[.,-]?\\d+", RegexOption.IGNORE_CASE)
         val regexNumbers = Regex("\\d+[.,-]?\\d+")
 
         try {
-            recognizedText = regex.find(total)!!.value
-            recognizedText = regexNumbers.find(recognizedText)!!.value
+            filteredAmount = regex.find(total)!!.value
+            filteredAmount = regexNumbers.find(filteredAmount)!!.value
 
         } catch (e: Exception) {
             Log.d("ERROR", e.message.toString())
-            showSnackbar("Error al reconocer el ticket")
+            showSnackbar("No se pudo reconocer el ticket")
         }
-        return recognizedText
+        return filteredAmount
     }
 
 
