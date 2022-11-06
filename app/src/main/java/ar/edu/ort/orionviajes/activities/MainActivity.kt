@@ -2,12 +2,14 @@ package ar.edu.ort.orionviajes.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import ar.edu.ort.orionviajes.R
+import ar.edu.ort.orionviajes.SessionManager
 import ar.edu.ort.orionviajes.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         navController = Navigation.findNavController(this, R.id.navHost)
         binding.navView.setupWithNavController(navController)
+
+        val navHeader = binding.navView.getHeaderView(0)
+        val txtUser = navHeader.findViewById<TextView>(R.id.userTv)
+        txtUser.text = SessionManager(this).getUser()
 
         NavigationUI.setupActionBarWithNavController(this,navController, binding.drawerLayout)
 

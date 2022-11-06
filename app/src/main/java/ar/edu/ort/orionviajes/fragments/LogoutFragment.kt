@@ -9,16 +9,14 @@ import android.view.ViewGroup
 import ar.edu.ort.orionviajes.R
 import ar.edu.ort.orionviajes.SessionManager
 import ar.edu.ort.orionviajes.activities.LoginActivity
-import ar.edu.ort.orionviajes.databinding.FragmentProfileBinding
+import ar.edu.ort.orionviajes.databinding.FragmentLoginBinding
 
-
-class ProfileFragment : Fragment() {
-    private lateinit var binding: FragmentProfileBinding
+class LogoutFragment : Fragment() {
+    private lateinit var binding: FragmentLoginBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -26,18 +24,19 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        binding.buttonLogout.setOnClickListener{
-            activity?.let {
-                SessionManager(it).deleteAuthToken()
-                activity?.finish()
-            }
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            startActivity(intent)
-        }
+        onLogOut()
 
         return binding.root
+    }
+
+    fun onLogOut(){
+        val myActivity = this.requireActivity()
+        SessionManager(myActivity).deleteAuthToken()
+        SessionManager(myActivity).deleteUser()
+        myActivity.startActivity(Intent(myActivity, LoginActivity::class.java))
+        myActivity.finish()
     }
 
 }

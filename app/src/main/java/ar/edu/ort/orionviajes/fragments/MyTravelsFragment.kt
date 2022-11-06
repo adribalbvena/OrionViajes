@@ -24,7 +24,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
+class MyTravelsFragment : Fragment(), OnTravelClickedListener {
 
 
     private lateinit var binding: FragmentMyTravelsBinding
@@ -115,20 +115,5 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener, MenuProvider {
         val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToEditTravelFragment(travel)
         findNavController().navigate(action)
     }
-
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.drawer_menu, menu)
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if(menuItem.itemId == R.id.profileFragment) {
-            val action = MyTravelsFragmentDirections.actionMyTravelsFragmentToProfileFragment()
-            findNavController().navigate(action)
-
-            return true
-        }
-        return false
-    }
-
 
 }
