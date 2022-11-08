@@ -1,6 +1,7 @@
 package ar.edu.ort.orionviajes.fragments
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -43,8 +44,10 @@ class EditScanedExpenseFragment : Fragment() {
 
         binding.btnSaveScanedExpense.setOnClickListener{
             val expense = getScanedExpense(travel.currency)
-            Log.d("GASTO:", expense.toString())
-             addExpense(travel, expense)
+            if (!validateInputs()){
+                return@setOnClickListener
+            }
+            addExpense(travel, expense)
         }
 
         return binding.root
@@ -100,6 +103,17 @@ class EditScanedExpenseFragment : Fragment() {
         binding.autoCompleteTxtViewEditScanedCurrency.setText(currency)
         binding.editTextAmountExpenseEditScaned.setText(receipt.total.toString())
         binding.dateScanedExpenseEditTil.text = date
+    }
+
+    private fun validateInputs() : Boolean{
+        //validar los campos vacios
+        if(TextUtils.isEmpty(binding.editTextTitleExpenseEditScaned.text) || TextUtils.isEmpty(binding.autoCompleteTxtViewEditScanedCurrency.text)
+            || TextUtils.isEmpty(binding.editTextAmountExpenseEditScaned.text) || TextUtils.isEmpty(binding.autoCompleteTxtViewEditScanedCategory.text)
+            || TextUtils.isEmpty(binding.autoCompleteTxtViewEditScanedPaymentMethod.text) || TextUtils.isEmpty(binding.dateScanedExpenseEditTil.text)) {
+            Snackbar.make(requireView(), R.string.emptyFields, Snackbar.LENGTH_LONG).show()
+            return false
+        }
+        return true
     }
 
     fun paymentMethodPicker() {

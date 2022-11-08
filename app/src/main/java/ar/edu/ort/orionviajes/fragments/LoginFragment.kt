@@ -92,11 +92,12 @@ class LoginFragment : Fragment() {
     }
 
     private fun resolveLogin() {
-        var user = UserDto(emailInput.text.toString(), passwordInput.text.toString())
+        val userName = emailInput.text.toString()
+        val user = UserDto(emailInput.text.toString(), passwordInput.text.toString())
         val call = ApiClient.getUsersApi().login(user)
         call.enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
-                onLoginResponse(response)
+                onLoginResponse(response, userName)
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
@@ -114,9 +115,10 @@ class LoginFragment : Fragment() {
         return true
     }
 
-    private fun onLoginResponse(response: Response<String>) {
+    private fun onLoginResponse(response: Response<String>, userName: String) {
         if (response.isSuccessful) {
             storeToken(response.body().toString())
+            storeUser(userName)
             this.activity?.startActivity(Intent(this.activity, MainActivity::class.java))
             this.activity?.finish()
             //setFragmentResult("login", bundleOf("bundleKey" to "asd"))
@@ -135,6 +137,10 @@ class LoginFragment : Fragment() {
 
     private fun storeToken(token: String) {
         activity?.let { SessionManager(it).saveAuthToken(token) }
+    }
+
+    private fun storeUser(user: String){
+        activity?.let { SessionManager(it).saveUser(user) }
     }
 
     companion object {
