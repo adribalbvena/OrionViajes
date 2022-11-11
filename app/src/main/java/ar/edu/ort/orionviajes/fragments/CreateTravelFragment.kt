@@ -15,6 +15,7 @@ import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.CreateTravelDto
 import ar.edu.ort.orionviajes.data.SingleTravelResponse
 import ar.edu.ort.orionviajes.databinding.FragmentCreateTravelBinding
+import ar.edu.ort.orionviajes.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,6 +34,7 @@ class CreateTravelFragment : Fragment() {
 
 
             binding.btnAddTravel.setOnClickListener {
+                it.hideKeyboard()
                 if (!validateInputs()){
                     return@setOnClickListener
                 }

@@ -21,6 +21,7 @@ import ar.edu.ort.orionviajes.SessionManager
 import ar.edu.ort.orionviajes.activities.MainActivity
 import ar.edu.ort.orionviajes.api.ApiClient
 import ar.edu.ort.orionviajes.data.UserDto
+import ar.edu.ort.orionviajes.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
@@ -58,6 +59,7 @@ class LoginFragment : Fragment() {
         super.onStart()
 
         loginButton.setOnClickListener {
+            it.hideKeyboard()
             onLoginPressed()
         }
 

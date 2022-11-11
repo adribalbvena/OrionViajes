@@ -28,7 +28,7 @@
         <entry key="app/src/main/res/layout/drawer_header.xml" value="0.10702819824218751" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.3004592895507812" />
         <entry key="app/src/main/res/layout/fragment_create_expense.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/fragment_create_travel.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_create_travel.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.19015045166015626" />
         <entry key="app/src/main/res/layout/fragment_edit_expense.xml" value="0.3540308634440104" />
         <entry key="app/src/main/res/layout/fragment_edit_scaned_expense.xml" value="0.2578125" />
@@ -41,7 +41,7 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.3278635660807291" />
         <entry key="app/src/main/res/layout/fragment_reports.xml" value="0.19791666666666666" />
-        <entry key="app/src/main/res/layout/fragment_scan.xml" value="0.20560913085937504" />
+        <entry key="app/src/main/res/layout/fragment_scan.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_expense.xml" value="0.262744140625" />
         <entry key="app/src/main/res/layout/item_travel.xml" value="0.3864418166667591" />
         <entry key="app/src/main/res/layout/switch_item.xml" value="0.2578125" />

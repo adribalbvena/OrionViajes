@@ -77,10 +77,10 @@
     <string name="passwordMin">Debe tener al menos 6 carácteres.</string>
     <string name="invalidInputs">Email o Contraseña inválidos.</string>
     <string name="logout">Salir</string>
-    <string name="takePicture">Capturar</string>
+    <string name="takePicture">Seleccionar</string>
     <string name="spendPaymentMethod">Gastos por Método de Pago</string>
     <string name="profile">Mi Perfil</string>
-    <string name="recognizeText">Reconocer Texto</string>
+    <string name="recognizeText">Reconocer\nTotal</string>
     <string name="emptyFields">Los campos no pueden estar vacíos!</string>
 
 

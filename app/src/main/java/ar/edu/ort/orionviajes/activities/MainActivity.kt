@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import ar.edu.ort.orionviajes.R
@@ -18,11 +17,9 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -34,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         txtUser.text = SessionManager(this).getUser()
 
         NavigationUI.setupActionBarWithNavController(this,navController, binding.drawerLayout)
-
+        
     }
 
     override fun onSupportNavigateUp(): Boolean {
