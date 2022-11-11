@@ -116,9 +116,9 @@ class DashboardFragment : Fragment() {
         val data = PieData(dataSet)
         data.setValueFormatter(object: ValueFormatter(){
             override fun getFormattedValue(value: Float): String {
-                val df = DecimalFormat("##,## %")
+                val df = DecimalFormat("0 %")
                 df.roundingMode = RoundingMode.CEILING
-                return df.format(value)
+                return df.format(value/100)
             }
         })
 

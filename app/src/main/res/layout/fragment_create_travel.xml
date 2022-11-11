@@ -32,6 +32,7 @@
                 android:id="@+id/editText_title_travel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
                 android:maxLength="16"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -51,7 +52,9 @@
                 android:id="@+id/autoCompleteTxtView_currency"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none" />
+                android:inputType="none"
+                android:maxLength="16"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +73,8 @@
                 android:id="@+id/editText_budget_travel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal"
+                android:maxLength="16"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
