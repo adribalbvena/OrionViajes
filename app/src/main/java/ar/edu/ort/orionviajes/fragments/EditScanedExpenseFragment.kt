@@ -17,6 +17,7 @@ import ar.edu.ort.orionviajes.data.Receipt
 import ar.edu.ort.orionviajes.data.SingleExpenseResponse
 import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentEditScanedExpenseBinding
+import ar.edu.ort.orionviajes.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,6 +44,7 @@ class EditScanedExpenseFragment : Fragment() {
 
 
         binding.btnSaveScanedExpense.setOnClickListener{
+            it.hideKeyboard()
             val expense = getScanedExpense(travel.currency)
             if (!validateInputs()){
                 return@setOnClickListener

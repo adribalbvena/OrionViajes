@@ -113,11 +113,10 @@ class DashboardFragment : Fragment() {
 
         dataSet.colors = colors
 
-        //Dataset on below line we are setting pie data set
         val data = PieData(dataSet)
         data.setValueFormatter(object: ValueFormatter(){
             override fun getFormattedValue(value: Float): String {
-                val df = DecimalFormat("##,## %");
+                val df = DecimalFormat("##,## %")
                 df.roundingMode = RoundingMode.CEILING
                 return df.format(value)
             }
@@ -157,7 +156,7 @@ class DashboardFragment : Fragment() {
         val data = BarData(barDataSet)
         data.setValueFormatter(object: ValueFormatter(){
             override fun getFormattedValue(value: Float): String {
-                val df = DecimalFormat("$ ##,##");
+                val df = DecimalFormat("$ #,###.##");
                 df.roundingMode = RoundingMode.FLOOR
                 return df.format(value)
             }

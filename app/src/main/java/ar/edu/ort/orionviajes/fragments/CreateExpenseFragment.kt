@@ -17,6 +17,7 @@ import ar.edu.ort.orionviajes.data.CreateExpenseDto
 import ar.edu.ort.orionviajes.data.SingleExpenseResponse
 import ar.edu.ort.orionviajes.data.Travel
 import ar.edu.ort.orionviajes.databinding.FragmentCreateExpenseBinding
+import ar.edu.ort.orionviajes.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 
 import retrofit2.Call
@@ -41,6 +42,7 @@ class CreateExpenseFragment : Fragment() {
         loadData(travel.currency)
 
         binding.btnAddExpense.setOnClickListener{
+            it.hideKeyboard()
             if(!validateInputs()) {
                 return@setOnClickListener
             }

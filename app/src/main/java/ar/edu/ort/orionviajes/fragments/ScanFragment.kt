@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import ar.edu.ort.orionviajes.data.Receipt
 import ar.edu.ort.orionviajes.databinding.FragmentScanBinding
+import ar.edu.ort.orionviajes.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -69,8 +70,9 @@ class ScanFragment : Fragment() {
         }
 
         binding.recognizeText.setOnClickListener{
+            it.hideKeyboard()
             if (imageUri == null){
-                showSnackbar("Toma una imagen primero...")
+                showSnackbar("Selecciona una imagen primero...")
             } else {
                 recognizeTextFromImage()
             }
@@ -92,17 +94,7 @@ class ScanFragment : Fragment() {
 
 
                     val recognizedText = text.text.toString()
-//                    for (block in text.textBlocks){
-//                        recognizedText += block.text.toString()
-//                    }
 
-//                    val regex = Regex("(TOTAL|AMOUNT)\\s*\$?\\s*\\d+[.,-]?\\d+", RegexOption.IGNORE_CASE)
-//                    val total = regex.find(recognizedText)!!.value //hacer una fun para filtrar y q adentro tenga el manejo de errores para el find
-//                    Log.d("REGEX", total.toString())
-//
-//
-//                    val regexReal = Regex("\\d+[.,-]?\\d+")
-//                    val totalReal = regexReal.find(total)!!.value
                     val totalReal = passToRegex(recognizedText)
 
                     Log.d("TEXTO RECONOCIDO", totalReal)

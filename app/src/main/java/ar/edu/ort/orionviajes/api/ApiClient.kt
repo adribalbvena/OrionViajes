@@ -48,24 +48,4 @@ object ApiClient {
             .addInterceptor(AuthInterceptor(context))
             .build()
     }
-
-//    val httpClient by lazy {
-//        OkHttpClient()
-//            .newBuilder()
-//            .build()
-//    }
-//
-//    val retrofit by lazy {
-//        Retrofit.Builder()
-//            .baseUrl("http://192.168.1.21:3002/orion/")
-//            .client(httpClient)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//    }
-//
-//    val apiService by lazy {
-//        retrofit.create(ApiService::class.java)
-//    }
-
-
 }
