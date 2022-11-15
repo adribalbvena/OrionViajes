@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ar.edu.ort.orionviajes.Constants
 import ar.edu.ort.orionviajes.R
@@ -19,14 +20,12 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.MPPointF
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.math.RoundingMode
 import java.text.DecimalFormat
 
 class DashboardFragment : Fragment() {
@@ -104,21 +103,24 @@ class DashboardFragment : Fragment() {
 
         //Agregando colores
         val colors: ArrayList<Int> = ArrayList()
-        colors.add(resources.getColor(R.color.orange_expense))
-        colors.add(resources.getColor(R.color.ocean_depths))
-        colors.add(resources.getColor(R.color.light_yellow))
-        colors.add(resources.getColor(R.color.harvest_gold))
-        colors.add(resources.getColor(R.color.brown))
-        colors.add(resources.getColor(R.color.teal_tree))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.orange_expense))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.ocean_depths))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.light_yellow))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.harvest_gold))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.brown))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.teal_tree))
 
         dataSet.colors = colors
 
         val data = PieData(dataSet)
         data.setValueFormatter(object: ValueFormatter(){
             override fun getFormattedValue(value: Float): String {
-                val df = DecimalFormat("0 %")
-                df.roundingMode = RoundingMode.CEILING
-                return df.format(value/100)
+                return if (value == 0.0f) {
+                    " "
+                } else {
+                    val df = DecimalFormat("# %")
+                    df.format(value/100)
+                }
             }
         })
 
@@ -157,7 +159,6 @@ class DashboardFragment : Fragment() {
         data.setValueFormatter(object: ValueFormatter(){
             override fun getFormattedValue(value: Float): String {
                 val df = DecimalFormat("$ #,###.##");
-                df.roundingMode = RoundingMode.FLOOR
                 return df.format(value)
             }
         })
@@ -187,8 +188,8 @@ class DashboardFragment : Fragment() {
         //xaxis.setDrawLabels(false)
 
         val colors: ArrayList<Int> = ArrayList()
-        colors.add(resources.getColor(R.color.orange_expense))
-        colors.add(resources.getColor(R.color.ocean_depths))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.orange_expense))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.ocean_depths))
 
         barDataSet.colors = colors
 
