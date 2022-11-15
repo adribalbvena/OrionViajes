@@ -115,6 +115,6 @@
     <fragment
         android:id="@+id/logoutFragment"
         android:name="ar.edu.ort.orionviajes.fragments.LogoutFragment"
-        android:label="fragment_logout"
+        android:label=" "
         tools:layout="@layout/fragment_logout" />
 </navigation>

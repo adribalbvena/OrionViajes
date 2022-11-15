@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -24,6 +25,8 @@ import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 
 class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
@@ -82,7 +85,7 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
         val total = (budget - count)
 
         if(total < 0.0F){
-            binding.remainingBudgetNumbers.setTextColor(getResources().getColor(R.color.orange_expense))
+            binding.remainingBudgetNumbers.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange_expense))
         }
 
         return total
@@ -90,8 +93,12 @@ class ExpensesFragment : Fragment(), MenuProvider, OnExpenseClickedListener {
 
     private fun setBudgetBar(list : ArrayList<Expense>, travel : Travel){
         count = getExpensesTotal(list, travel.budget)
+
+        //formato a 2 decimales
+        val totalRounded = (count * 100.0).roundToInt() / 100.0
+
         binding.progressBarBudget.setProgress(count.toInt())
-        binding.remainingBudgetNumbers.setText("${count}/${travel.budget}")
+        binding.remainingBudgetNumbers.setText("${totalRounded}/${travel.budget}")
 
     }
 

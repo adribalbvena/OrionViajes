@@ -45,6 +45,7 @@ class MyTravelsFragment : Fragment(), OnTravelClickedListener {
         val view = binding.root
         progressBarTravels = binding.progressBarTravels
 
+
         initTravelsRecyclerView()
         getTravels()
 
